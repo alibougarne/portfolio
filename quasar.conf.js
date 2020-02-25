@@ -135,7 +135,7 @@ module.exports = function(ctx) {
         }
       },
       // https: true,
-      port: 8085,
+      port: process.env.PORT || 8085,
       open: true // opens browser window automatically
     },
 

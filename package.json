@@ -8,6 +8,7 @@
   "author": "ali.bougarne <ali.bougarne@gmail.com>",
   "private": true,
   "scripts": {
+    "start": "node dist/ssr/index.js",
     "lint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore ./",
     "test": "echo \"No test specified\" && exit 0"
   },
