@@ -95,7 +95,7 @@ module.exports = function(ctx) {
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
       scopeHoisting: true,
-      // vueCompiler: true,
+      vueCompiler: true,
       // vueRouterMode: 'history',
       // showProgress: false,
       // gzip: true,
@@ -118,7 +118,7 @@ module.exports = function(ctx) {
           ...cfg.resolve.alias, // This adds the existing alias
           // Add your own alias like this
           '@': path.resolve(__dirname, './src'),
-          // vue$ : 'vue/dist/vue.esm.js'
+          vue$ : 'vue/dist/vue.esm.js'
         };
         // cfg.mode = 'production';
         // console.log('cfg.resolve.alias ===> ', cfg);
