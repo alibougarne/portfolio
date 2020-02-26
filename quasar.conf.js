@@ -117,7 +117,8 @@ module.exports = function(ctx) {
         cfg.resolve.alias = {
           ...cfg.resolve.alias, // This adds the existing alias
           // Add your own alias like this
-          '@': path.resolve(__dirname, './src')
+          '@': path.resolve(__dirname, './src'),
+          vue$ : 'vue/dist/vue.esm.js'
         };
         // cfg.mode = 'production';
         // console.log('cfg.resolve.alias ===> ', cfg);
