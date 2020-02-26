@@ -102,7 +102,18 @@ module.exports = function(ctx) {
       // analyze: true,
       // preloadChunks: false,
       // extractCSS: false,
-
+      uglifyOptions: {
+        compress: { drop_console: true }
+      },
+      env: ctx.dev
+        ? {
+          // so on dev we'll have
+          API: JSON.stringify('http://localhost:3001')
+        }
+        : {
+          // and on build (production):
+          API: JSON.stringify('https://portfolio-nest-api.herokuapp.com')
+        },
       // https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
       extendWebpack(cfg) {
         cfg.module.rules.push({
@@ -118,7 +129,7 @@ module.exports = function(ctx) {
           ...cfg.resolve.alias, // This adds the existing alias
           // Add your own alias like this
           '@': path.resolve(__dirname, './src'),
-          vue$ : 'vue/dist/vue.esm.js'
+          vue$: 'vue/dist/vue.esm.js'
         };
         // cfg.mode = 'production';
         // console.log('cfg.resolve.alias ===> ', cfg);
@@ -127,16 +138,16 @@ module.exports = function(ctx) {
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
     devServer: {
-      proxy: {
-        // proxy all requests starting with /api to jsonplaceholder
-        '/api': {
-          target: 'https://portfolio-nest-api.herokuapp.com',
-          changeOrigin: true,
-          pathRewrite: {
-            '^/api': ''
-          }
-        }
-      },
+      // proxy: {
+      //   // proxy all requests starting with /api to jsonplaceholder
+      //   '/api': {
+      //     target: 'https://portfolio-nest-api.herokuapp.com',
+      //     changeOrigin: true,
+      //     pathRewrite: {
+      //       '^/api': ''
+      //     }
+      //   }
+      // },
       // https: true,
       port: 8085,
       open: true // opens browser window automatically
