@@ -1,12 +1,12 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { projectModule } from '@/store/modules/project/project.module';
-import Project from '~/src/store/modules/project/project.entity';
-import ProjectCardComponent from '@/components/project/card'
+import Project from '@/store/modules/project/project.entity';
+import ProjectCardComponent from '@/components/project/card/ProjectCardComponent.vue'
 @Component({
   components: { ProjectCardComponent }
 })
-export default class PageIndex extends Vue {
+export default class Projects extends Vue {
   public projects: Project[] = [];
   public contentStyle: object = {
   }

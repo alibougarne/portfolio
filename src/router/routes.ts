@@ -1,42 +1,37 @@
-import { RouteConfig } from 'vue-router';
-import MyLayout from 'layouts/myLayout/MyLayout.vue';
-import Home from 'pages/home/Index.vue';
-import Tags from 'pages/tags/list/Index.vue';
-import CreateTag from 'pages/tags/create/Index.vue';
-import Projects from 'pages/projects/Index.vue';
+import { RouteConfig } from 'vue-router'
 
 const routes: RouteConfig[] = [
   {
     path: '',
-    component: MyLayout,
+    component: () => import('layouts/myLayout/MyLayout.vue'),
     children: [
-      { name: 'Home', path: '/', component: Home },
-      { name: 'Projects', path: '/projects', component: Home },
+      { name: 'Home', path: '/', component: () => import('pages/home/Home.vue') },
+      { name: 'Projects', path: '/projects', component: () => import('pages/home/Home.vue') },
       {
         name: 'Tags',
         path: '/tags',
-        component: Tags
+        component: () => import('pages/tags/list/Tags.vue'),
       },
       {
         name: 'CreateTag',
         path: '/tags/create',
-        component: CreateTag
+        component: () => import('pages/tags/create/CreateTag.vue'),
       },
       {
         name: 'ProjectsPerTag',
         path: '/tags/:id',
-        component: Projects
+        component: () => import('pages/projects/Projects.vue'),
       }
     ]
   }
-];
+]
 
 // Always leave this as last one
 if (process.env.MODE !== 'ssr') {
   routes.push({
     path: '*',
     component: () => import('pages/Error404.vue')
-  });
+  })
 }
 
-export default routes;
+export default routes

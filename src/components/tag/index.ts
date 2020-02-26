@@ -2,7 +2,6 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import{Prop} from 'vue-property-decorator';
 import Tag from '@/store/modules/tag/tag.entity';
-import Axios, { AxiosResponse } from 'axios';
 
 @Component({
   components: {}

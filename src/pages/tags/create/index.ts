@@ -1,12 +1,10 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import { tagModule } from '@/store/modules/tag/tag.module'
-import Tag from '~/src/store/modules/tag/tag.entity';
-import TagComponent from '@/components/tag'
+import TagComponent from '@/components/tag/TagComponent.vue'
 @Component({
   components: { TagComponent }
 })
-export default class PageIndex extends Vue {
+export default class CreateTag extends Vue {
   private name = null;
   private age = null;
   private accept = false;

@@ -96,7 +96,7 @@ module.exports = function(ctx) {
     build: {
       scopeHoisting: true,
       vueCompiler: true,
-      // vueRouterMode: 'history',
+      vueRouterMode: 'hash',
       // showProgress: false,
       // gzip: true,
       // analyze: true,
