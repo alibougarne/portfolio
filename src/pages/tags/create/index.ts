@@ -13,7 +13,7 @@ export default class CreateTag extends Vue {
   get inputs(): string[] {
     return Object.keys(this.tag).filter(
       input =>
-        [...Object.keys(new Common()), 'textColor', 'backgroundColor'].indexOf(
+        [...Object.keys(new Common()), 'textColor', 'backgroundColor','description'].indexOf(
           input
         ) < 0
     );

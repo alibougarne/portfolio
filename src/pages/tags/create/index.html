@@ -63,7 +63,9 @@
         <div class=" col-xs-12 col-md-6 col-lg-4 q-pa-md">
           <q-file v-model="file" label="Pick an image" filled />
         </div>
-
+        <div class=" col-xs-12 col-md-6 col-lg-4 q-pa-md">
+            <q-editor v-model="tag.description" min-height="5rem" class="bg-transparent"/>
+        </div>
         <div class=" col-xs-12 col-md-6 col-lg-4 q-pa-md">
           <q-btn label="Submit" type="submit" color="primary" />
           <q-btn
