@@ -5,9 +5,10 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require('path');
 module.exports = function(ctx) {
-  console.log(ctx);
+  // console.log(ctx);
   return {
     // Quasar looks for *.js files by default
+    supportTS: true,
     sourceFiles: {
       router: 'src/router/index.ts',
       store: 'src/store/index.ts'
@@ -76,12 +77,15 @@ module.exports = function(ctx) {
         'QCard',
         'QForm',
         'QToggle',
-        'QUploader'
+        'QUploader',
+        'QFile',
+        'QChip',
+        'QColor',
       ],
       directives: ['Ripple'],
 
       // Quasar plugins
-      plugins: ['Loading'],
+      plugins: ['Loading','Notify'],
       config: {
         loading: {
           /* Loading defaults */
