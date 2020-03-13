@@ -1,7 +1,7 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-class-modules';
 import CategoryService from './category.service';
 
-@Module
+@Module()
 class CategoryModule extends VuexModule {
 }
 
