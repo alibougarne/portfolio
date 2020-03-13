@@ -30,6 +30,6 @@ class EducationModule extends VuexModule {
 
 // register module (could be in any file 😅)
 import store from '@/store/index';
-import Education from './education.entity';
-import EducationService from './education.service';
+import Education from './country.entity';
+import EducationService from './country.service';
 export const educationModule = new EducationModule({ store, name: 'education' });

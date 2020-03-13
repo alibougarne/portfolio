@@ -1,9 +1,7 @@
 import { Common } from '@/store/modules/common/common.entity';
 
-export default class Education extends Common {
-  constructor(){
-    super();
-  }
+export default class Country extends Common {
+  
   diplomeName?: string = '';
   establishmentName?: string = '';
   description?: string = '';

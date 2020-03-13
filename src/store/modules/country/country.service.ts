@@ -1,5 +1,5 @@
 import Axios, { AxiosResponse } from 'axios';
-import Education from './education.entity';
+import Education from './country.entity';
 
 export default class EducationService {
 
