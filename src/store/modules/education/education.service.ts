@@ -7,7 +7,6 @@ export default class EducationService {
     let educations: Education[] = [];
     await Axios.get('/api/educations/').then((response: AxiosResponse) => {
       educations = response.data as Education[];
-      console.log(response.data);
     });
     return educations;
   }
@@ -15,7 +14,6 @@ export default class EducationService {
   public async createEducation(education:Education): Promise<Education> {
     await Axios.post('/api/educations/create',Education).then((response: AxiosResponse) => {
       education = response.data as Education;
-      console.log(response.data);
     });
     return education;
   }
@@ -23,7 +21,6 @@ export default class EducationService {
   public async updateEducation(education:Education): Promise<Education> {
     await Axios.patch('/api/educations/update',education).then((response: AxiosResponse) => {
       education = response.data as Education;
-      console.log(response.data);
     });
     return education;
   }

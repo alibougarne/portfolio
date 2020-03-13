@@ -1,5 +1,6 @@
 import { Common } from '@/store/modules/common/common.entity';
 import Education from '../education/education.entity';
+import Country from '../country/country.entity';
 
 export default class Contact extends Common {
   name?: string = '';

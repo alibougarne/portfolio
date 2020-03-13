@@ -1,35 +1,35 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-class-modules';
 
 @Module
-class EducationModule extends VuexModule {
+class CountryModule extends VuexModule {
   // state
-  public educations: Education[] = [];
-  private educationService: EducationService = new EducationService();
+  public countries: country[] = [];
+  private countryService: countryService = new countryService();
   // mutations
   @Mutation
-  private setEducation(educations: Education[]) {
-    this.educations = educations;
+  private setcountry(countries: country[]) {
+    this.countries = countries;
   }
   // getters
   // 😅 not yet
   // actions
   @Action
-  public async loadEducation() {
-    let educations: Education[] = [];
+  public async loadcountries() {
+    let countries: country[] = [];
     console.log(
-      '%c⧭ educations before load is 💩 ==> ',
+      '%c⧭ countries before load is 💩 ==> ',
       'color: #f2ceb6',
-      educations
+      countries
     );
-    educations = await this.educationService.loadEducations();
-    console.log('%c⧭ educations after load is 🍏', 'color: #00e600', educations);
-    this.setEducation(educations);
-    // return Education;
+    countries = await this.countryService.loadCountries();
+    console.log('%c⧭ countries after load is 🍏', 'color: #00e600', countries);
+    this.setcountry(countries);
+    // return country;
   }
 }
 
 // register module (could be in any file 😅)
 import store from '@/store/index';
-import Education from './country.entity';
-import EducationService from './country.service';
-export const educationModule = new EducationModule({ store, name: 'education' });
+import country from './country.entity';
+import countryService from './country.service';
+export const countryModule = new CountryModule({ store, name: 'country' });

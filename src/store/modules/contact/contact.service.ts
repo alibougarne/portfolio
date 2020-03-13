@@ -7,7 +7,6 @@ export default class ContactService {
     let contact: Contact = new Contact;
     await Axios.get('/api/contacts/').then((response: AxiosResponse) => {
       contact = response.data as Contact;
-      console.log(response.data);
     });
     return contact;
   }
@@ -15,7 +14,6 @@ export default class ContactService {
   public async createContact(contact:Contact): Promise<Contact> {
     await Axios.post('/api/contacts/create',contact).then((response: AxiosResponse) => {
       contact = response.data as Contact;
-      console.log(response.data);
     });
     return contact;
   }
@@ -23,7 +21,6 @@ export default class ContactService {
   public async updateContact(contact:Contact): Promise<Contact> {
     await Axios.patch('/api/contacts/update',contact).then((response: AxiosResponse) => {
       contact = response.data as Contact;
-      console.log(response.data);
     });
     return contact;
   }

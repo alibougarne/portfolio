@@ -1,30 +1,27 @@
 import Axios, { AxiosResponse } from 'axios';
-import Education from './country.entity';
+import Country from './country.entity';
 
-export default class EducationService {
+export default class CountryService {
 
-  public async loadEducations(): Promise<Education[]> {
-    let educations: Education[] = [];
-    await Axios.get('/api/educations/').then((response: AxiosResponse) => {
-      educations = response.data as Education[];
-      console.log(response.data);
+  public async loadCountries(): Promise<Country[]> {
+    let countries: Country[] = [];
+    await Axios.get('/api/countries/').then((response: AxiosResponse) => {
+      countries = response.data as Country[];
     });
-    return educations;
+    return countries;
   }
 
-  public async createEducation(education:Education): Promise<Education> {
-    await Axios.post('/api/educations/create',Education).then((response: AxiosResponse) => {
-      education = response.data as Education;
-      console.log(response.data);
+  public async createCountry(country:Country): Promise<Country> {
+    await Axios.post('/api/countries/create',Country).then((response: AxiosResponse) => {
+      country = response.data as Country;
     });
-    return education;
+    return country;
   }
 
-  public async updateEducation(education:Education): Promise<Education> {
-    await Axios.patch('/api/educations/update',education).then((response: AxiosResponse) => {
-      education = response.data as Education;
-      console.log(response.data);
+  public async updateCountry(country:Country): Promise<Country> {
+    await Axios.patch('/api/countries/update',country).then((response: AxiosResponse) => {
+      country = response.data as Country;
     });
-    return education;
+    return country;
   }
 }
