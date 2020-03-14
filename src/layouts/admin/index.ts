@@ -1,8 +1,10 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
-@Component
+@Component({})
 export default class AdminLayout extends Vue {
-  private leftDrawerOpen:boolean= false;
+  leftDrawerOpen:boolean= false;
+
   public mounted(): void {
+    
   }
 }

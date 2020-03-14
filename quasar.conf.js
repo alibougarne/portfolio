@@ -75,6 +75,8 @@ module.exports = function(ctx) {
         'QParallax',
         'QImg',
         'QCard',
+        'QCardSection',
+        'QCardActions',
         'QForm',
         'QToggle',
         'QUploader',
@@ -87,7 +89,7 @@ module.exports = function(ctx) {
       directives: ['Ripple'],
 
       // Quasar plugins
-      plugins: ['Loading','Notify'],
+      plugins: ['Loading', 'Notify'],
       config: {
         loading: {
           /* Loading defaults */
@@ -102,7 +104,7 @@ module.exports = function(ctx) {
     build: {
       scopeHoisting: true,
       vueCompiler: true,
-      vueRouterMode: 'history',
+      vueRouterMode: 'hash',
       // showProgress: false,
       gzip: true,
       // analyze: true,
@@ -113,13 +115,13 @@ module.exports = function(ctx) {
       },
       env: ctx.dev
         ? {
-          // so on dev we'll have
-          API: JSON.stringify('http://localhost:3001')
-        }
+            // so on dev we'll have
+            API: JSON.stringify('http://localhost:3001')
+          }
         : {
-          // and on build (production):
-          API: JSON.stringify('https://portfolio-nest-api.herokuapp.com')
-        },
+            // and on build (production):
+            API: JSON.stringify('https://portfolio-nest-api.herokuapp.com')
+          },
       // https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
       extendWebpack(cfg) {
         cfg.module.rules.push({
