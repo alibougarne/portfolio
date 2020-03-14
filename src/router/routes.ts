@@ -28,7 +28,7 @@ const routes: RouteConfig[] = [
     path: '/admin',
     component: () => import('layouts/admin/adminLayout.vue'),
     children: [
-      { name: 'adminHome', path: '/', component: () => import('pages/home/Home.vue') },
+      { name: 'adminHome', path: '/', component: () => import('pages/admin/login/Login.vue') },
     ]
   }
 ]
