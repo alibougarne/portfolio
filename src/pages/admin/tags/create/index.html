@@ -1,0 +1,82 @@
+<q-page class="bg-transparent createTag">
+  <q-scroll-area
+    :thumb-style="thumbStyle"
+    :content-style="contentStyle"
+    :content-active-style="contentActiveStyle"
+  >
+    <div class="full-width row justify-center">
+      <h4
+        class="q-animate--fade text-white"
+        style="width: 100%; text-align: center;"
+      >
+        Projects per Tag
+      </h4>
+    </div>
+
+    <div class="full-width row justify-center q-pa-md">
+      <q-form
+        @submit="onSubmit"
+        @reset="onReset"
+        class="createTagForm q-pa-sm col-xs-12 row"
+      >
+        <div
+          v-for="(input,index) in inputs"
+          :key="`tag-${index}`"
+          class=" col-xs-12 col-md-6 col-lg-4 q-pa-md"
+        >
+          <q-input
+            filled
+            v-model="tag[input]"
+            :label="input"
+            :hint="`Add ${input}`"
+            lazy-rules
+            :rules="[ val => val && val.length > 0 || `Please add ${input}`]"
+          />
+        </div>
+        <div
+          class=" col-xs-12 col-md-6 col-lg-4 q-pa-md"
+          v-for="(colorPick,index) in colorPicks"
+          :key="`colorPick-${index}`"
+        >
+          <q-input
+            filled
+            v-model="tag[colorPick]"
+            class="my-input"
+            :hint=" `pick a ${colorPick}`"
+          >
+            <template v-slot:append>
+              <q-icon name="colorize" class="cursor-pointer">
+                <q-popup-proxy transition-show="scale" transition-hide="scale">
+                  <q-color
+                    no-header
+                    default-value="#c0c0c0"
+                    format-model="hex"
+                    @change="val => { tag[colorPick] = val }"
+                    :value="tag[colorPick]"
+                    v-if=""
+                  />
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
+        </div>
+        <div class=" col-xs-12 col-md-6 col-lg-4 q-pa-md">
+          <q-file v-model="tagImage" label="Pick an image" filled />
+        </div>
+        <div class=" col-xs-12 col-md-6 col-lg-4 q-pa-md">
+            <q-editor v-model="tag.description" min-height="5rem" class="bg-transparent"/>
+        </div>
+        <div class=" col-xs-12 col-md-6 col-lg-4 q-pa-md">
+          <q-btn label="Submit" type="submit" color="primary" />
+          <q-btn
+            label="Reset"
+            type="reset"
+            color="primary"
+            flat
+            class="q-ml-sm"
+          />
+        </div>
+      </q-form>
+    </div>
+  </q-scroll-area>
+</q-page>

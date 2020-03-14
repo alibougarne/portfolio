@@ -3,7 +3,7 @@ import { RouteConfig } from 'vue-router'
 const routes: RouteConfig[] = [
   {
     path: '',
-    component: () => import('layouts/myLayout/MyLayout.vue'),
+    component: () => import('layouts/portfolio/MyLayout.vue'),
     children: [
       { name: 'Home', path: '/', component: () => import('pages/home/Home.vue') },
       { name: 'Projects', path: '/projects', component: () => import('pages/home/Home.vue') },
@@ -15,13 +15,20 @@ const routes: RouteConfig[] = [
       {
         name: 'CreateTag',
         path: '/tags/create',
-        component: () => import('pages/tags/create/CreateTag.vue'),
+        component: () => import('pages/admin/tags/create/CreateTag.vue'),
       },
       {
         name: 'ProjectsPerTag',
         path: '/tags/:id',
         component: () => import('pages/projects/Projects.vue'),
       }
+    ]
+  },
+  {
+    path: '/admin',
+    component: () => import('layouts/admin/adminLayout.vue'),
+    children: [
+      { name: 'adminHome', path: '/', component: () => import('pages/home/Home.vue') },
     ]
   }
 ]
