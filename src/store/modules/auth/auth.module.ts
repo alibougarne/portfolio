@@ -4,13 +4,21 @@ import { VuexModule, Module, Mutation, Action } from 'vuex-class-modules';
 class AuthModule extends VuexModule {
   // state
   private accessToken: string = '';
+  private isAuthenticated: boolean = false;
   private authService: AuthService = new AuthService();
   // mutations
   @Mutation
   private setAccessToken(accessToken: string) {
     this.accessToken = accessToken;
   }
+  @Mutation
+  private setAuthenticatedStatus(isAuthenticated: boolean) {
+    this.isAuthenticated = isAuthenticated;
+  }
   // getters
+  get getter() {
+    return this.isAuthenticated;
+  }
   // 😅 not yet
   // actions
   @Action
@@ -22,6 +30,7 @@ class AuthModule extends VuexModule {
     if (responseDto.status === 'success' && responseDto.acces_token && responseDto.message){
       sessionStorage.setItem('acces_token', responseDto.acces_token);
       this.setAccessToken(responseDto.acces_token); 
+      this.setAuthenticatedStatus(true);
       Notify.create({
         message: responseDto.message || "",
         color: 'green'
