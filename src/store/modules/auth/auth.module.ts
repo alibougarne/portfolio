@@ -14,21 +14,36 @@ class AuthModule extends VuexModule {
   // 😅 not yet
   // actions
   @Action
-  public async login(loginDto:LoginDto) {
-    let accessToken: string | null = localStorage.getItem("acces_token");
-    if (!accessToken){
-      accessToken = await this.authService.login(loginDto);
-      this.setAccessToken(accessToken);
-      localStorage.setItem("acces_token",accessToken);
+  public async login(loginDto: LoginDto) {
+    // let accessToken: string | null = localStorage.getItem("acces_token");
+    let responseDto:ResponseDto =new ResponseDto;
+    // if (!accessToken){
+    responseDto = await this.authService.login(loginDto);
+    if (responseDto.status === 'success' && responseDto.acces_token && responseDto.message){
+      sessionStorage.setItem('acces_token', responseDto.acces_token);
+      this.setAccessToken(responseDto.acces_token); 
+      Notify.create({
+        message: responseDto.message || "",
+        color: 'green'
+      });
+    }else{
+      Notify.create({
+        message: responseDto.message || "",
+        color: 'red'
+      });
     }
+   
+    // }
   }
 }
 
 // register module (could be in any file 😅)
+import { Notify } from 'quasar'
 import store from '@/store/index';
 import AuthService from './auth.service';
-import LoginDto from './dto/loginDTO';
-export const businesslinesModule = new AuthModule({
+import LoginDto from './dto/loginDto';
+import ResponseDto from './dto/responseDto';
+export const authModule = new AuthModule({
   store,
   name: 'auth'
 });
