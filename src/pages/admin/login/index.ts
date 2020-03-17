@@ -11,6 +11,7 @@ export default class LoginPage extends Vue {
   private loadingPercentage: number = 0;
   private interval: NodeJS.Timeout | any;
   
+  get isAuthenticated() { return authModule.get_authenticated}
   async login():Promise<void>{
     this.isAuthenticating = true
     this.$q.loading.show({
@@ -20,7 +21,10 @@ export default class LoginPage extends Vue {
     await authModule.login(this.loginDto)
     setTimeout(()=>{
       this.$q.loading.hide();
-      this.isAuthenticating = false
+      this.isAuthenticating = false;
+      if(this.isAuthenticated){
+        this.$router.push("/admin/home")
+      }
     },1000)
   }
 

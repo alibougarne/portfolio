@@ -16,7 +16,7 @@ class AuthModule extends VuexModule {
     this.isAuthenticated = isAuthenticated;
   }
   // getters
-  get getter() {
+  get get_authenticated() {
     return this.isAuthenticated;
   }
   // 😅 not yet
@@ -50,6 +50,12 @@ class AuthModule extends VuexModule {
       }, 1001);
     }
     // }
+  }
+  @Action
+  public async logout() {
+    sessionStorage.removeItem('acces_token');
+    this.setAccessToken('');
+    this.setAuthenticatedStatus(false);
   }
 }
 

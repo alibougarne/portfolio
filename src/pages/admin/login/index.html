@@ -35,8 +35,6 @@
         </q-card-section>
         <q-card-actions class="row">
           <div class="col-12  q-mb-sm q-pa-sm">
-            <!-- <div class="row">
-              <div class="col-12 q-pa-sm"> -->
                   <q-btn
                   :loading="isAuthenticating"
                   :percentage="loadingPercentage"
@@ -46,9 +44,12 @@
                   class="full-width"
                   label="Login"
                   @click="login()"
-                />
-              <!-- </div>
-            </div> -->
+                  :icon-right="isAuthenticated?'mdi-lock-open':'mdi-lock'"
+                >
+                <template v-slot:loading>
+                  <q-spinner-facebook />
+                </template>
+              </q-btn>
           </div>
         </q-card-actions>
         <q-card-section class="text-center q-pa-none">

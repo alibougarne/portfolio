@@ -84,7 +84,8 @@ module.exports = function(ctx) {
         'QChip',
         'QColor',
         'QPopupProxy',
-        'QEditor'
+        'QEditor',
+        'QSpinnerFacebook',
       ],
       directives: ['Ripple'],
 
