@@ -1,7 +1,7 @@
 <q-page class="row justify-center items-center">
   <div class="column col-5">
     <div class="row">
-      <h5 class="text-h5 text-white q-my-md">Portfiolio Admin Login</h5>
+      <h5 class="text-h5 text-white q-my-md">Portfolio Admin Login</h5>
     </div>
     <div class="row">
       <q-card square bordered class="q-pa-lg shadow-1 col-12">
@@ -38,6 +38,8 @@
             <!-- <div class="row">
               <div class="col-12 q-pa-sm"> -->
                   <q-btn
+                  :loading="isAuthenticating"
+                  :percentage="loadingPercentage"
                   unelevated
                   color="light-green-7"
                   size="lg"
