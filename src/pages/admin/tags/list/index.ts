@@ -9,7 +9,9 @@ import TagsPage from '@/pages/tags/list';
   components: { TagComponent }
 })
 export default class TagsList extends TagsPage {
-  private columns: Object[] =  [
+  private loading: boolean = false;
+  private filter: string = '';
+  private columns: Object[] = [
     {
       name: 'name',
       required: true,
@@ -23,10 +25,14 @@ export default class TagsList extends TagsPage {
     { name: 'link', label: 'Link', field: 'link', sortable: true },
     // { name: 'description', label: 'Description', field: 'description' },
     { name: 'textColor', label: 'Text Color', field: 'textColor' },
-    { name: 'backgroundColor', label: 'Background Color', field: 'backgroundColor' },
-    // { name: 'logoPath', label: 'Logo Path', field: 'logoPath', sortable: true, },
-  ]
-  afterMount():void{
+    {
+      name: 'backgroundColor',
+      label: 'Background Color',
+      field: 'backgroundColor'
+    },
+    { name: 'action', label: 'Action', field: '' }
+  ];
+  afterMount(): void {
     // {
     //   "id": "06f5d316-4327-4ded-8472-0472ef57985e",
     //   "createdAt": "2020-03-18T21:31:39.000Z",

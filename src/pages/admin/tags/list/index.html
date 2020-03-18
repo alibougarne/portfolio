@@ -1,5 +1,17 @@
 <q-page class="bg-transparent createTag">
   <div class="full-width row justify-center q-pa-md">
-    <q-table class="table--grey" title="Tags" :data="tags" :columns="columns" row-key="name" />
+    <q-table class="table--grey" title="Tags" :data="tags" :columns="columns" row-key="name" >
+
+        <template v-slot:top>
+            <q-btn color="green" :disable="loading" label="Add Tag" @click="" />
+            <q-space />
+            <q-input borderless dense debounce="300" color="white" v-model="filter">
+              <template v-slot:append>
+                <q-icon name="search" />
+              </template>
+            </q-input>
+          </template>
+
+    </q-table>
   </div>
 </q-page>
