@@ -15,7 +15,7 @@
     "heroku-postbuild" : "npm run build"
   },
   "dependencies": {
-    "@mdi/font": "^4.7.95",
+    "@mdi/font": "^5.0.45",
     "@quasar/extras": "^1.5.2",
     "axios": "^0.18.1",
     "quasar": "^1.0.0",

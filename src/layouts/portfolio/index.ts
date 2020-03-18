@@ -4,6 +4,7 @@ import Component from 'vue-class-component';
 import { getModule } from 'vuex-module-decorators';
 import LayoutStoreModule from './LayoutStoreModule';
 import Axios, { AxiosAdapter, AxiosResponse } from 'axios';
+
 @Component
 export default class MyLayout extends Vue {
   private store = getModule(LayoutStoreModule);
@@ -30,6 +31,7 @@ export default class MyLayout extends Vue {
   private links2: object[] = [
     { icon: 'mdi-linkedin', text: 'LinkedIn', color:'#0077b5',link:'https://www.linkedin.com/in/ali-bougarne-572470117/' },
     { icon: 'mdi-gmail', text: 'Gmail', color:'#aa3528',link:'mailto:bougarne.ali@gmail.com' },
+    { icon: 'mdi-github-circle', text: 'Github', color:'#fff',link:'https://github.com/alibougarne/' },
     { icon: 'mdi-twitter', text: 'Twitter', color:'#1da1f2',link:'#' },
     { icon: 'mdi-facebook', text: 'Facebook', color:'#4267b2',link:'#' },
   ];

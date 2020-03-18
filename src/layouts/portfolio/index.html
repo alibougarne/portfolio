@@ -68,7 +68,8 @@
           <q-tooltip
             anchor="center right"
             self="center left"
-            content-class="bg-amber text-white shadow-4"
+            :style="{backgroundColor: `${link.color} !important`}"
+            content-class="shadow-4"
             :offset="[10, 10]"
           >
             {{ link.text }}
