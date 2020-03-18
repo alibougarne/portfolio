@@ -1,4 +1,4 @@
 export default class LoginDto{
-    email?: string ="";
-    password?: string ="";
+    email?: string ="admin@gmail.com";
+    password?: string ="admin";
 }

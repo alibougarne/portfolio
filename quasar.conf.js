@@ -86,6 +86,7 @@ module.exports = function(ctx) {
         'QPopupProxy',
         'QEditor',
         'QSpinnerFacebook',
+        'QTable'
       ],
       directives: ['Ripple'],
 

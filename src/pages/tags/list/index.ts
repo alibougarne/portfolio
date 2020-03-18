@@ -6,7 +6,7 @@ import TagComponent from '@/components/tag/TagComponent.vue';
 @Component({
   components: { TagComponent }
 })
-export default class Tags extends Vue {
+export default class TagsPage extends Vue {
   public tags: Tag[] = [];
 
   public async mounted(): Promise<void> {
