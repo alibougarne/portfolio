@@ -30,6 +30,7 @@ const routes: RouteConfig[] = [
     children: [
       { name: 'login', path: '/', component: () => import('pages/admin/login/Login.vue') },
       { name: 'adminHome', path: 'home', component: () => import('pages/home/Home.vue') },
+      { name: 'adminTags', path: 'tags', component: () => import('pages/admin/tags/list/tagList.vue') },
     ]
   }
 ]
