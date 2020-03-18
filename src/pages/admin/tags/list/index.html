@@ -31,13 +31,14 @@
     
           <template v-slot:body="props">
               
-            <q-tr :props="props" :key="`m_${props.row.index}`">
+            <q-tr :props="props" :key="`m_${props.row.hashtag}`">
               <q-td
                 v-for="col in props.cols"
                 :key="col.name"
                 :props="props"
               >
-                {{ col.value }}
+                {{ col.value }} 
+                <!-- {{props}} -->
               </q-td>
               <q-td
                 key="action"
