@@ -17,8 +17,11 @@ export default class TagsList extends TagsPage {
       required: true,
       label: 'Name',
       align: 'left',
-      field: row => row.name,
-      format: val => `${val}`,
+      field: (row:any) => row.name,
+      format: (val:any) => `${val}`,
+      classes: ' ellipsis',
+      style: 'max-width: 100px; background: #545454;',
+      headerClasses: 'bg-grey-9 text-white',
       sortable: true
     },
     // { name: 'hashtag', align: 'center', label: 'Calories', field: 'hashtag', sortable: true },
@@ -29,8 +32,7 @@ export default class TagsList extends TagsPage {
       name: 'backgroundColor',
       label: 'Background Color',
       field: 'backgroundColor'
-    },
-    { name: 'action', label: 'Action', field: '' }
+    }
   ];
   afterMount(): void {
     // {
