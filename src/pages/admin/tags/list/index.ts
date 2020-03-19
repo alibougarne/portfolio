@@ -1,15 +1,12 @@
-import Vue from 'vue';
 import Component from 'vue-class-component';
-import TagComponent from '@/components/tag/TagComponent.vue';
-import Tag from '@/store/modules/tag/tag.entity';
-import { Common } from '@/store/modules/common/common.entity';
-import Axios from 'axios';
 import TagsPage from '@/pages/tags/list';
+import CreateTag from '../create/CreateTag.vue'
 @Component({
-  components: { TagComponent }
+  components: { CreateTag }
 })
 export default class TagsList extends TagsPage {
   private loading: boolean = false;
+  private tagDialog: boolean = false;
   private filter: string = '';
   private columns: Object[] = [
     {

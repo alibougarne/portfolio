@@ -89,9 +89,10 @@ module.exports = function(ctx) {
         'QTable',
         'QTh',
         'QTr',
-        'QTd'
+        'QTd',
+        'QDialog',
       ],
-      directives: ['Ripple'],
+      directives: ['Ripple','ClosePopup'],
 
       // Quasar plugins
       plugins: ['Loading', 'Notify'],
