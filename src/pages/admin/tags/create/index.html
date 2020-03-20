@@ -1,5 +1,11 @@
-<div>
-  <div class="full-width row justify-center q-pa-md">
+<q-card dark >
+  <q-card-section>
+    <div class="text-h6">Create Tag</div>
+  </q-card-section>
+
+  <q-separator />
+
+  <q-card-section style="max-height: 50vh" class="scroll">
     <q-form
       @submit="onSubmit"
       @reset="onReset"
@@ -61,15 +67,28 @@
         />
       </div>
       <div class=" col-xs-12 col-md-6 col-lg-4 q-pa-md">
-        <q-btn label="Submit" type="submit" color="green" />
-        <q-btn
-          label="Reset"
-          type="reset"
-          color="green"
-          flat
-          class="q-ml-sm"
-        />
+
       </div>
     </q-form>
+  </q-card-section>
+
+  <q-separator />
+
+  <q-card-actions align="right">
+      <q-btn label="Submit" type="submit" color="green" v-close-popup/>
+      <q-btn
+        label="Reset"
+        type="reset"
+        color="green"
+        flat
+        class="q-ml-sm"
+      />
+    <!-- <q-btn flat label="Decline" color="primary" v-close-popup />
+    <q-btn flat label="Accept" color="primary" v-close-popup /> -->
+  </q-card-actions>
+</q-card>
+<!-- <div>
+  <div class="full-width row justify-center q-pa-md">
+
   </div>
-</div>
+</div> -->

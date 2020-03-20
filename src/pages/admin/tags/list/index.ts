@@ -5,6 +5,7 @@ import CreateTag from '../create/CreateTag.vue'
   components: { CreateTag }
 })
 export default class TagsList extends TagsPage {
+
   private loading: boolean = false;
   private tagDialog: boolean = false;
   private filter: string = '';

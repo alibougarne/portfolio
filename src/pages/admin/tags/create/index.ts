@@ -4,6 +4,7 @@ import TagComponent from '@/components/tag/TagComponent.vue';
 import Tag from '@/store/modules/tag/tag.entity';
 import { Common } from '@/store/modules/common/common.entity';
 import Axios from 'axios';
+import { Emit } from 'vue-property-decorator';
 @Component({
   components: { TagComponent }
 })
@@ -11,6 +12,10 @@ export default class CreateTag extends Vue {
   private tag: Tag = new Tag();
   private tagImage: any={};
 
+  @Emit()
+  addToCount(n: number) {
+    console.log('%c⧭', 'color: #f2ceb6', n);
+  }
   get inputs(): string[] {
     return Object.keys(this.tag).filter(
       input =>
