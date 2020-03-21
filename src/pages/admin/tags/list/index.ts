@@ -2,10 +2,20 @@ import Component from 'vue-class-component';
 import TagsPage from '@/pages/tags/list';
 import CreateTag from '../create/CreateTag.vue';
 import Tag from '@/store/modules/tag/tag.entity';
+import ButtonMixin from '@/mixins/buttons';
+import { Mixins } from 'vue-property-decorator';
+import { tagModule } from '@/store/modules/tag/tag.module';
+import { AxiosResponse } from 'axios';
+import NotificationMixin from '@/mixins/notification';
+
 @Component({
   components: { CreateTag }
 })
-export default class TagsList extends TagsPage {
+export default class TagsList extends Mixins(
+  ButtonMixin,
+  TagsPage,
+  NotificationMixin
+) {
   private loading: boolean = false;
   private tagDialog: boolean = false;
   private filter: string = '';
@@ -39,8 +49,38 @@ export default class TagsList extends TagsPage {
         this.tagDialog = false;
       }, 1500);
     }
-    console.log('%c⧭ i`m just a payload 💩', 'color: #00a3cc', tag);
   }
+
+  private async deleteTag(tagId: string) {
+    this.$q.loading.show({
+      delay: 400 // ms
+    });
+    let response: AxiosResponse = await tagModule.deleteTag(tagId);
+    console.log('%c⧭ delete tag response : ===> ', 'color: #068daf', response);
+    if (response.status === 200) {
+        this.tags = this.tags.filter((tag:Tag) => tag.id !== tagId);
+        setTimeout(() => {
+          this.$q.loading.hide();
+          this.notify(
+            'green-4',
+            'white',
+            'cloud_done',
+            'Tag deleted successfully !'
+          );
+        }, 900);
+      } else {
+        setTimeout(() => {
+          this.$q.loading.hide();
+          this.notify(
+            'red',
+            'white',
+            'cloud_done',
+            'delete tag failed'
+          );
+        }, 900);
+      }
+  }
+
   afterMount(): void {
     // {
     //   "id": "06f5d316-4327-4ded-8472-0472ef57985e",

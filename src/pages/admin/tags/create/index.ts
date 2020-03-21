@@ -50,11 +50,9 @@ export default class CreateTag extends Mixins(ButtonMixin) {
     if(response.data){
       if (response.data && response.status === 201){
         this.emitTagToTagsList(<Tag>response.data);
-        this.isProcessing = true;
         this.startComputing(300);
         setTimeout(() => {
           this.isCreatingTag = false;
-          this.isProcessing = false;
 
           this.$q.notify({
             color: 'green-4',
@@ -66,7 +64,6 @@ export default class CreateTag extends Mixins(ButtonMixin) {
       }else{
         setTimeout(() => {
           this.isCreatingTag = false;
-          this.isProcessing = false;
           this.$q.notify({
             color: 'red',
             textColor: 'white',
@@ -77,7 +74,6 @@ export default class CreateTag extends Mixins(ButtonMixin) {
       }
     }
   }
-
   private onReset() {
     this.tag = new Tag();
     this.tagImage = new File([""], "image.png", {type: "image/*"});;
