@@ -1,6 +1,7 @@
 import Component from 'vue-class-component';
 import TagsPage from '@/pages/tags/list';
 import CreateTag from '../create/CreateTag.vue'
+import Tag from '@/store/modules/tag/tag.entity';
 @Component({
   components: { CreateTag }
 })
@@ -32,6 +33,13 @@ export default class TagsList extends TagsPage {
       field: 'backgroundColor'
     }
   ];
+  onEmissionFromChild(tag:Tag) {
+    if (tag && tag.id){
+      this.tags.push(tag)
+      this.tagDialog = false;
+    }
+    console.log('%c⧭ i`m just a payload 💩' , 'color: #00a3cc', tag);
+}
   afterMount(): void {
     // {
     //   "id": "06f5d316-4327-4ded-8472-0472ef57985e",

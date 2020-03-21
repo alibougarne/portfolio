@@ -3,19 +3,20 @@ import Component from 'vue-class-component';
 import TagComponent from '@/components/tag/TagComponent.vue';
 import Tag from '@/store/modules/tag/tag.entity';
 import { Common } from '@/store/modules/common/common.entity';
-import Axios from 'axios';
+import Axios, { AxiosResponse } from 'axios';
 import { Emit } from 'vue-property-decorator';
 @Component({
   components: { TagComponent }
 })
 export default class CreateTag extends Vue {
   private tag: Tag = new Tag();
-  private tagImage: any={};
+  private isCreatingTag: boolean = false;
+  // private tagImage: File = new File([""], "image", {type: "image/*"});
+  private tagImage :File = new File([""], "image.png", {type: "image/*"});
 
-  @Emit()
-  addToCount(n: number) {
-    console.log('%c⧭', 'color: #f2ceb6', n);
-  }
+  @Emit('emission-from-child')
+  emitTagToTagsList(tag: Tag) {}
+ 
   get inputs(): string[] {
     return Object.keys(this.tag).filter(
       input =>
@@ -24,7 +25,6 @@ export default class CreateTag extends Vue {
         ) < 0
     );
   }
-
   get colorPicks(): string[] {
     return ['textColor', 'backgroundColor'];
   }
@@ -38,28 +38,48 @@ export default class CreateTag extends Vue {
     opacity: 0.75
   };
 
-  private onSubmit() {
+  private async saveTag() {
+    this.isCreatingTag = true;
     console.log('%c⧭', 'color: #00e600', this.tag);
     console.log('%c⧭', 'color: #00a3cc', this.tagImage);
     const formData = new FormData;
     formData.append("tagImage", this.tagImage);
     formData.append("tag", JSON.stringify(this.tag));
-    Axios.post('/api/tags/create/', formData, {
+    let response: AxiosResponse = await Axios.post('/api/tags/create/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
     })
-    this.$q.notify({
-      color: 'green-4',
-      textColor: 'white',
-      icon: 'cloud_done',
-      message: 'Submitted'
-    });
+    console.log('%c⧭ create tag response : ===> ', 'color: #aa00ff', response);
+    if(response.data){
+      if (response.data && response.status === 201){
+        this.emitTagToTagsList(<Tag>response.data);
+        setTimeout(() => {
+          this.isCreatingTag = false;
+          this.$q.notify({
+            color: 'green-4',
+            textColor: 'white',
+            icon: 'cloud_done',
+            message: 'Tag saved successfully !'
+          });
+        },500)
+      }else{
+        setTimeout(() => {
+          this.isCreatingTag = false;
+          this.$q.notify({
+            color: 'red',
+            textColor: 'white',
+            icon: 'cloud_done',
+            message: 'save tag failed'
+          });
+        },500)
+      }
+    }
   }
 
   private onReset() {
     this.tag = new Tag();
-    this.tagImage = null;
+    this.tagImage = new File([""], "image.png", {type: "image/*"});;
   }
   public async mounted(): Promise<void> {
     // this.tags = await tagModule.loadTags();

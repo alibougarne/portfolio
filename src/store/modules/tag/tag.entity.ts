@@ -5,7 +5,7 @@ export default class Tag extends Common {
   public hashtag ?: string = '';
   public link ?: string = '';
   public description ?: string = '';
-  public textColor ?: string = '';
-  public backgroundColor ?: string = '';
+  public textColor ?: string = '#fff';
+  public backgroundColor ?: string = '#fff';
 
 }

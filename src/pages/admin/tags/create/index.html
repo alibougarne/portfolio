@@ -7,7 +7,6 @@
 
   <q-card-section style="max-height: 50vh" class="scroll">
     <q-form
-      @submit="onSubmit"
       @reset="onReset"
       class="createTagForm q-pa-sm col-xs-12 row"
       dark
@@ -48,7 +47,6 @@
                   format-model="hex"
                   @change="val => { tag[colorPick] = val }"
                   :value="tag[colorPick]"
-                  v-if=""
                 />
               </q-popup-proxy>
             </q-icon>
@@ -75,7 +73,7 @@
   <q-separator />
 
   <q-card-actions align="right">
-      <q-btn label="Submit" type="submit" color="green" v-close-popup/>
+      <q-btn label="Submit" type="submit" color="green" @click="saveTag()"/>
       <q-btn
         label="Reset"
         type="reset"

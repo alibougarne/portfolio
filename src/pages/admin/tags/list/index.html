@@ -65,7 +65,7 @@
       transition-hide="slide-up"
       :content-style="{ background: '#4c4848' }"
     >
-      <CreateTag />
+      <CreateTag @emission-from-child="onEmissionFromChild"/>
     </q-dialog>
   </div>
 </q-page>
