@@ -13,11 +13,11 @@ export default class LoginPage extends Mixins(ButtonMixin) {
   
   get isAuthenticated() { return authModule.get_authenticated}
   async login():Promise<void>{
-    this.isProcessing = true
+    this.isProcessing = true;
+    this.startComputing(300);
     this.$q.loading.show({
       delay: 400 // ms
     });
-    this.startComputing(300);
     await authModule.login(this.loginDto)
     setTimeout(()=>{
       this.$q.loading.hide();

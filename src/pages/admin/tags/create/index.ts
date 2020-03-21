@@ -4,11 +4,12 @@ import TagComponent from '@/components/tag/TagComponent.vue';
 import Tag from '@/store/modules/tag/tag.entity';
 import { Common } from '@/store/modules/common/common.entity';
 import Axios, { AxiosResponse } from 'axios';
-import { Emit } from 'vue-property-decorator';
+import { Emit, Mixins } from 'vue-property-decorator';
+import ButtonMixin from '@/mixins/buttons';
 @Component({
   components: { TagComponent }
 })
-export default class CreateTag extends Vue {
+export default class CreateTag extends Mixins(ButtonMixin) {
   private tag: Tag = new Tag();
   private isCreatingTag: boolean = false;
   // private tagImage: File = new File([""], "image", {type: "image/*"});
@@ -54,25 +55,30 @@ export default class CreateTag extends Vue {
     if(response.data){
       if (response.data && response.status === 201){
         this.emitTagToTagsList(<Tag>response.data);
+        this.isProcessing = true;
+        this.startComputing(300);
         setTimeout(() => {
           this.isCreatingTag = false;
+          this.isProcessing = false;
+
           this.$q.notify({
             color: 'green-4',
             textColor: 'white',
             icon: 'cloud_done',
             message: 'Tag saved successfully !'
           });
-        },500)
+        },900)
       }else{
         setTimeout(() => {
           this.isCreatingTag = false;
+          this.isProcessing = false;
           this.$q.notify({
             color: 'red',
             textColor: 'white',
             icon: 'cloud_done',
             message: 'save tag failed'
           });
-        },500)
+        },900)
       }
     }
   }

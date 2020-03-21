@@ -1,12 +1,11 @@
 import Component from 'vue-class-component';
 import TagsPage from '@/pages/tags/list';
-import CreateTag from '../create/CreateTag.vue'
+import CreateTag from '../create/CreateTag.vue';
 import Tag from '@/store/modules/tag/tag.entity';
 @Component({
   components: { CreateTag }
 })
 export default class TagsList extends TagsPage {
-
   private loading: boolean = false;
   private tagDialog: boolean = false;
   private filter: string = '';
@@ -16,8 +15,8 @@ export default class TagsList extends TagsPage {
       required: true,
       label: 'Name',
       align: 'left',
-      field: (row:any) => row.name,
-      format: (val:any) => `${val}`,
+      field: (row: any) => row.name,
+      format: (val: any) => `${val}`,
       classes: ' ellipsis',
       style: 'max-width: 100px; background: #545454;',
       headerClasses: 'bg-grey-9 text-white',
@@ -33,13 +32,15 @@ export default class TagsList extends TagsPage {
       field: 'backgroundColor'
     }
   ];
-  onEmissionFromChild(tag:Tag) {
-    if (tag && tag.id){
-      this.tags.push(tag)
-      this.tagDialog = false;
+  onEmissionFromChild(tag: Tag) {
+    if (tag && tag.id) {
+      this.tags.push(tag);
+      setTimeout(() => {
+        this.tagDialog = false;
+      }, 1500);
     }
-    console.log('%c⧭ i`m just a payload 💩' , 'color: #00a3cc', tag);
-}
+    console.log('%c⧭ i`m just a payload 💩', 'color: #00a3cc', tag);
+  }
   afterMount(): void {
     // {
     //   "id": "06f5d316-4327-4ded-8472-0472ef57985e",
