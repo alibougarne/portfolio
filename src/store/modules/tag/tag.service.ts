@@ -10,4 +10,12 @@ export default class TagService {
     });
     return tags;
   }
+
+  async createTag(formData: FormData): Promise<AxiosResponse> {
+    return await Axios.post('/api/tags/create/', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+  }
 }

@@ -26,8 +26,13 @@ class TagModule extends VuexModule {
     this.setTags(tags);
     return tags;
   }
+  @Action
+  public async createTag(formData:FormData):Promise<AxiosResponse>{
+    return await this.tagService.createTag(formData);
+  }
 }
 
 // register module (could be in any file)
 import store from '@/store/index';
+import { AxiosResponse } from 'axios';
 export const tagModule = new TagModule({ store, name: 'tag' });
