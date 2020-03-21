@@ -34,7 +34,7 @@
       </template>
 
       <template v-slot:body="props">
-        <q-tr :props="props" :key="`m_${props.row.hashtag}`">
+        <q-tr :props="props" :key="`m_${props.row.id}`">
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
             {{ col.value }}
             <!-- {{props}} -->
