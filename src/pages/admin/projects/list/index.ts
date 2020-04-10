@@ -1,7 +1,5 @@
 import Component from 'vue-class-component';
-import ProjectsPage from '@/pages/projects/list';
 import CreateProject from '../create/CreateProject.vue';
-import Project from '@/store/modules/project/project.entity';
 import ButtonMixin from '@/mixins/buttons';
 import { Mixins } from 'vue-property-decorator';
 import { projectModule } from '@/store/modules/project/project.module';
@@ -14,9 +12,9 @@ import Project from '@/store/modules/project/project.entity';
 })
 export default class ProjectsList extends Mixins(
   ButtonMixin,
-  ProjectsPage,
   NotificationMixin
 ) {
+  private projects: Project[] = [];
   private loading: boolean = false;
   private projectDialog: boolean = false;
   private filter: string = '';
@@ -57,31 +55,69 @@ export default class ProjectsList extends Mixins(
       delay: 400 // ms
     });
     let response: AxiosResponse = await projectModule.deleteProject(projectId);
-    console.log('%c⧭ delete project response : ===> ', 'color: #068daf', response);
+    console.log(
+      '%c⧭ delete project response : ===> ',
+      'color: #068daf',
+      response
+    );
     if (response.status === 200) {
-        this.projects = this.projects.filter((project:Project) => project.id !== projectId);
+      this.projects = this.projects.filter(
+        (project: Project) => project.id !== projectId
+      );
+      setTimeout(() => {
+        this.$q.loading.hide();
+        this.notify(
+          'green-4',
+          'white',
+          'cloud_done',
+          'Project deleted successfully !'
+        );
+      }, 900);
+    } else {
+      setTimeout(() => {
+        this.$q.loading.hide();
+        this.notify('red', 'white', 'cloud_done', 'delete project failed');
+      }, 900);
+    }
+  }
+
+  created():void{
+    this.$q.loading.show();
+  }
+
+  async mounted(): Promise<void>{
+    try {
+      let response: AxiosResponse = await projectModule.loadProjects();
+      console.log(
+        '%c⧭ load project response : ===> ',
+        'color: #068daf',
+        response
+      );
+      if (response.status === 200) {
+        this.projects = response.data? response.data : [];
         setTimeout(() => {
           this.$q.loading.hide();
           this.notify(
             'green-4',
             'white',
             'cloud_done',
-            'Project deleted successfully !'
+            'Projects loaded successfully !'
           );
         }, 900);
       } else {
         setTimeout(() => {
           this.$q.loading.hide();
-          this.notify(
-            'red',
-            'white',
-            'cloud_done',
-            'delete project failed'
-          );
+          this.notify('red', 'white', 'cloud_done', 'loading projects failed');
         }, 900);
       }
+    } catch (error) {
+      console.log('%c⧭', 'color: #00e600', error);
+      setTimeout(() => {
+        this.$q.loading.hide();
+        this.notify('red', 'white', 'cloud_done', 'loading projects failed');
+      }, 900);
+    }
   }
-
   afterMount(): void {
     // {
     //   "id": "06f5d316-4327-4ded-8472-0472ef57985e",

@@ -2,8 +2,8 @@
   <div class="full-width row justify-center q-pa-md">
     <q-table
       class="table--grey"
-      title="Tags"
-      :data="tags"
+      title="Projects"
+      :data="projects"
       :columns="columns"
       row-key="name"
     >
@@ -11,8 +11,8 @@
         <q-btn
           color="green"
           :disable="loading"
-          label="Add Tag"
-          @click="tagDialog = true"
+          label="Add Project"
+          @click="projectDialog = true"
         />
         <q-space />
         <q-input borderless dense debounce="300" color="white" v-model="filter">
@@ -49,7 +49,7 @@
             />
             <q-btn
               outline
-              @click="deleteTag(props.row.id)"
+              @click="deleteProject(props.row.id)"
               color="red"
               style="color: red;"
               icon="remove"
@@ -60,7 +60,7 @@
       </template>
     </q-table>
     <q-dialog
-      v-model="tagDialog"
+      v-model="projectDialog"
       full-width
       transition-show="slide-down"
       transition-hide="slide-up"

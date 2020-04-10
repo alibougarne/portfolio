@@ -29,7 +29,6 @@ export default class Projects extends Vue {
     const tagId:string = this.$route.params.id;
     projectModule.loadProjectsPerTag(tagId).then((response: Project[]) => {
       this.projects = response;
-      console.log('%c⧭ projects: projects list ====> ', 'color: #f2ceb6', response);
       setTimeout(() => {
         this.$q.loading.hide();
       }, 1000)

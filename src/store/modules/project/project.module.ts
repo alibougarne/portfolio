@@ -10,6 +10,11 @@ class ProjectModule extends VuexModule {
 
   // actions
   @Action
+  public async loadProjects():Promise<AxiosResponse<Project[]>>{
+    return await this.projectService.loadProjects();
+  }
+
+  @Action
   public async loadProjectsPerTag(tagId:string):Promise<Project[]>{
     return await this.projectService.loadProjectsPerTag(tagId);
   }
