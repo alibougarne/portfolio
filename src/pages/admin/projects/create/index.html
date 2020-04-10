@@ -1,0 +1,87 @@
+<q-card dark>
+  <q-card-section>
+    <div class="text-h6">Create Tag</div>
+  </q-card-section>
+
+  <q-separator />
+
+  <q-card-section style="max-height: 50vh" class="scroll">
+    <q-form @reset="onReset" class="createTagForm q-pa-sm col-xs-12 row" dark>
+      <div
+        v-for="(input,index) in inputs"
+        :key="`tag-${index}`"
+        class=" col-xs-12 col-md-6 col-lg-4 q-pa-md"
+      >
+        <q-input
+          dark
+          filled
+          v-model="tag[input]"
+          :label="input"
+          :hint="`Add ${input}`"
+          lazy-rules
+          :rules="[ val => val && val.length > 0 || `Please add ${input}`]"
+        />
+      </div>
+      <div
+        class=" col-xs-12 col-md-6 col-lg-4 q-pa-md"
+        v-for="(colorPick,index) in colorPicks"
+        :key="`colorPick-${index}`"
+      >
+        <q-input
+          dark
+          filled
+          v-model="tag[colorPick]"
+          class="my-input"
+          :hint=" `pick a ${colorPick}`"
+        >
+          <template v-slot:append>
+            <q-icon name="colorize" class="cursor-pointer">
+              <q-popup-proxy transition-show="scale" transition-hide="scale">
+                <q-color
+                  no-header
+                  default-value="#c0c0c0"
+                  format-model="hex"
+                  @change="val => { tag[colorPick] = val }"
+                  :value="tag[colorPick]"
+                />
+              </q-popup-proxy>
+            </q-icon>
+          </template>
+        </q-input>
+      </div>
+      <div class=" col-xs-12 col-md-6 col-lg-4 q-pa-md">
+        <q-file v-model="tagImage" label="Pick an image" filled dark />
+      </div>
+      <div class=" col-xs-12 col-md-6 col-lg-4 q-pa-md">
+        <q-editor
+          dark
+          v-model="tag.description"
+          min-height="5rem"
+          class="bg-transparent"
+        />
+      </div>
+      <div class=" col-xs-12 col-md-6 col-lg-4 q-pa-md"></div>
+    </q-form>
+  </q-card-section>
+
+  <q-separator />
+
+  <q-card-actions align="right">
+    <q-btn
+      label="Submit"
+      type="submit"
+      color="green"
+      @click="saveTag()"
+      :loading="isCreatingTag"
+      :percentage="loadingPercentage"
+    />
+    <q-btn label="Reset" type="reset" color="green" flat class="q-ml-sm" />
+    <!-- <q-btn flat label="Decline" color="primary" v-close-popup />
+    <q-btn flat label="Accept" color="primary" v-close-popup /> -->
+  </q-card-actions>
+</q-card>
+<!-- <div>
+  <div class="full-width row justify-center q-pa-md">
+
+  </div>
+</div> -->
