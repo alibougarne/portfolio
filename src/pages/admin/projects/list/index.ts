@@ -1,6 +1,6 @@
 import Component from 'vue-class-component';
 import TagsPage from '@/pages/tags/list';
-import CreateTag from '../create/CreateTag.vue';
+import CreateProject from '../create/CreateProject.vue';
 import Tag from '@/store/modules/tag/tag.entity';
 import ButtonMixin from '@/mixins/buttons';
 import { Mixins } from 'vue-property-decorator';
@@ -9,7 +9,7 @@ import { AxiosResponse } from 'axios';
 import NotificationMixin from '@/mixins/notification';
 
 @Component({
-  components: { CreateTag }
+  components: { CreateProject }
 })
 export default class ProjectssList extends Mixins(
   ButtonMixin,
