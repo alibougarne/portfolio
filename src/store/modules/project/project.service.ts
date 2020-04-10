@@ -9,4 +9,8 @@ export default class ProjectService {
     });
     return projects;
   }
+
+  async deleteProject(projectId: string): Promise<AxiosResponse> {
+    return await Axios.delete(`/api/projects/delete/${projectId}`);
+  }
 }

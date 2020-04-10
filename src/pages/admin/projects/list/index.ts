@@ -1,23 +1,24 @@
 import Component from 'vue-class-component';
-import TagsPage from '@/pages/tags/list';
+import ProjectsPage from '@/pages/projects/list';
 import CreateProject from '../create/CreateProject.vue';
-import Tag from '@/store/modules/tag/tag.entity';
+import Project from '@/store/modules/project/project.entity';
 import ButtonMixin from '@/mixins/buttons';
 import { Mixins } from 'vue-property-decorator';
-import { tagModule } from '@/store/modules/tag/tag.module';
+import { projectModule } from '@/store/modules/project/project.module';
 import { AxiosResponse } from 'axios';
 import NotificationMixin from '@/mixins/notification';
+import Project from '@/store/modules/project/project.entity';
 
 @Component({
   components: { CreateProject }
 })
-export default class ProjectssList extends Mixins(
+export default class ProjectsList extends Mixins(
   ButtonMixin,
-  TagsPage,
+  ProjectsPage,
   NotificationMixin
 ) {
   private loading: boolean = false;
-  private tagDialog: boolean = false;
+  private projectDialog: boolean = false;
   private filter: string = '';
   private columns: Object[] = [
     {
@@ -32,7 +33,7 @@ export default class ProjectssList extends Mixins(
       headerClasses: 'bg-grey-9 text-white',
       sortable: true
     },
-    // { name: 'hashtag', align: 'center', label: 'Calories', field: 'hashtag', sortable: true },
+    // { name: 'hashproject', align: 'center', label: 'Calories', field: 'hashproject', sortable: true },
     { name: 'link', label: 'Link', field: 'link', sortable: true },
     // { name: 'description', label: 'Description', field: 'description' },
     { name: 'textColor', label: 'Text Color', field: 'textColor' },
@@ -42,30 +43,30 @@ export default class ProjectssList extends Mixins(
       field: 'backgroundColor'
     }
   ];
-  onEmissionFromChild(tag: Tag) {
-    if (tag && tag.id) {
-      this.tags.push(tag);
+  onEmissionFromChild(project: Project) {
+    if (project && project.id) {
+      this.projects.push(project);
       setTimeout(() => {
-        this.tagDialog = false;
+        this.projectDialog = false;
       }, 1500);
     }
   }
 
-  private async deleteTag(tagId: string) {
+  private async deleteProject(projectId: string) {
     this.$q.loading.show({
       delay: 400 // ms
     });
-    let response: AxiosResponse = await tagModule.deleteTag(tagId);
-    console.log('%c⧭ delete tag response : ===> ', 'color: #068daf', response);
+    let response: AxiosResponse = await projectModule.deleteProject(projectId);
+    console.log('%c⧭ delete project response : ===> ', 'color: #068daf', response);
     if (response.status === 200) {
-        this.tags = this.tags.filter((tag:Tag) => tag.id !== tagId);
+        this.projects = this.projects.filter((project:Project) => project.id !== projectId);
         setTimeout(() => {
           this.$q.loading.hide();
           this.notify(
             'green-4',
             'white',
             'cloud_done',
-            'Tag deleted successfully !'
+            'Project deleted successfully !'
           );
         }, 900);
       } else {
@@ -75,7 +76,7 @@ export default class ProjectssList extends Mixins(
             'red',
             'white',
             'cloud_done',
-            'delete tag failed'
+            'delete project failed'
           );
         }, 900);
       }
@@ -87,13 +88,13 @@ export default class ProjectssList extends Mixins(
     //   "createdAt": "2020-03-18T21:31:39.000Z",
     //   "updatedAt": "2020-03-18T21:31:39.000Z",
     //   "name": "Joomla",
-    //   "hashtag": "joomla",
+    //   "hashproject": "joomla",
     //   "link": "https://joomla.org",
     //   "description": "Joomla is a free and open-source content management system for publishing web content, developed by Open Source Matters, Inc. It is built on a model–view–controller web application framework that can be used independently of the CMS",
     //   "textColor": "#fff",
     //   "backgroundColor": "#18487a",
-    //   "logoPath": "resources/tags/joomla.png"
+    //   "logoPath": "resources/projects/joomla.png"
     // }
-    console.log('%c⧭ tags ===> ', 'color: #f2ceb6', this.tags);
+    console.log('%c⧭ projects ===> ', 'color: #f2ceb6', this.projects);
   }
 }

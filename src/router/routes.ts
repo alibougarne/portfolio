@@ -20,7 +20,7 @@ const routes: RouteConfig[] = [
       {
         name: 'ProjectsPerTag',
         path: '/tags/:id',
-        component: () => import('pages/projects/Projects.vue'),
+        component: () => import('pages/projects/list/Projects.vue'),
       }
     ]
   },

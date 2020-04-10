@@ -5,24 +5,22 @@ import Project from './project.entity';
 @Module
 class ProjectModule extends VuexModule {
   // state
-  public projects:Project[]=[];
   private projectService:ProjectService = new ProjectService;
   // mutations
-  @Mutation
-  private setProjects(projects:Project[]) {
-    this.projects = projects;
-  }
 
   // actions
   @Action
   public async loadProjectsPerTag(tagId:string):Promise<Project[]>{
-    let projects:Project[]=[];
-    projects = await this.projectService.loadProjectsPerTag(tagId);
-    this.setProjects(projects);
-    return projects;
+    return await this.projectService.loadProjectsPerTag(tagId);
+  }
+
+  @Action
+  public async deleteProject(projectId:string):Promise<AxiosResponse>{
+    return await this.projectService.deleteProject(projectId);
   }
 }
 
 // register module (could be in any file)
 import store from '@/store/index';
+import { AxiosResponse } from 'axios';
 export const projectModule = new ProjectModule({ store, name: 'project' });
