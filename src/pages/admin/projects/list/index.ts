@@ -6,6 +6,7 @@ import { projectModule } from '@/store/modules/project/project.module';
 import { AxiosResponse } from 'axios';
 import NotificationMixin from '@/mixins/notification';
 import Project from '@/store/modules/project/project.entity';
+import Tag from '~/src/store/modules/tag/tag.entity';
 
 @Component({
   components: { CreateProject }
@@ -47,44 +48,44 @@ export default class ProjectsList extends Mixins(
     //     "endDate": "2019-05-25",
     //     "logoPath": "http://www.brandt.com/sites/brandt_international/files/brandt_anglais.png"
     //   },
-    //   "tags": [
-    //     {
-    //       "id": "3cc5438b-6d7e-4d13-9399-95973aa2d5e0",
-    //       "createdAt": "2020-03-20T22:48:22.000Z",
-    //       "updatedAt": "2020-03-20T22:48:22.000Z",
-    //       "name": "Spring Boot",
-    //       "hashtag": "springboot",
-    //       "link": "https://spring.io/projects/spring-boot",
-    //       "description": "Spring Boot makes it easy to create stand-alone, production-grade Spring based Applications that you can \"just run\"",
-    //       "textColor": "#fff",
-    //       "backgroundColor": "#6db33f",
-    //       "logoPath": "resources/tags/springboot.png"
-    //     },
-    //     {
-    //       "id": "c4e9a544-e6e1-44ed-a2a3-c1f698d5e1f0",
-    //       "createdAt": "2020-03-20T22:48:22.000Z",
-    //       "updatedAt": "2020-03-20T22:48:22.000Z",
-    //       "name": "Vue Js",
-    //       "hashtag": "vuejs",
-    //       "link": "https://vuejs.org",
-    //       "description": "Vue.js is an open-source Model–view–viewmodel JavaScript framework for building user interfaces and single-page applications. It was created by Evan You, and is maintained by him and the rest of the active core team members coming from various companies such as Netlify and Netguru",
-    //       "textColor": "#fff",
-    //       "backgroundColor": "#4fc08d",
-    //       "logoPath": "resources/tags/vuejs.png"
-    //     },
-    //     {
-    //       "id": "26fb8c18-21e5-41d2-8668-98b95a9f7f2b",
-    //       "createdAt": "2020-03-20T22:48:22.000Z",
-    //       "updatedAt": "2020-03-20T22:48:22.000Z",
-    //       "name": "Node Js",
-    //       "hashtag": "nodejs",
-    //       "link": "https://nodejs.org",
-    //       "description": "Node.js® is a JavaScript runtime built on Chrome´s V8 JavaScript engine.",
-    //       "textColor": "#fff",
-    //       "backgroundColor": "#026e00",
-    //       "logoPath": "resources/tags/nodejs.png"
-    //     }
-    //   ]
+      // "tags": [
+      //   {
+      //     "id": "3cc5438b-6d7e-4d13-9399-95973aa2d5e0",
+      //     "createdAt": "2020-03-20T22:48:22.000Z",
+      //     "updatedAt": "2020-03-20T22:48:22.000Z",
+      //     "name": "Spring Boot",
+      //     "hashtag": "springboot",
+      //     "link": "https://spring.io/projects/spring-boot",
+      //     "description": "Spring Boot makes it easy to create stand-alone, production-grade Spring based Applications that you can \"just run\"",
+      //     "textColor": "#fff",
+      //     "backgroundColor": "#6db33f",
+      //     "logoPath": "resources/tags/springboot.png"
+      //   },
+      //   {
+      //     "id": "c4e9a544-e6e1-44ed-a2a3-c1f698d5e1f0",
+      //     "createdAt": "2020-03-20T22:48:22.000Z",
+      //     "updatedAt": "2020-03-20T22:48:22.000Z",
+      //     "name": "Vue Js",
+      //     "hashtag": "vuejs",
+      //     "link": "https://vuejs.org",
+      //     "description": "Vue.js is an open-source Model–view–viewmodel JavaScript framework for building user interfaces and single-page applications. It was created by Evan You, and is maintained by him and the rest of the active core team members coming from various companies such as Netlify and Netguru",
+      //     "textColor": "#fff",
+      //     "backgroundColor": "#4fc08d",
+      //     "logoPath": "resources/tags/vuejs.png"
+      //   },
+      //   {
+      //     "id": "26fb8c18-21e5-41d2-8668-98b95a9f7f2b",
+      //     "createdAt": "2020-03-20T22:48:22.000Z",
+      //     "updatedAt": "2020-03-20T22:48:22.000Z",
+      //     "name": "Node Js",
+      //     "hashtag": "nodejs",
+      //     "link": "https://nodejs.org",
+      //     "description": "Node.js® is a JavaScript runtime built on Chrome´s V8 JavaScript engine.",
+      //     "textColor": "#fff",
+      //     "backgroundColor": "#026e00",
+      //     "logoPath": "resources/tags/nodejs.png"
+      //   }
+      // ]
     // }
     {
       name: 'name',
@@ -116,9 +117,9 @@ export default class ProjectsList extends Mixins(
       name: 'tag',
       label: 'Tag',
       field: (row: any) => {
-        return row.tags.reduce((acc:any, pre:any) => {
-          return (acc.name ? acc.name+', ' : '') + pre.name;
-        }, '');
+        return row.tags.map(function(tag: Tag){
+          return tag.name;
+      }).join(", ")
       }
     },
     {
