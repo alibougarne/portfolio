@@ -12,7 +12,7 @@ export default class TagService {
   }
 
   async createTag(formData: FormData): Promise<AxiosResponse> {
-    return await Axios.post('/api/tags/create/', formData, {
+    return await Axios.post('/api/tags/', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }

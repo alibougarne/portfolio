@@ -7,5 +7,4 @@ export default class Tag extends Common {
   public description ?: string = '';
   public textColor ?: string = '#fff';
   public backgroundColor ?: string = '#fff';
-
 }

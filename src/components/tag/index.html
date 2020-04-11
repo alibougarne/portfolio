@@ -22,10 +22,9 @@
                   {{tag.description}}
                 </q-item-label>
               </q-item-section>
-
               <q-item-section side top class="col-sm-3">
                 <q-img
-                  :src="'api'+tag.logoPath"
+                  :src="`${imageLink}/tags/image/${tag.logoPath}`"
                   spinner-color="white"
                   style="max-width: 40px"
                 />

@@ -122,13 +122,13 @@ module.exports = function(ctx) {
       },
       env: ctx.dev
         ? {
-            // so on dev we'll have
-            API: JSON.stringify('http://localhost:3001')
-          }
+          // so on dev we'll have
+          API: JSON.stringify('http://localhost:3001')
+        }
         : {
-            // and on build (production):
-            API: JSON.stringify('https://portfolio-nest-api.herokuapp.com')
-          },
+          // and on build (production):
+          API: JSON.stringify('https://portfolio-nest-api.herokuapp.com')
+        },
       // https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
       extendWebpack(cfg) {
         cfg.module.rules.push({

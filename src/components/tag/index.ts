@@ -10,6 +10,10 @@ export default class TagComponent extends Vue {
   @Prop() 
   public tag?:Tag;
   
+  get imageLink():string{
+    return process.env.API || "";
+  }
+  
   public mounted():void{
   }
 }
