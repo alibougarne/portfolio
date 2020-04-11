@@ -12,7 +12,7 @@ class AuthModule extends VuexModule {
     this.accessToken = accessToken;
   }
   @Mutation
-  private setAuthenticatedStatus(isAuthenticated: boolean) {
+  public setAuthenticatedStatus(isAuthenticated: boolean) {
     this.isAuthenticated = isAuthenticated;
   }
   // getters
