@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { authModule } from '@/store/modules/auth/auth.module';
+import { Watch } from 'vue-property-decorator';
 
 @Component({})
 export default class AdminLayout extends Vue {
@@ -32,5 +33,25 @@ export default class AdminLayout extends Vue {
       }, 200);
     }, 400);
   }
-  public mounted(): void {}
+  get currentPathName(): string | null | undefined {
+    return this.$route.name;
+  }
+  @Watch('currentPathName')
+  public watchRoutes(current:string, old:string):void {
+    console.log('%c⧭ old ', 'color: #e50000', old);
+    console.log('%c⧭ current ', 'color: #aa00ff', current);
+    if(!this.isAuthenticated && current !== 'login'){
+      this.$route.name
+      this.$router.push("/admin").catch(err => {});
+    }
+  }
+
+  public created(): void {
+    console.log('%c⧭ isAuthenticated ====> ', 'color: #00a3cc', this.isAuthenticated);
+    if(!this.isAuthenticated && this.currentPathName !== 'login'){
+      this.$router.push("/admin").catch(err => {
+        console.log('%c⧭', 'color: #733d00', err);
+      });
+    }
+  }
 }
