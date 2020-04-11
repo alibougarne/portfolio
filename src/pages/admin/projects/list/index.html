@@ -34,14 +34,24 @@
       </template>
 
       <template v-slot:body="props">
-          <!-- {{props}} -->
+        <!-- {{props}} -->
         <q-tr :props="props" :key="`m_${props.row.id}`">
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
-            {{ col.value }}
+            {{ col.name !== "rating"?col.value:""}}
             <!-- {{ col.name === "category"?col.value.name:"" }}
             {{ col.name === "company"?col.value.name:"" }}
             {{ !["company","category"].includes(col.name)?col.value:"" }} -->
+
+            <q-rating
+              v-if="col.name === 'rating'" 
+              v-model="col.value"
+              size="1em"
+              :max="5"
+              color="yellow"
+              readonly
+            />
           </q-td>
+
           <q-td key="action" style="text-align: center;">
             <q-btn
               outline
@@ -69,7 +79,7 @@
       transition-hide="slide-up"
       :content-style="{ background: '#4c4848' }"
     >
-      <CreateProject @emission-from-child="onEmissionFromChild"/>
+      <CreateProject @emission-from-child="onEmissionFromChild" />
     </q-dialog>
   </div>
 </q-page>

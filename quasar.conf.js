@@ -91,6 +91,7 @@ module.exports = function(ctx) {
         'QTr',
         'QTd',
         'QDialog',
+        'QRating',
       ],
       directives: ['Ripple','ClosePopup'],
 
