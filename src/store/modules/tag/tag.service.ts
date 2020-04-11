@@ -19,6 +19,6 @@ export default class TagService {
     });
   }
   async deleteTag(tagId: string): Promise<AxiosResponse> {
-    return await Axios.delete(`/api/tags/delete/${tagId}`);
+    return await Axios.delete(`/api/tags/${tagId}`);
   }
 }
