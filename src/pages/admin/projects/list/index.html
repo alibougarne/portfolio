@@ -34,10 +34,13 @@
       </template>
 
       <template v-slot:body="props">
+          <!-- {{props}} -->
         <q-tr :props="props" :key="`m_${props.row.id}`">
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
             {{ col.value }}
-            <!-- {{props}} -->
+            <!-- {{ col.name === "category"?col.value.name:"" }}
+            {{ col.name === "company"?col.value.name:"" }}
+            {{ !["company","category"].includes(col.name)?col.value:"" }} -->
           </q-td>
           <q-td key="action" style="text-align: center;">
             <q-btn
