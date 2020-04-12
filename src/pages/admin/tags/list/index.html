@@ -67,7 +67,7 @@
       transition-hide="slide-up"
       :content-style="{ background: '#4c4848' }"
     >
-      <CreateTag @emission-from-child="onEmissionFromChild" :tag="{...currentTag}" :name.sync="name"/>
+      <CreateTag @emission-from-child="onEmissionFromChild" :tag="currentTag" :name.sync="name"/>
     </q-dialog>
   </div>
 </q-page>

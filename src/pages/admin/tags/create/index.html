@@ -171,6 +171,7 @@
       @click="saveTag()"
       :loading="isCreatingTag"
       :percentage="loadingPercentage"
+      :disabled="!canSaveTag"
     />
     <q-btn label="Reset" type="reset" color="green" flat class="q-ml-sm" />
     <!-- <q-btn flat label="Decline" color="primary" v-close-popup />

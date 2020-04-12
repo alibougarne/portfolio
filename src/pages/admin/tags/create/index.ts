@@ -5,7 +5,7 @@ import Tag from '@/store/modules/tag/tag.entity';
 import { Common } from '@/store/modules/common/common.entity';
 import { AxiosResponse } from 'axios';
 import { tagModule } from '@/store/modules/tag/tag.module';
-import { Emit, Mixins, Prop, PropSync } from 'vue-property-decorator';
+import { Emit, Mixins, Prop, PropSync, Watch } from 'vue-property-decorator';
 import ButtonMixin from '@/mixins/buttons';
 @Component({
   components: { TagComponent }
@@ -16,7 +16,7 @@ export default class CreateTag extends Mixins(ButtonMixin) {
   @PropSync('name', { type: String }) syncedName!: string;
   private isCreatingTag: boolean = false;
   private tagImage: File =  new File([''], 'image.png', { type: 'image/png' });
-
+  private canSaveTag: boolean = false;
   public contentStyle: object = {};
   public contentActiveStyle: object = {};
   public thumbStyle: object = {
@@ -63,6 +63,12 @@ export default class CreateTag extends Mixins(ButtonMixin) {
     }
     return file.filter((file:any) => file.type === 'image/png')
   }
+
+  @Watch('tag')
+  canSave(oldvalue:Tag, newValue:Tag){
+    this.canSaveTag = true;
+  }
+
   private async saveTag() {
     this.isCreatingTag = true;
     const formData = new FormData();
