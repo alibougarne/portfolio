@@ -17,7 +17,7 @@ export default class TagsList extends Mixins(
   NotificationMixin
 ) {
   private loading: boolean = false;
-  public name : string = 'merzaq';
+  public name: string = 'merzaq';
   private tagDialog: boolean = false;
   private filter: string = '';
   private currentTag: Tag = new Tag();
@@ -45,23 +45,32 @@ export default class TagsList extends Mixins(
     }
   ];
   @Watch('name')
-  watchName(old:string,newval:string){
+  watchName(old: string, newval: string) {
     console.log('%c⧭ list ===> name new ', 'color: #e57373', newval);
     console.log('%c⧭ list ===> name old  ', 'color: #731d6d', old);
   }
 
   onEmissionFromChild(tag: Tag) {
     if (tag && tag.id) {
-      this.tags.push(tag);
+      if (this.tags.filter((t: Tag) => t.id === tag.id)) {
+        this.tags = this.tags.map((t: Tag) => {
+          if (t.id === tag.id) {
+            t = tag;
+          }
+          return t;
+        });
+      } else {
+        this.tags.push(tag);
+      }
       setTimeout(() => {
         this.tagDialog = false;
+        this.currentTag = new Tag();
       }, 1500);
     }
-    this.currentTag = new Tag;
   }
 
-  private setCurrentTag(tag:Tag){
-    this.currentTag = {...tag};
+  private setCurrentTag(tag: Tag) {
+    this.currentTag = { ...tag };
     this.tagDialog = true;
   }
   private async deleteTag(tagId: string) {

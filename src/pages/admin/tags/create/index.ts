@@ -64,9 +64,12 @@ export default class CreateTag extends Mixins(ButtonMixin) {
     return file.filter((file:any) => file.type === 'image/png')
   }
 
-  @Watch('tag')
-  canSave(oldvalue:Tag, newValue:Tag){
-    this.canSaveTag = true;
+  @Watch('tagImage', { immediate: true, deep: true })
+  @Watch('tag', { immediate: true, deep: true })
+  canSave( newValue:Tag, oldvalue:Tag){
+    if(oldvalue){
+      this.canSaveTag = true;
+    }
   }
 
   private async saveTag() {
@@ -84,17 +87,16 @@ export default class CreateTag extends Mixins(ButtonMixin) {
         response
       );
       if (response.data) {
-        if (response.data && response.status === 201) {
+        if (response.data && (response.status === 201 || response.status === 200 ) ) {
           this.emitTagToTagsList(<Tag>response.data);
           this.startComputing(300);
           setTimeout(() => {
             this.isCreatingTag = false;
-
             this.$q.notify({
               color: 'green-4',
               textColor: 'white',
               icon: 'cloud_done',
-              message: 'Tag saved successfully !'
+              message: `Tag ${this.tag.id?'edited':'saved'} successfully !`
             });
           }, 900);
         } else {
@@ -104,7 +106,7 @@ export default class CreateTag extends Mixins(ButtonMixin) {
               color: 'red',
               textColor: 'white',
               icon: 'cloud_done',
-              message: 'save tag failed'
+              message: `${this.tag.id?'editing':'saving'} tag failed`
             });
           }, 900);
         }
@@ -113,10 +115,10 @@ export default class CreateTag extends Mixins(ButtonMixin) {
       setTimeout(() => {
         this.isCreatingTag = false;
         this.$q.notify({
-          color: 'tomato',
+          color: 'red',
           textColor: 'white',
           icon: 'cloud_done',
-          message: 'save tag failed,error server, please try later'
+          message: `${this.tag.id?'editing':'saving'} tag failed,error server, please try later`
         });
       }, 900);
     }
