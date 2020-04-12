@@ -33,6 +33,11 @@ class TagModule extends VuexModule {
   }
 
   @Action
+  public async editTag(formData:FormData):Promise<AxiosResponse>{
+    return await this.tagService.editTag(formData);
+  }
+
+  @Action
   public async deleteTag(tagId:string):Promise<AxiosResponse>{
     return await this.tagService.deleteTag(tagId);
   }

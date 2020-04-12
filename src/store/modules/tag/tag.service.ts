@@ -18,6 +18,14 @@ export default class TagService {
       }
     });
   }
+
+  async editTag(formData: FormData): Promise<AxiosResponse> {
+    return await Axios.put('/api/tags/', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+  }
   async deleteTag(tagId: string): Promise<AxiosResponse> {
     return await Axios.delete(`/api/tags/${tagId}`);
   }
