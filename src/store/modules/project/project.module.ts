@@ -20,6 +20,16 @@ class ProjectModule extends VuexModule {
   }
 
   @Action
+  public async createProject(formData:FormData):Promise<AxiosResponse>{
+    return await this.projectService.createProject(formData);
+  }
+
+  @Action
+  public async editProject(formData:FormData):Promise<AxiosResponse>{
+    return await this.projectService.editProject(formData);
+  }
+
+  @Action
   public async deleteProject(projectId:string):Promise<AxiosResponse>{
     return await this.projectService.deleteProject(projectId);
   }
