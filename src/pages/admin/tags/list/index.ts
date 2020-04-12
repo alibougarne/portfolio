@@ -42,8 +42,18 @@ export default class TagsList extends Mixins(
       name: 'backgroundColor',
       label: 'Background Color',
       field: 'backgroundColor'
+    },
+    {
+      name: 'logo',
+      label: 'Logo',
+      field: 'logoPath'
     }
   ];
+
+  get imageLink():string{
+    return process.env.API || "";
+  }
+
   @Watch('name')
   watchName(old: string, newval: string) {
     console.log('%c⧭ list ===> name new ', 'color: #e57373', newval);

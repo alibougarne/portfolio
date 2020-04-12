@@ -36,7 +36,14 @@
       <template v-slot:body="props">
         <q-tr :props="props" :key="`m_${props.row.id}`">
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
-            {{ col.value }}
+            {{ col.name !== "logo"?col.value:""}}
+                <q-avatar square  v-if="col.name === 'logo'" size="md">
+                <q-img
+                  v-if="col.value"
+                  :src="`${imageLink}/tags/image/${col.value}`"
+                  spinner-color="white"
+                />
+            </q-avatar>
             <!-- {{props}} -->
           </q-td>
           <q-td key="action" style="text-align: center;">
@@ -56,6 +63,7 @@
               icon="remove"
               class="custom--button"
             />
+
           </q-td>
         </q-tr>
       </template>
