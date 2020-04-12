@@ -10,9 +10,11 @@
       <template v-slot:top>
         <q-btn
           color="green"
-          :disable="loading"
           label="Add Tag"
-          @click="tagDialog = true"
+          @click="(e) => {
+            e.preventDefault()
+            setCurrentTag(null)
+          }"
         />
         <q-space />
         <q-input borderless dense debounce="300" color="white" v-model="filter">

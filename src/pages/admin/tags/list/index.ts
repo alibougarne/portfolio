@@ -80,7 +80,11 @@ export default class TagsList extends Mixins(
   }
 
   private setCurrentTag(tag: Tag) {
-    this.currentTag = { ...tag };
+    if (tag){
+      this.currentTag = { ...tag };
+    }else{
+      this.currentTag = new Tag;
+    }
     this.tagDialog = true;
   }
   private async deleteTag(tagId: string) {

@@ -33,35 +33,36 @@ export default class CreateProject extends Mixins(ButtonMixin) {
     return (
       Object.keys(new Project())
         // .filter(input => ![ 'id', 'logoPath'].includes(input))
-        .filter(
-          input =>
-            [
-              ...Object.keys(new Common()),
-              'textColor',
-              'backgroundColor',
-              'description'
-            ].indexOf(input) < 0
-        )
+        // .filter(
+        //   input =>
+        //     [
+        //       ...Object.keys(new Common()),
+        //       'textColor',
+        //       'backgroundColor',
+        //       'description'
+        //     ].indexOf(input) < 0
+        // )
     );
   }
-  get colorPicks(): string[] {
-    return ['textColor', 'backgroundColor'];
-  }
+
   get imageLink():string{
     return process.env.API || "";
   }
+  
   @Emit('emission-from-child')
   emitProjectToProjectsList(project: Project) {}
+
   checkFile(e:any){
     console.log('%c⧭ file Uploaaader ===> ', 'color: #bfffc8', e);
   }
-  checkFileType (file:any) {
-    console.log('%c⧭', 'color: #1d3f73', file[0]._img,typeof file);
-    if (file.filter((file:any) => file.type === 'image/png')){
-      this.projectImage = file[0];
+
+  checkFileType (files:any) {
+    console.log('%c⧭ files', 'color: #1d3f73', files);
+    if (files.filter((files:any) => files.type === 'image/png')){
+      this.projectImage = files[0];
       console.log('%c⧭', 'color: #cc0088', this.projectImage);
     }
-    return file.filter((file:any) => file.type === 'image/png')
+    return files.filter((files:any) => files.type === 'image/png')
   }
 
   @Watch('projectImage', { immediate: true, deep: true })
@@ -129,13 +130,14 @@ export default class CreateProject extends Mixins(ButtonMixin) {
     this.projectImage = new File([''], 'image.png', { type: 'image/png' });
   }
   public async mounted(): Promise<void> {
+    console.log('%c⧭ this.inputs ====> ', 'color: #99adcc', this.inputs);
     // console.log(this.projectImage);
     if(this.project.id){
       // this.projectImage.src = `${this.imageLink}/projects/image/${this.project.logoPath}`
       // this.projectImage.alt = this.project.logoPath
 
     }
-    this.syncedName = 'merssssss';
+    // this.syncedName = 'merssssss';
     // console.log('%c⧭ name ====> ', 'color: #006dcc', this.syncedName);
     // this.projects = await projectModule.loadProjects();
   }
