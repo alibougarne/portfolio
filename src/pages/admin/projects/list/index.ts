@@ -18,6 +18,7 @@ export default class ProjectsList extends Mixins(
   private projects: Project[] = [];
   private loading: boolean = false;
   private projectDialog: boolean = false;
+  private currentProject: Project = new Project();
   private filter: string = '';
   private columns: Object[] = [
     // {
@@ -130,11 +131,26 @@ export default class ProjectsList extends Mixins(
   ];
   onEmissionFromChild(project: Project) {
     if (project && project.id) {
-      this.projects.push(project);
+      if (this.projects.filter((pr: Project) => pr.id === project.id)) {
+        this.projects = this.projects.map((pr: Project) => {
+          if (pr.id === project.id) {
+            pr = project;
+          }
+          return pr;
+        });
+      } else {
+        this.projects.push(project);
+      }
       setTimeout(() => {
         this.projectDialog = false;
+        this.currentProject = new Project();
       }, 1500);
     }
+  }
+
+  private setCurrentTag(project: Project) {
+    this.currentProject = { ...project };
+    this.projectDialog = true;
   }
 
   private async deleteProject(projectId: string) {

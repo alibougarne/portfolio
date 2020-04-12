@@ -7,7 +7,6 @@ class ProjectModule extends VuexModule {
   // state
   private projectService:ProjectService = new ProjectService;
   // mutations
-
   // actions
   @Action
   public async loadProjects():Promise<AxiosResponse<Project[]>>{

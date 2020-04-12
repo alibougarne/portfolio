@@ -76,9 +76,9 @@
       full-width
       transition-show="slide-down"
       transition-hide="slide-up"
-      :content-style="{ background: '#4c4848' }"
+      :content-style="{ background: '#4c4848'}"
     >
-      <CreateProject @emission-from-child="onEmissionFromChild" />
+      <CreateProject @emission-from-child="onEmissionFromChild" :project="currentProject"/>
     </q-dialog>
   </div>
 </q-page>
