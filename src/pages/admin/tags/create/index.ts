@@ -15,12 +15,20 @@ export default class CreateTag extends Mixins(ButtonMixin) {
   private tag!: Tag;
   @PropSync('name', { type: String }) syncedName!: string;
   private isCreatingTag: boolean = false;
-  // private tagImage: File = new File([""], "image", {type: "image/*"});
-  private tagImage: File = new File([''], 'image.png', { type: 'image/*' });
+  private tagImage: File =  new File([''], 'image.png', { type: 'image/png' });
 
-  @Emit('emission-from-child')
-  emitTagToTagsList(tag: Tag) {}
-
+  public contentStyle: object = {};
+  public contentActiveStyle: object = {};
+  public thumbStyle: object = {
+    right: '2px',
+    borderRadius: '0px',
+    backgroundColor: 'darkgoldenrod',
+    width: '5px',
+    opacity: 0.75
+  };
+  // get inputsWrapperHeight(){
+  //   return (document as any).querySelector(".tag--inputs").offsetHeight;
+  // }
   get inputs(): string[] {
     return (
       Object.keys(new Tag())
@@ -39,16 +47,22 @@ export default class CreateTag extends Mixins(ButtonMixin) {
   get colorPicks(): string[] {
     return ['textColor', 'backgroundColor'];
   }
-  public contentStyle: object = {};
-  public contentActiveStyle: object = {};
-  public thumbStyle: object = {
-    right: '2px',
-    borderRadius: '0px',
-    backgroundColor: 'darkgoldenrod',
-    width: '5px',
-    opacity: 0.75
-  };
-
+  get imageLink():string{
+    return process.env.API || "";
+  }
+  @Emit('emission-from-child')
+  emitTagToTagsList(tag: Tag) {}
+  checkFile(e:any){
+    console.log('%c⧭ file Uploaaader ===> ', 'color: #bfffc8', e);
+  }
+  checkFileType (file:any) {
+    console.log('%c⧭', 'color: #1d3f73', file[0]._img,typeof file);
+    if (file.filter((file:any) => file.type === 'image/png')){
+      this.tagImage = file[0];
+      console.log('%c⧭', 'color: #cc0088', this.tagImage);
+    }
+    return file.filter((file:any) => file.type === 'image/png')
+  }
   private async saveTag() {
     this.isCreatingTag = true;
     const formData = new FormData();
@@ -101,13 +115,20 @@ export default class CreateTag extends Mixins(ButtonMixin) {
       }, 900);
     }
   }
+
   private onReset() {
     this.tag = new Tag();
-    this.tagImage = new File([''], 'image.png', { type: 'image/*' });
+    this.tagImage = new File([''], 'image.png', { type: 'image/png' });
   }
   public async mounted(): Promise<void> {
+    // console.log(this.tagImage);
+    if(this.tag.id){
+      // this.tagImage.src = `${this.imageLink}/tags/image/${this.tag.logoPath}`
+      // this.tagImage.alt = this.tag.logoPath
+
+    }
     this.syncedName = 'merssssss';
-    console.log('%c⧭ name ====> ', 'color: #006dcc', this.syncedName);
+    // console.log('%c⧭ name ====> ', 'color: #006dcc', this.syncedName);
     // this.tags = await tagModule.loadTags();
   }
 }
