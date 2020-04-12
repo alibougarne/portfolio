@@ -12,11 +12,21 @@
       <q-toolbar-title>
         Portfolio Administration
       </q-toolbar-title>
-      <q-btn flat round dense icon="mdi-power-standby" @click.prevent="logout()"/>
+      <q-btn
+        flat
+        round
+        dense
+        icon="mdi-power-standby"
+        @click.prevent="logout()"
+      />
     </q-toolbar>
   </q-header>
 
-  <q-drawer v-model="leftDrawerOpen" content-class="bg-grey-8"  v-if="isAuthenticated">
+  <q-drawer
+    v-model="leftDrawerOpen"
+    content-class="bg-grey-8"
+    v-if="isAuthenticated"
+  >
     <q-list dark>
       <q-item-label header>Admin Panel</q-item-label>
       <q-item
@@ -25,7 +35,11 @@
         tag="a"
         :key="link.text"
         v-ripple
-        @click="$router.push(link.path).catch(err => {})"
+        @click="() => {
+          if($route.path !== link.path) {
+            $router.push(link.path).catch(err => {})
+          }
+        }"
       >
         <q-item-section avatar>
           <q-icon :name="link.icon" />

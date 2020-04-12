@@ -59,10 +59,14 @@ export default class AdminLayout extends Vue {
     }, 400);
   }
   get currentPathName(): string | null | undefined {
+    console.log('%c⧭', 'color: #007300', this.$route);
     return this.$route.name;
   }
   @Watch('currentPathName')
   public watchRoutes(current: string, old: string): void {
+    console.log('%c⧭ old', 'color: #731d1d', old);
+    console.log('%c⧭ current', 'color: #f200e2', current);
+    console.log('%c⧭', 'color: #807160', this.isAuthenticated);
     if (!this.isAuthenticated && current !== 'login') {
       this.$route.name;
       this.$router.push('/admin').catch(err => {});
@@ -70,14 +74,16 @@ export default class AdminLayout extends Vue {
   }
 
   public created(): void {
-    if (!this.isAuthenticated && this.currentPathName !== 'login') {
-      this.$router.push('/admin').catch(err => {
-        console.log('%c⧭', 'color: #733d00', err);
-      });
-    } else if(this.currentPathName !== 'adminHome'){
-      this.$router.push('/admin/home').catch(err => {
-        console.log('%c⧭', 'color: #733d00', err);
-      });
-    }
+    try {
+      if (!this.isAuthenticated && this.currentPathName !== 'login') {
+        this.$router.push('/admin').catch(err => {
+          console.log('%c⧭', 'color: #733d00', err);
+        });
+      } else if (this.isAuthenticated && this.currentPathName !== 'adminHome') {
+        this.$router.push('/admin/home').catch(err => {
+          console.log('%c⧭', 'color: #733d00', err);
+        });
+      }
+    } catch (error) {}
   }
 }
