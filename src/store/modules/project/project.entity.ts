@@ -4,10 +4,13 @@ import Category from '../category/category.entity';
 import Company from '../company/company.entity';
 
 export default class Project extends Common {
-  public name?: string;
-  public description?: string;
+  public name?: string='';
+  public description?: string='';
   public rating?:number;
-  public link?:number;
+  public link?:string='';
+  public categoryId?:string='';
+  public companyId?:string='';
+  public tagIds?:string[]=[];
   public category?: Category;
   public beginDate?: Date;
   public endDate?: Date;

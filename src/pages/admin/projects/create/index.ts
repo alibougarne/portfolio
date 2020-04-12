@@ -33,15 +33,15 @@ export default class CreateProject extends Mixins(ButtonMixin) {
     return (
       Object.keys(new Project())
         // .filter(input => ![ 'id', 'logoPath'].includes(input))
-        // .filter(
-        //   input =>
-        //     [
-        //       ...Object.keys(new Common()),
-        //       'textColor',
-        //       'backgroundColor',
-        //       'description'
-        //     ].indexOf(input) < 0
-        // )
+        .filter(
+          input =>
+            [
+              ...Object.keys(new Common()),
+              'textColor',
+              'backgroundColor',
+              'description'
+            ].indexOf(input) < 0
+        )
     );
   }
 

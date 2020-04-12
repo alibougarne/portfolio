@@ -148,8 +148,12 @@ export default class ProjectsList extends Mixins(
     }
   }
 
-  private setCurrentTag(project: Project) {
-    this.currentProject = { ...project };
+  private setCurrentProject(project: Project) {
+    if (project){
+      this.currentProject = { ...project };
+    }else{
+      this.currentProject = new Project;
+    }
     this.projectDialog = true;
   }
 

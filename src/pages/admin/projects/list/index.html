@@ -12,7 +12,10 @@
           color="green"
           :disable="loading"
           label="Add Project"
-          @click="projectDialog = true"
+          @click="(e) => {
+            e.preventDefault()
+            setCurrentProject(null)
+          }"
         />
         <q-space />
         <q-input borderless dense debounce="300" color="white" v-model="filter">
@@ -58,6 +61,8 @@
               style="color: green;"
               icon="edit"
               class="custom--button"
+              @click="setCurrentProject(props.row)"
+
             />
             <q-btn
               outline
