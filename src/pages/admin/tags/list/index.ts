@@ -50,7 +50,7 @@ export default class TagsList extends Mixins(
     }
   ];
 
-  get imageLink():string{
+  get link_API():string{
     return process.env.API || "";
   }
 
