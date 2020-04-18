@@ -4,11 +4,11 @@ import Project from './project.entity';
 export default class ProjectService {
 
 
-  public async loadProjects(): Promise<AxiosResponse<Project[]>> {
+  static async loadProjects(): Promise<AxiosResponse<Project[]>> {
     return await Axios.get('/api/projects');
   }
 
-  public async loadProjectsPerTag(tagId:string): Promise<Project[]> {
+  static async loadProjectsPerTag(tagId:string): Promise<Project[]> {
     let projects: Project[] = [];
     await Axios.get('/api/projects/tag/'+tagId).then((response: AxiosResponse) => {
       projects = response.data;
@@ -16,7 +16,7 @@ export default class ProjectService {
     return projects;
   }
 
-  async createProject(formData: FormData): Promise<AxiosResponse> {
+  static async createProject(formData: FormData): Promise<AxiosResponse> {
     return await Axios.post('/api/projects/', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
@@ -24,7 +24,7 @@ export default class ProjectService {
     });
   }
   
-  async editProject(formData: FormData): Promise<AxiosResponse> {
+  static async editProject(formData: FormData): Promise<AxiosResponse> {
     return await Axios.put('/api/projects/', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
@@ -32,7 +32,7 @@ export default class ProjectService {
     });
   }
 
-  async deleteProject(projectId: string): Promise<AxiosResponse> {
+  static async deleteProject(projectId: string): Promise<AxiosResponse> {
     return await Axios.delete(`/api/projects/delete/${projectId}`);
   }
 }

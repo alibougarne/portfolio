@@ -3,21 +3,14 @@ import { VuexModule, Module, Mutation, Action } from 'vuex-class-modules';
 @Module
 class CompanyModule extends VuexModule {
   // state
-  public companies: Company[] = [];
-  private companyService: CompanyService = new CompanyService();
   // mutations
-  @Mutation
-  private setCompany(companies: Company[]) {
-    this.companies = companies;
-  }
   // getters
   // 😅 not yet
   // actions
   @Action
   public async loadCompanies() {
     let companies: Company[] = [];
-    companies = await this.companyService.loadCompanies();
-    this.setCompany(companies);
+    companies = await CompanyService.loadCompanies();
     return companies;
   }
 }

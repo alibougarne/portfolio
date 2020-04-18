@@ -5,32 +5,31 @@ import Project from './project.entity';
 @Module
 class ProjectModule extends VuexModule {
   // state
-  private projectService:ProjectService = new ProjectService;
   // mutations
   // actions
   @Action
   public async loadProjects():Promise<AxiosResponse<Project[]>>{
-    return await this.projectService.loadProjects();
+    return await ProjectService.loadProjects();
   }
 
   @Action
   public async loadProjectsPerTag(tagId:string):Promise<Project[]>{
-    return await this.projectService.loadProjectsPerTag(tagId);
+    return await ProjectService.loadProjectsPerTag(tagId);
   }
 
   @Action
   public async createProject(formData:FormData):Promise<AxiosResponse>{
-    return await this.projectService.createProject(formData);
+    return await ProjectService.createProject(formData);
   }
 
   @Action
   public async editProject(formData:FormData):Promise<AxiosResponse>{
-    return await this.projectService.editProject(formData);
+    return await ProjectService.editProject(formData);
   }
 
   @Action
   public async deleteProject(projectId:string):Promise<AxiosResponse>{
-    return await this.projectService.deleteProject(projectId);
+    return await ProjectService.deleteProject(projectId);
   }
 }
 
