@@ -20,9 +20,7 @@ export default class CreateProject extends Mixins(ButtonMixin) {
   private project!: Project;
   @PropSync('name', { type: String }) syncedName!: string;
   private isCreatingProject: boolean = false;
-  private projectImage: File = new File([''], 'image.png', {
-    type: 'image/png'
-  });
+  private projectImages: File[]= [];
   private canSaveProject: boolean = false;
   public contentStyle: object = {};
   public contentActiveStyle: object = {};
@@ -72,28 +70,32 @@ export default class CreateProject extends Mixins(ButtonMixin) {
   }
 
   checkFileType(files: any) {
-    console.log('%c⧭ files', 'color: #1d3f73', files);
+    console.log('%c⧭ files ====> ', 'color: #c9cc99', files);
     if (files.filter((files: any) => files.type === 'image/png')) {
-      this.projectImage = files[0];
-      console.log('%c⧭', 'color: #cc0088', this.projectImage);
+      files.filter((files: any) => files.type === 'image/png').forEach((file:File)=>{
+        this.projectImages.push(file);
+      })
+      console.log('%c⧭', 'color: #cc0088', this.projectImages);
     }
     return files.filter((files: any) => files.type === 'image/png');
   }
 
-  @Watch('projectImage', { immediate: true, deep: true })
-  @Watch('project', { immediate: true, deep: true })
-  canSave(newValue: Project, oldvalue: Project) {
-    if (oldvalue) {
-      this.canSaveProject = true;
-    }
+  get checkIfCanSaveProject(){
+    this.canSaveProject = !!this.projectImages || !!this.project.id;
+    return this.canSaveProject
   }
-
   private async saveProject() {
     this.isCreatingProject = true;
     const formData = new FormData();
-    formData.append('projectImage', this.projectImage);
+    console.log('%c⧭ 🎭this.projectImages ===> ', 'color: #8c0038', this.projectImages);
+    this.projectImages.forEach((image:File,index:number) => {
+      console.log('%c⧭ image forEach =====> ', 'color: #00736b', image);
+      formData.append('image',image );
+    })
+    console.log('%c⧭ 🧩project formData ====> ', 'color: #514080', formData);
     console.log('%c⧭ ⚓️ this.project  ===> ', 'color: #33cc99', this.project);
     formData.append('project', JSON.stringify(this.project));
+    console.log('%c⧭ 🧩project formData ====> ', 'color: #514080', formData);
     try {
       let response: AxiosResponse = this.project.id
         ? await projectModule.editProject(formData)
@@ -152,7 +154,7 @@ export default class CreateProject extends Mixins(ButtonMixin) {
 
   private onReset() {
     this.project = new Project();
-    this.projectImage = new File([''], 'image.png', { type: 'image/png' });
+    this.projectImages = [];
   }
   public async mounted(): Promise<void> {
     this.tags = await tagModule.loadTags();

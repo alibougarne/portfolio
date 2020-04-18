@@ -193,11 +193,16 @@
           <div class=" col-xs-12 col-md-12 col-lg-12 q-pt-md q-pb-md">
             <q-uploader
               dark
+              multiple
               label="Filtered (png only)"
               :filter="checkFileType"
+              accept="image/png"
               style="max-width: 100%; overflow: hidden;height: 100%;background: #565656;max-height: 100%;"
-              @add="(e) => checkFile(e)"
+              @added ="(e) => checkFile(e)"
+              hide-upload-btn
+              @removed="(e) => checkFile(e)"
               color="red"
+              text-color="white"
             >
               <template v-slot:header="scope">
                 <div
@@ -207,7 +212,9 @@
                   <q-btn
                     v-if="scope.queuedFiles.length > 0"
                     icon="clear_all"
-                    @click="scope.removeQueuedFiles"
+                    @click="(e) => {
+                      scope.removeQueuedFiles;
+                    }"
                     round
                     dense
                     flat
@@ -235,6 +242,9 @@
                     v-if="scope.canAddFiles"
                     type="a"
                     icon="add_box"
+                    @add="(e) => {
+                      scope.removeQueuedFiles;
+                    }"
                     round
                     dense
                     flat
@@ -253,7 +263,6 @@
                   >
                     <q-tooltip>Upload Files</q-tooltip>
                   </q-btn>
-
                   <q-btn
                     v-if="scope.isUploading"
                     icon="clear"
@@ -265,6 +274,41 @@
                     <q-tooltip>Abort Upload</q-tooltip>
                   </q-btn>
                 </div>
+              </template>
+              <template v-slot:list="scope">
+                <q-list separator>
+                  <q-item v-for="file in scope.files" :key="file.name">
+                    <q-item-section>
+                      <q-item-label class="full-width ellipsis">
+                        {{ file.name }}
+                      </q-item-label>
+
+                      <q-item-label caption>
+                        Status: {{ file.__status }}
+                      </q-item-label>
+
+                      <q-item-label caption>
+                        {{ file.__sizeLabel }} / {{ file.__progressLabel }}
+                      </q-item-label>
+                    </q-item-section>
+
+                    <q-item-section v-if="file.__img" thumbnail class="gt-xs">
+                      <img :src="file.__img.src" style="width: auto;"/>
+                    </q-item-section>
+
+                    <q-item-section top side>
+                      <q-btn
+                        class="gt-xs"
+                        size="12px"
+                        flat
+                        dense
+                        round
+                        icon="delete"
+                        @click="scope.removeFile(file)"
+                      />
+                    </q-item-section>
+                  </q-item>
+                </q-list>
               </template>
             </q-uploader>
           </div>
@@ -283,7 +327,7 @@
       @click="saveProject()"
       :loading="isCreatingProject"
       :percenprojecte="loadingPercentage"
-      :disabled="!canSaveProject"
+      :disabled="!checkIfCanSaveProject"
     />
     <q-btn label="Reset" type="reset" color="green" flat class="q-ml-sm" />
     <!-- <q-btn flat label="Decline" color="primary" v-close-popup />
