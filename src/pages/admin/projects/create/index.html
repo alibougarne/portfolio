@@ -287,9 +287,19 @@
                         Main image:
                       </q-item-label>
                       <q-toggle
-                        :value="project.mainImage === file.name "
+                        :value="project.mainImage === file.name"
                         v-model="projectImages[index].selected"
-                        @input="project.mainImage = file.name"
+                        @input=" (e)=>{
+                          project.mainImage = file.name;
+                          projectImages = projectImages.map(projectImage => {
+                            if (projectImage.file.name === file.name){
+                              projectImage.selected = true;
+                            }else{
+                              projectImage.selected = false;
+                            }
+                            return projectImage;
+                          })
+                        }"
                       />
                     </q-item-section>
 
