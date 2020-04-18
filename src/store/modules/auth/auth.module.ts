@@ -26,7 +26,7 @@ class AuthModule extends VuexModule {
     // let accessToken: string | null = localStorage.getItem("acces_token");
     let responseDto: ResponseDto = new ResponseDto();
     // if (!accessToken){
-    responseDto = await this.authService.login(loginDto);
+    responseDto = await AuthService.login(loginDto);
     if (
       responseDto.status === 'success' &&
       responseDto.acces_token &&
