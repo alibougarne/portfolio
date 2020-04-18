@@ -92,6 +92,7 @@ export default class CreateProject extends Mixins(ButtonMixin) {
     this.isCreatingProject = true;
     const formData = new FormData();
     formData.append('projectImage', this.projectImage);
+    console.log('%c⧭ ⚓️ this.project  ===> ', 'color: #33cc99', this.project);
     formData.append('project', JSON.stringify(this.project));
     try {
       let response: AxiosResponse = this.project.id

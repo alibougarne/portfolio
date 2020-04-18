@@ -28,7 +28,7 @@
                   <q-avatar square>
                     <q-img
                       v-if="tag.logoPath"
-                      :src="`${imageLink}/tags/image/${tag.logoPath}`"
+                      :src="`${link_API}/images/${tag.logoPath}?target=tags`"
                       spinner-color="white"
                       style="max-width: 40px"
                     />
@@ -171,7 +171,7 @@
         @click="saveTag()"
         :loading="isCreatingTag"
         :percentage="loadingPercentage"
-        :disabled="!canSaveTag"
+        :disabled="!checkIfCanSaveTag"
       />
       <q-btn label="Reset" type="reset" color="green" flat class="q-ml-sm" />
       <!-- <q-btn flat label="Decline" color="primary" v-close-popup />

@@ -15,7 +15,7 @@ export default class CreateTag extends Mixins(ButtonMixin) {
   private tag!: Tag;
   @PropSync('name', { type: String }) syncedName!: string;
   private isCreatingTag: boolean = false;
-  private tagImage: File =  new File([''], 'image.png', { type: 'image/png' });
+  private tagImage: File = new File([''], 'image.png', { type: 'image/png' });
   private canSaveTag: boolean = false;
   public contentStyle: object = {};
   public contentActiveStyle: object = {};
@@ -47,30 +47,44 @@ export default class CreateTag extends Mixins(ButtonMixin) {
   get colorPicks(): string[] {
     return ['textColor', 'backgroundColor'];
   }
-  get imageLink():string{
-    return process.env.API || "";
+  get link_API(): string {
+    return process.env.API || '';
   }
   @Emit('emission-from-child')
   emitTagToTagsList(tag: Tag) {}
-  checkFile(e:any){
+  checkFile(e: any) {
     console.log('%c⧭ file Uploaaader ===> ', 'color: #bfffc8', e);
   }
-  checkFileType (file:any) {
-    console.log('%c⧭', 'color: #1d3f73', file[0]._img,typeof file);
-    if (file.filter((file:any) => file.type === 'image/png')){
+  checkFileType(file: any) {
+    console.log('%c⧭', 'color: #1d3f73', file[0]._img, typeof file);
+    if (file.filter((file: any) => file.type === 'image/png')) {
       this.tagImage = file[0];
       console.log('%c⧭', 'color: #cc0088', this.tagImage);
     }
-    return file.filter((file:any) => file.type === 'image/png')
+    return file.filter((file: any) => file.type === 'image/png');
   }
 
-  @Watch('tagImage', { immediate: true, deep: true })
-  @Watch('tag', { immediate: true, deep: true })
-  canSave( newValue:Tag, oldvalue:Tag){
-    if(oldvalue){
-      this.canSaveTag = true;
-    }
+  // @Watch('tag', { immediate: true, deep: true })
+  // canSave(newValue: Tag, oldvalue: Tag) {
+  //   console.log('%c⧭ tag old ==> ', 'color: #ffa280', oldvalue);
+  //   console.log('%c⧭ tag new ==> ', 'color: #e6accb', newValue);
+  //   if (newValue && newValue.id) {
+  //     this.canSaveTag = true;
+  //   }
+  // }
+
+  get checkIfCanSaveTag(){
+    this.canSaveTag = !!this.tagImage.size || !!this.tag.id;
+    return this.canSaveTag
   }
+  // @Watch('tagImage', { immediate: true, deep: true })
+  // canSaveIfEditTag(newValue: Tag, oldvalue: Tag) {
+  //   console.log('%c⧭ tagimage old ==> ', 'color: #ffa280', oldvalue);
+  //   console.log('%c⧭ tagimage new ==> ', 'color: #e6accb', newValue);
+  //   if (oldvalue) {
+  //     this.canSaveTag = true;
+  //   }
+  // }
 
   private async saveTag() {
     this.isCreatingTag = true;
@@ -87,7 +101,10 @@ export default class CreateTag extends Mixins(ButtonMixin) {
         response
       );
       if (response.data) {
-        if (response.data && (response.status === 201 || response.status === 200 ) ) {
+        if (
+          response.data &&
+          (response.status === 201 || response.status === 200)
+        ) {
           this.emitTagToTagsList(<Tag>response.data);
           this.startComputing(300);
           setTimeout(() => {
@@ -96,7 +113,7 @@ export default class CreateTag extends Mixins(ButtonMixin) {
               color: 'green-4',
               textColor: 'white',
               icon: 'cloud_done',
-              message: `Tag ${this.tag.id?'edited':'saved'} successfully !`
+              message: `Tag ${this.tag.id ? 'edited' : 'saved'} successfully !`
             });
           }, 900);
         } else {
@@ -106,7 +123,7 @@ export default class CreateTag extends Mixins(ButtonMixin) {
               color: 'red',
               textColor: 'white',
               icon: 'cloud_done',
-              message: `${this.tag.id?'editing':'saving'} tag failed`
+              message: `${this.tag.id ? 'editing' : 'saving'} tag failed`
             });
           }, 900);
         }
@@ -118,7 +135,9 @@ export default class CreateTag extends Mixins(ButtonMixin) {
           color: 'red',
           textColor: 'white',
           icon: 'cloud_done',
-          message: `${this.tag.id?'editing':'saving'} tag failed,error server, please try later`
+          message: `${
+            this.tag.id ? 'editing' : 'saving'
+          } tag failed,error server, please try later`
         });
       }, 900);
     }
@@ -128,12 +147,13 @@ export default class CreateTag extends Mixins(ButtonMixin) {
     this.tag = new Tag();
     this.tagImage = new File([''], 'image.png', { type: 'image/png' });
   }
+
   public async mounted(): Promise<void> {
+    // console.log('%c⧭', 'color: #eeff00', this.checkIfCanSaveTag);
     // console.log(this.tagImage);
-    if(this.tag.id){
+    if (this.tag.id) {
       // this.tagImage.src = `${this.imageLink}/tags/image/${this.tag.logoPath}`
       // this.tagImage.alt = this.tag.logoPath
-
     }
     this.syncedName = 'merssssss';
     // console.log('%c⧭ name ====> ', 'color: #006dcc', this.syncedName);
