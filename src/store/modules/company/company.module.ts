@@ -14,17 +14,11 @@ class CompanyModule extends VuexModule {
   // 😅 not yet
   // actions
   @Action
-  public async loadCompany() {
+  public async loadCompanies() {
     let companies: Company[] = [];
-    console.log(
-      '%c⧭ companies before load is 💩 ==> ',
-      'color: #f2ceb6',
-      companies
-    );
     companies = await this.companyService.loadCompanies();
-    console.log('%c⧭ companies after load is 🍏', 'color: #00e600', companies);
     this.setCompany(companies);
-    // return Company;
+    return companies;
   }
 }
 

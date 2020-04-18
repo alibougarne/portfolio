@@ -17,7 +17,7 @@ export default class Project extends Common {
   public images?: string;
   public mainImage?: string;
   public company?: Company;
-  public tags?: Tag[];
+  public tags?: Tag[]=[];
 
 
 }

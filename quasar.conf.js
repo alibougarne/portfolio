@@ -93,6 +93,7 @@ module.exports = function(ctx) {
         'QDialog',
         'QRating',
         'QSpinner',
+        'QSelect',
         'QUploaderAddTrigger',
       ],
       directives: ['Ripple','ClosePopup'],

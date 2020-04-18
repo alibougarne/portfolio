@@ -4,21 +4,29 @@ import Project from '@/store/modules/project/project.entity';
 import { Common } from '@/store/modules/common/common.entity';
 import { AxiosResponse } from 'axios';
 import { projectModule } from '@/store/modules/project/project.module';
+import { tagModule } from '@/store/modules/tag/tag.module';
 import { Emit, Mixins, Prop, PropSync, Watch } from 'vue-property-decorator';
 import ButtonMixin from '@/mixins/buttons';
+import Tag from '@/store/modules/tag/tag.entity';
+import Company from '@/store/modules/company/company.entity';
+import { companyModule } from '@/store/modules/company/company.module';
 @Component({
   components: {}
 })
 export default class CreateProject extends Mixins(ButtonMixin) {
-  
   @Prop()
   private project!: Project;
   @PropSync('name', { type: String }) syncedName!: string;
   private isCreatingProject: boolean = false;
-  private projectImage: File =  new File([''], 'image.png', { type: 'image/png' });
+  private projectImage: File = new File([''], 'image.png', {
+    type: 'image/png'
+  });
   private canSaveProject: boolean = false;
   public contentStyle: object = {};
   public contentActiveStyle: object = {};
+  private tags: Tag[] = [];
+  private companies: Company[] = [];
+
   public thumbStyle: object = {
     right: '2px',
     borderRadius: '0px',
@@ -29,6 +37,7 @@ export default class CreateProject extends Mixins(ButtonMixin) {
   // get inputsWrapperHeight(){
   //   return (document as any).querySelector(".project--inputs").offsetHeight;
   // }
+
   get inputs(): string[] {
     return (
       Object.keys(new Project())
@@ -37,38 +46,39 @@ export default class CreateProject extends Mixins(ButtonMixin) {
           input =>
             [
               ...Object.keys(new Common()),
-              'textColor',
-              'backgroundColor',
-              'description'
+              'tagIds',
+              'categoryId',
+              'companyId',
+              'description',
             ].indexOf(input) < 0
         )
     );
   }
 
-  get imageLink():string{
-    return process.env.API || "";
+  get link_API(): string {
+    return process.env.API || '';
   }
-  
+
   @Emit('emission-from-child')
   emitProjectToProjectsList(project: Project) {}
 
-  checkFile(e:any){
+  checkFile(e: any) {
     console.log('%c⧭ file Uploaaader ===> ', 'color: #bfffc8', e);
   }
 
-  checkFileType (files:any) {
+  checkFileType(files: any) {
     console.log('%c⧭ files', 'color: #1d3f73', files);
-    if (files.filter((files:any) => files.type === 'image/png')){
+    if (files.filter((files: any) => files.type === 'image/png')) {
       this.projectImage = files[0];
       console.log('%c⧭', 'color: #cc0088', this.projectImage);
     }
-    return files.filter((files:any) => files.type === 'image/png')
+    return files.filter((files: any) => files.type === 'image/png');
   }
 
   @Watch('projectImage', { immediate: true, deep: true })
   @Watch('project', { immediate: true, deep: true })
-  canSave( newValue:Project, oldvalue:Project){
-    if(oldvalue){
+  canSave(newValue: Project, oldvalue: Project) {
+    if (oldvalue) {
       this.canSaveProject = true;
     }
   }
@@ -88,7 +98,10 @@ export default class CreateProject extends Mixins(ButtonMixin) {
         response
       );
       if (response.data) {
-        if (response.data && (response.status === 201 || response.status === 200 ) ) {
+        if (
+          response.data &&
+          (response.status === 201 || response.status === 200)
+        ) {
           this.emitProjectToProjectsList(<Project>response.data);
           this.startComputing(300);
           setTimeout(() => {
@@ -97,7 +110,9 @@ export default class CreateProject extends Mixins(ButtonMixin) {
               color: 'green-4',
               textColor: 'white',
               icon: 'cloud_done',
-              message: `Project ${this.project.id?'edited':'saved'} successfully !`
+              message: `Project ${
+                this.project.id ? 'edited' : 'saved'
+              } successfully !`
             });
           }, 900);
         } else {
@@ -107,7 +122,9 @@ export default class CreateProject extends Mixins(ButtonMixin) {
               color: 'red',
               textColor: 'white',
               icon: 'cloud_done',
-              message: `${this.project.id?'editing':'saving'} project failed`
+              message: `${
+                this.project.id ? 'editing' : 'saving'
+              } project failed`
             });
           }, 900);
         }
@@ -119,7 +136,9 @@ export default class CreateProject extends Mixins(ButtonMixin) {
           color: 'red',
           textColor: 'white',
           icon: 'cloud_done',
-          message: `${this.project.id?'editing':'saving'} project failed,error server, please try later`
+          message: `${
+            this.project.id ? 'editing' : 'saving'
+          } project failed,error server, please try later`
         });
       }, 900);
     }
@@ -130,15 +149,8 @@ export default class CreateProject extends Mixins(ButtonMixin) {
     this.projectImage = new File([''], 'image.png', { type: 'image/png' });
   }
   public async mounted(): Promise<void> {
-    console.log('%c⧭ this.inputs ====> ', 'color: #99adcc', this.inputs);
-    // console.log(this.projectImage);
-    if(this.project.id){
-      // this.projectImage.src = `${this.imageLink}/projects/image/${this.project.logoPath}`
-      // this.projectImage.alt = this.project.logoPath
-
-    }
-    // this.syncedName = 'merssssss';
-    // console.log('%c⧭ name ====> ', 'color: #006dcc', this.syncedName);
-    // this.projects = await projectModule.loadProjects();
+    this.tags = await tagModule.loadTags();
+    console.log('%c⧭ 📎this.tags ===> ', 'color: #00258c', this.tags);
+    this.companies = await companyModule.loadCompanies();
   }
 }
