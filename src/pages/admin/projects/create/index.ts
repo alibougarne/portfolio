@@ -20,7 +20,7 @@ export default class CreateProject extends Mixins(ButtonMixin) {
   private project!: Project;
   @PropSync('name', { type: String }) syncedName!: string;
   private isCreatingProject: boolean = false;
-  private projectImages: File[]= [];
+  private projectImages: any= [];
   private canSaveProject: boolean = false;
   public contentStyle: object = {};
   public contentActiveStyle: object = {};
@@ -70,13 +70,12 @@ export default class CreateProject extends Mixins(ButtonMixin) {
   }
 
   checkFileType(files: any) {
-    console.log('%c⧭ files ====> ', 'color: #c9cc99', files);
     if (files.filter((files: any) => files.type === 'image/png')) {
       files.filter((files: any) => files.type === 'image/png').forEach((file:File)=>{
-        this.projectImages.push(file);
+        this.projectImages.push({selected:!this.projectImages, file});
       })
-      console.log('%c⧭', 'color: #cc0088', this.projectImages);
     }
+    console.log('%c⧭ this.projectImages ====> ', 'color: #ff6600', this.projectImages, this.project.mainImage);
     return files.filter((files: any) => files.type === 'image/png');
   }
 
@@ -87,15 +86,11 @@ export default class CreateProject extends Mixins(ButtonMixin) {
   private async saveProject() {
     this.isCreatingProject = true;
     const formData = new FormData();
-    console.log('%c⧭ 🎭this.projectImages ===> ', 'color: #8c0038', this.projectImages);
-    this.projectImages.forEach((image:File,index:number) => {
-      console.log('%c⧭ image forEach =====> ', 'color: #00736b', image);
-      formData.append('image',image );
+    // console.log('%c⧭ 🎭this.projectImages ===> ', 'color: #8c0038', this.projectImages);
+    this.projectImages.forEach((projectImage:any,index:number) => {
+      formData.append('image',projectImage.file );
     })
-    console.log('%c⧭ 🧩project formData ====> ', 'color: #514080', formData);
-    console.log('%c⧭ ⚓️ this.project  ===> ', 'color: #33cc99', this.project);
     formData.append('project', JSON.stringify(this.project));
-    console.log('%c⧭ 🧩project formData ====> ', 'color: #514080', formData);
     try {
       let response: AxiosResponse = this.project.id
         ? await projectModule.editProject(formData)

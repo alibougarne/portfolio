@@ -198,7 +198,7 @@
               :filter="checkFileType"
               accept="image/png"
               style="max-width: 100%; overflow: hidden;height: 100%;background: #565656;max-height: 100%;"
-              @added ="(e) => checkFile(e)"
+              @added="(e) => checkFile(e)"
               hide-upload-btn
               @removed="(e) => checkFile(e)"
               color="red"
@@ -277,23 +277,24 @@
               </template>
               <template v-slot:list="scope">
                 <q-list separator>
-                  <q-item v-for="file in scope.files" :key="file.name">
+                  <q-item v-for="(file, index) in scope.files" :key="file.name">
                     <q-item-section>
                       <q-item-label class="full-width ellipsis">
                         {{ file.name }}
                       </q-item-label>
 
                       <q-item-label caption>
-                        Status: {{ file.__status }}
+                        Main image:
                       </q-item-label>
-
-                      <q-item-label caption>
-                        {{ file.__sizeLabel }} / {{ file.__progressLabel }}
-                      </q-item-label>
+                      <q-toggle
+                        :value="project.mainImage === file.name "
+                        v-model="projectImages[index].selected"
+                        @input="project.mainImage = file.name"
+                      />
                     </q-item-section>
 
                     <q-item-section v-if="file.__img" thumbnail class="gt-xs">
-                      <img :src="file.__img.src" style="width: auto;"/>
+                      <img :src="file.__img.src" style="width: auto;" />
                     </q-item-section>
 
                     <q-item-section top side>

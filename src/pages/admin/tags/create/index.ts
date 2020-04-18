@@ -56,10 +56,9 @@ export default class CreateTag extends Mixins(ButtonMixin) {
     console.log('%c⧭ file Uploaaader ===> ', 'color: #bfffc8', e);
   }
   checkFileType(file: any) {
-    console.log('%c⧭', 'color: #1d3f73', file[0]._img, typeof file);
+    // console.log('%c⧭', 'color: #1d3f73', file[0]._img, typeof file);
     if (file.filter((file: any) => file.type === 'image/png')) {
       this.tagImage = file[0];
-      console.log('%c⧭', 'color: #cc0088', this.tagImage);
     }
     return file.filter((file: any) => file.type === 'image/png');
   }
