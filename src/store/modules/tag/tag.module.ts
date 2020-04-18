@@ -5,7 +5,6 @@ import TagService from './tag.service';
 @Module
 class TagModule extends VuexModule {
   // state
-  private tagService:TagService = new TagService;
   // mutations
 
   // getters
@@ -13,23 +12,23 @@ class TagModule extends VuexModule {
   @Action
   public async loadTags():Promise<Tag[]>{
     let tags:Tag[]=[]
-    tags = await this.tagService.loadTags();
+    tags = await TagService.loadTags();
     return tags;
   }
 
   @Action
   public async createTag(formData:FormData):Promise<AxiosResponse>{
-    return await this.tagService.createTag(formData);
+    return await TagService.createTag(formData);
   }
 
   @Action
   public async editTag(formData:FormData):Promise<AxiosResponse>{
-    return await this.tagService.editTag(formData);
+    return await TagService.editTag(formData);
   }
 
   @Action
   public async deleteTag(tagId:string):Promise<AxiosResponse>{
-    return await this.tagService.deleteTag(tagId);
+    return await TagService.deleteTag(tagId);
   }
 }
 

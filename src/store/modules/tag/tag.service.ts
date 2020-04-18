@@ -2,7 +2,7 @@ import Tag from './tag.entity';
 import Axios, { AxiosResponse } from 'axios';
 
 export default class TagService {
-  public async loadTags(): Promise<Tag[]> {
+  static async loadTags(): Promise<Tag[]> {
     let tags: Tag[] = [];
     await Axios.get('/api/tags/all').then((response: AxiosResponse) => {
       tags = response.data as Tag[];
@@ -11,7 +11,7 @@ export default class TagService {
     return tags;
   }
 
-  async createTag(formData: FormData): Promise<AxiosResponse> {
+  static async createTag(formData: FormData): Promise<AxiosResponse> {
     return await Axios.post('/api/tags/', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
@@ -19,14 +19,14 @@ export default class TagService {
     });
   }
 
-  async editTag(formData: FormData): Promise<AxiosResponse> {
+  static async editTag(formData: FormData): Promise<AxiosResponse> {
     return await Axios.put('/api/tags/', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
     });
   }
-  async deleteTag(tagId: string): Promise<AxiosResponse> {
+  static async deleteTag(tagId: string): Promise<AxiosResponse> {
     return await Axios.delete(`/api/tags/${tagId}`);
   }
 }
