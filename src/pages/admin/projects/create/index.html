@@ -278,14 +278,14 @@
               </template>
               <template v-slot:list="scope">
                 <q-list separator>
-                  <q-item v-for="(file, index) in scope.files" :key="file.name">
+                  <q-item v-for="(file, index) in projectImages.map(projectImage => projectImage.file)" :key="file.name">
                     <q-item-section>
                       <q-item-label class="full-width ellipsis">
                         {{ file.name }}
                       </q-item-label>
 
                       <q-item-label caption>
-                        Main image: {{project.mainImage === file.name}}
+                        Main image:
                       </q-item-label>
                       <q-toggle
                         :value="project.mainImage === file.name"

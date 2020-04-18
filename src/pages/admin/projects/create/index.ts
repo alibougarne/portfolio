@@ -20,7 +20,7 @@ export default class CreateProject extends Mixins(ButtonMixin) {
   private project!: Project;
   @PropSync('name', { type: String }) syncedName!: string;
   private isCreatingProject: boolean = false;
-  private projectImages: any= [];
+  private projectImages: any = [];
   private canSaveProject: boolean = false;
   public contentStyle: object = {};
   public contentActiveStyle: object = {};
@@ -71,25 +71,43 @@ export default class CreateProject extends Mixins(ButtonMixin) {
 
   checkFileType(files: any) {
     if (files.filter((files: any) => files.type === 'image/png')) {
-      files.filter((files: any) => files.type === 'image/png').forEach((file:File)=>{
-        this.projectImages.push({selected:!this.projectImages.length, file});
-      })
+      files
+        .filter((files: any) => files.type === 'image/png')
+        .forEach((file: File) => {
+              console.log('%c⧭', 'color: #607339', !this.projectImages.filter((image: any) => image.file.name === file.name)
+              .length);
+          if (
+            !this.projectImages.filter((image: any) => image.file.name === file.name)
+              .length
+          ){
+            this.projectImages.push({
+              selected: !this.projectImages.length,
+              file
+            });
+          }
+        });
     }
-    console.log('%c⧭ this.projectImages ====> ', 'color: #ff6600', this.projectImages, this.project.mainImage);
+    this.project.mainImage = this.projectImages.length === 1?this.projectImages[0].file.name:"";
+    console.log(
+      '%c⧭ this.projectImages ====> ',
+      'color: #ff6600',
+      this.projectImages,
+      this.project.mainImage
+    );
     return files.filter((files: any) => files.type === 'image/png');
   }
 
-  get checkIfCanSaveProject(){
+  get checkIfCanSaveProject() {
     this.canSaveProject = !!this.projectImages || !!this.project.id;
-    return this.canSaveProject
+    return this.canSaveProject;
   }
   private async saveProject() {
     this.isCreatingProject = true;
     const formData = new FormData();
     // console.log('%c⧭ 🎭this.projectImages ===> ', 'color: #8c0038', this.projectImages);
-    this.projectImages.forEach((projectImage:any,index:number) => {
-      formData.append('image',projectImage.file );
-    })
+    this.projectImages.forEach((projectImage: any, index: number) => {
+      formData.append('image', projectImage.file);
+    });
     formData.append('project', JSON.stringify(this.project));
     try {
       let response: AxiosResponse = this.project.id
@@ -157,6 +175,10 @@ export default class CreateProject extends Mixins(ButtonMixin) {
     this.companies = await companyModule.loadCompanies();
     console.log('%c⧭ 🏛this.companies ===> ', 'color: #7f2200', this.companies);
     this.categories = await categoryModule.loadCategories();
-    console.log('%c⧭ 🚀 this.categories ===> ', 'color: #e5de73', this.categories);
+    console.log(
+      '%c⧭ 🚀 this.categories ===> ',
+      'color: #e5de73',
+      this.categories
+    );
   }
 }
