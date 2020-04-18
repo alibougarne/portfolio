@@ -12,8 +12,8 @@ export default class Project extends Common {
   public companyId?:string='';
   public tagIds?:string[]=[];
   public category?: Category;
-  public beginDate?: Date;
-  public endDate?: Date;
+  public beginDate?: Date = new Date();
+  public endDate?: Date = new Date();
   public images?: string;
   public mainImage?: string;
   public company?: Company;

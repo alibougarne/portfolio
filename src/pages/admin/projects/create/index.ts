@@ -40,23 +40,25 @@ export default class CreateProject extends Mixins(ButtonMixin) {
   //   return (document as any).querySelector(".project--inputs").offsetHeight;
   // }
 
-  get inputs(): string[] {
-    return (
-      Object.keys(new Project())
-        // .filter(input => ![ 'id', 'logoPath'].includes(input))
-        .filter(
-          input =>
-            [
-              ...Object.keys(new Common()),
-              'tagIds',
-              'tags',
-              'categoryId',
-              'companyId',
-              'description'
-            ].indexOf(input) < 0
-        )
-    );
-  }
+  // get inputs(): string[] {
+  //   return (
+  //     Object.keys(new Project())
+  //       // .filter(input => ![ 'id', 'logoPath'].includes(input))
+  //       .filter(
+  //         input =>
+  //           [
+  //             ...Object.keys(new Common()),
+  //             'tagIds',
+  //             'tags',
+  //             'categoryId',
+  //             'companyId',
+  //             'description',
+  //             'beginDate',
+  //             'endDate',
+  //           ].indexOf(input) < 0
+  //       )
+  //   );
+  // }
 
   get link_API(): string {
     return process.env.API || '';
