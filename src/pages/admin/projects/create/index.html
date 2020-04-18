@@ -2,7 +2,6 @@
   <q-card-section>
     <div class="text-h6">{{project.id?'Edit':'Create'}} Project</div>
   </q-card-section>
-
   <q-separator />
 
   <q-card-section style="max-height: 50vh" class="scroll">
@@ -16,7 +15,7 @@
           <div
             v-for="(input,index) in inputs"
             :key="`project-${index}`"
-            :class="`col-xs-12 col-md-${input==='link'?'12':'6'} q-pa-md`"
+            :class="`col-xs-12 col-md-6 q-pa-md`"
           >
             <q-input
               :key="`project-input-${index}`"
@@ -95,8 +94,8 @@
                 </q-chip>
               </template>
               <template v-slot:option="scope">
-                <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
-                  <q-item-section >
+                <q-item v-bind="scope.itemProps" v-on="scope.itemEvents"  style="background: #565656;">
+                  <q-item-section>
                     <q-item-label v-html="scope.opt.name"></q-item-label>
                   </q-item-section>
                   <q-item-section side>
@@ -106,7 +105,53 @@
               </template>
             </q-select>
           </div>
-          {{project.tags}}
+          <div
+            class=" col-xs-12 col-md-6 col-lg-6 q-pa-md"
+            v-for="(input,index) in ['category','company']"
+            :key="`${input}-${index}`"
+          >
+            <q-select
+              :key="`select-${input}-${index}`"
+              dark
+              filled
+              v-model="project[input]"
+              use-chips
+              :options="input === 'company'?companies:categories"
+              :label="`Select a ${input}`"
+              map-options
+              emit-value
+            >
+              <template v-slot:selected-item="scope">
+                <q-chip
+                  removable
+                  dense
+                  @remove="scope.removeAtIndex(scope.index)"
+                  :tabindex="scope.tabindex"
+                  color="white"
+                  text-color="green"
+                >
+                  {{ scope.opt.name }}
+                </q-chip>
+              </template>
+              <template v-slot:option="scope" >
+                <q-item v-bind="scope.itemProps" v-on="scope.itemEvents" style="background: #565656;">
+                  <q-item-section>
+                    <q-item-label v-html="scope.opt.name"></q-item-label>
+                  </q-item-section>
+                  <q-item-section side>
+                    <q-img
+                      v-if="scope.opt.logoPath"
+                      :src="scope.opt.logoPath.startsWith('http')?scope.opt.logoPath:`${link_API}/images/${scope.opt.logoPath?target:company}`"
+                      spinner-color="white"
+                      style="max-width: 40px;
+                      position: absolute;
+                      right: 10px;"
+                    />
+                  </q-item-section>
+                </q-item>
+              </template>
+            </q-select>
+          </div>
           <div class=" col-xs-12 col-md-6 col-lg-12 q-pa-md">
             <q-editor
               dark

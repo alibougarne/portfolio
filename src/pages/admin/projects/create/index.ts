@@ -10,6 +10,7 @@ import ButtonMixin from '@/mixins/buttons';
 import Tag from '@/store/modules/tag/tag.entity';
 import Company from '@/store/modules/company/company.entity';
 import { companyModule } from '@/store/modules/company/company.module';
+import Category from '~/src/store/modules/category/category.entity';
 @Component({
   components: {}
 })
@@ -26,7 +27,7 @@ export default class CreateProject extends Mixins(ButtonMixin) {
   public contentActiveStyle: object = {};
   private tags: Tag[] = [];
   private companies: Company[] = [];
-
+  private categories: Category[] = [];
   public thumbStyle: object = {
     right: '2px',
     borderRadius: '0px',
@@ -47,9 +48,10 @@ export default class CreateProject extends Mixins(ButtonMixin) {
             [
               ...Object.keys(new Common()),
               'tagIds',
+              'tags',
               'categoryId',
               'companyId',
-              'description',
+              'description'
             ].indexOf(input) < 0
         )
     );
