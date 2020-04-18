@@ -72,7 +72,7 @@ export default class CreateProject extends Mixins(ButtonMixin) {
   checkFileType(files: any) {
     if (files.filter((files: any) => files.type === 'image/png')) {
       files.filter((files: any) => files.type === 'image/png').forEach((file:File)=>{
-        this.projectImages.push({selected:!this.projectImages, file});
+        this.projectImages.push({selected:!this.projectImages.length, file});
       })
     }
     console.log('%c⧭ this.projectImages ====> ', 'color: #ff6600', this.projectImages, this.project.mainImage);

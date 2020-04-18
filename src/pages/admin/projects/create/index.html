@@ -252,7 +252,7 @@
                     <q-uploader-add-trigger />
                     <q-tooltip>Pick Files</q-tooltip>
                   </q-btn>
-                  <q-btn
+                  <!-- <q-btn
                     v-show="false"
                     v-if="scope.canUpload"
                     icon="cloud_upload"
@@ -262,7 +262,7 @@
                     flat
                   >
                     <q-tooltip>Upload Files</q-tooltip>
-                  </q-btn>
+                  </q-btn> 
                   <q-btn
                     v-if="scope.isUploading"
                     icon="clear"
@@ -273,6 +273,7 @@
                   >
                     <q-tooltip>Abort Upload</q-tooltip>
                   </q-btn>
+                  -->
                 </div>
               </template>
               <template v-slot:list="scope">
@@ -284,12 +285,12 @@
                       </q-item-label>
 
                       <q-item-label caption>
-                        Main image:
+                        Main image: {{project.mainImage === file.name}}
                       </q-item-label>
                       <q-toggle
                         :value="project.mainImage === file.name"
                         v-model="projectImages[index].selected"
-                        @input=" (e)=>{
+                        @input="(e)=>{
                           project.mainImage = file.name;
                           projectImages = projectImages.map(projectImage => {
                             if (projectImage.file.name === file.name){
@@ -315,7 +316,14 @@
                         dense
                         round
                         icon="delete"
-                        @click="scope.removeFile(file)"
+                        @click="(e) => {
+                          projectImages = projectImages.filter(projectImage => projectImage.file.name !== file.name);
+                          if (!projectImages.filter(projectImage => projectImage.selected).length){
+                            projectImages[0].selected = true;
+                            project.mainImage = projectImages[0].file.name;
+                          }
+                          scope.removeFile(file);
+                        }"
                       />
                     </q-item-section>
                   </q-item>
