@@ -50,8 +50,7 @@
               filled
               v-model="project[date]"
               mask="####-##-##"
-              :rules="[v => /^-?[\d]+\/[0-1]\d\/[0-3]\d$/.test(v) || `Please enter a ${input===beginDate?'begin date':'end date'}`]"
-              
+              :rules="[v => /^-?[\d]+\/[0-1]\d\/[0-3]\d$/.test(v) || `Please enter a valid ${input===beginDate?'begin date':'end date'}`]"
               :label="input===beginDate?'begin date':'end date'"
               :hint="`Enter a ${input===beginDate?'begin date':'end date'}`"
             >
@@ -81,6 +80,7 @@
               v-model="project.tags"
               use-chips
               :options="tags"
+              :rules="[v => v.length || `Please don't forget to add tags`]"
               label="Multi with toggle"
               multiple
               map-options
@@ -126,6 +126,7 @@
               v-model="project[input]"
               use-chips
               :options="input === 'company'?companies:categories"
+              :rules="[v => !!v || `Please don't forget to add a ${input}`]"
               :label="`Select a ${input}`"
               map-options
               emit-value
@@ -151,14 +152,26 @@
                   <q-item-section>
                     <q-item-label v-html="scope.opt.name"></q-item-label>
                   </q-item-section>
-                  <q-item-section side>
+                  <q-item-section
+                    v-if="scope.opt.logoPath"
+                    side
+                    style="display: flex;
+                      width: 40px;
+                      padding: 0;
+                      padding: 5px;
+                      background: rgb(255, 255, 255);
+                      border: 1px solid rgb(84, 84, 84);
+                      border-radius: 5px;
+                    "
+                  >
                     <q-img
                       v-if="scope.opt.logoPath"
                       :src="scope.opt.logoPath.startsWith('http')?scope.opt.logoPath:`${link_API}/images/${scope.opt.logoPath?target:company}`"
                       spinner-color="white"
-                      style="max-width: 40px;
-                      position: absolute;
-                      right: 10px;"
+                      contain
+                      style="
+                        width: 100%;
+                      "
                     />
                   </q-item-section>
                 </q-item>
