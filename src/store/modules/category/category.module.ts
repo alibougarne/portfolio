@@ -4,7 +4,7 @@ import CategoryService from './category.service';
 @Module()
 class CategoryModule extends VuexModule {
   @Action
-  public async loadCompanies() {
+  public async loadCategories() {
     let categories: Category[] = [];
     categories = await CategoryService.loadCategories();
     return categories;

@@ -10,7 +10,8 @@ import ButtonMixin from '@/mixins/buttons';
 import Tag from '@/store/modules/tag/tag.entity';
 import Company from '@/store/modules/company/company.entity';
 import { companyModule } from '@/store/modules/company/company.module';
-import Category from '~/src/store/modules/category/category.entity';
+import Category from '@/store/modules/category/category.entity';
+import { categoryModule } from '@/store/modules/category/category.module';
 @Component({
   components: {}
 })
@@ -154,5 +155,8 @@ export default class CreateProject extends Mixins(ButtonMixin) {
     this.tags = await tagModule.loadTags();
     console.log('%c⧭ 📎this.tags ===> ', 'color: #00258c', this.tags);
     this.companies = await companyModule.loadCompanies();
+    console.log('%c⧭ 🏛this.companies ===> ', 'color: #7f2200', this.companies);
+    this.categories = await categoryModule.loadCategories();
+    console.log('%c⧭ 🚀 this.categories ===> ', 'color: #e5de73', this.categories);
   }
 }
