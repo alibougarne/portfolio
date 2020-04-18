@@ -41,18 +41,18 @@
           </div>
           <div
             class=" col-xs-12 col-md-6 col-lg-6 q-pa-md"
-            v-for="(date,index) in ['beginDate', 'endDate']"
+            v-for="(input,index) in ['beginDate', 'endDate']"
             :key="`date-${index}`"
           >
             <q-input
               :key="`input-date-${index}`"
               dark
               filled
-              v-model="project[date]"
+              v-model="project[input]"
               mask="####-##-##"
-              :rules="[v => /^-?[\d]+\/[0-1]\d\/[0-3]\d$/.test(v) || `Please enter a valid ${input===beginDate?'begin date':'end date'}`]"
-              :label="input===beginDate?'begin date':'end date'"
-              :hint="`Enter a ${input===beginDate?'begin date':'end date'}`"
+              :rules="[v => /^-?[\d]+\/[0-1]\d\/[0-3]\d$/.test(v) || `Please enter a valid ${input==='beginDate'?'begin date':'end date'}`]"
+              :label="input==='beginDate'?'begin date':'end date'"
+              :hint="`Enter a ${input==='beginDate'?'begin date':'end date'}`"
             >
               <template v-slot:append>
                 <q-icon name="event" class="cursor-pointer">
@@ -65,7 +65,7 @@
                       landscape
                       dark
                       color="green"
-                      v-model="project[date]"
+                      v-model="project[input]"
                       @input="() => $refs.qDateProxy.hide()"
                     />
                   </q-popup-proxy>
