@@ -44,17 +44,22 @@ export default class CreateTag extends Mixins(ButtonMixin) {
         )
     );
   }
+
   get colorPicks(): string[] {
     return ['textColor', 'backgroundColor'];
   }
+
   get link_API(): string {
     return process.env.API || '';
   }
+
   @Emit('emission-from-child')
   emitTagToTagsList(tag: Tag) {}
+
   checkFile(e: any) {
     console.log('%c⧭ file Uploaaader ===> ', 'color: #bfffc8', e);
   }
+  
   checkFileType(file: any) {
     // console.log('%c⧭', 'color: #1d3f73', file[0]._img, typeof file);
     if (file.filter((file: any) => file.type === 'image/png')) {

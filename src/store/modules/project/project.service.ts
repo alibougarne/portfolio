@@ -33,6 +33,6 @@ export default class ProjectService {
   }
 
   static async deleteProject(projectId: string): Promise<AxiosResponse> {
-    return await Axios.delete(`/api/projects/delete/${projectId}`);
+    return await Axios.delete(`/api/projects/${projectId}`);
   }
 }

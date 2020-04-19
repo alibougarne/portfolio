@@ -86,14 +86,9 @@ export default class CreateProject extends Mixins(ButtonMixin) {
             });
           }
         });
+      console.log('%c⧭ this.projectImages ===> ', 'color: #00e600', this.projectImages);
+      this.project.mainImage =  this.projectImages.filter((image: any) => image.selected)[0].file.name;
     }
-    this.project.mainImage = this.projectImages.length === 1?this.projectImages[0].file.name:"";
-    console.log(
-      '%c⧭ this.projectImages ====> ',
-      'color: #ff6600',
-      this.projectImages,
-      this.project.mainImage
-    );
     return files.filter((files: any) => files.type === 'image/png');
   }
 
@@ -113,11 +108,11 @@ export default class CreateProject extends Mixins(ButtonMixin) {
       let response: AxiosResponse = this.project.id
         ? await projectModule.editProject(formData)
         : await projectModule.createProject(formData);
-      console.log(
-        '%c⧭ create/edit project response : ===> ',
-        'color: #aa00ff',
-        response
-      );
+      // console.log(
+      //   '%c⧭ create/edit project response : ===> ',
+      //   'color: #aa00ff',
+      //   response
+      // );
       if (response.data) {
         if (
           response.data &&

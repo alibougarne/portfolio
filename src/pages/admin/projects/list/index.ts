@@ -129,6 +129,7 @@ export default class ProjectsList extends Mixins(
       field: 'rating'
     }
   ];
+  
   onEmissionFromChild(project: Project) {
     if (project && project.id) {
       if (this.projects.filter((pr: Project) => pr.id === project.id)) {
@@ -168,10 +169,10 @@ export default class ProjectsList extends Mixins(
       response
     );
     if (response.status === 200) {
-      this.projects = this.projects.filter(
-        (project: Project) => project.id !== projectId
-      );
       setTimeout(() => {
+        this.projects = this.projects.filter(
+          (project: Project) => project.id !== projectId
+        );
         this.$q.loading.hide();
         this.notify(
           'green-4',
