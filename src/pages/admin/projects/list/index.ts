@@ -133,7 +133,7 @@ export default class ProjectsList extends Mixins(
   ];
 
   onEmissionFromChild(prj: string) {
-    console.log('%c⧭', 'color: #aa00ff', prj);
+    // console.log('%c⧭', 'color: #aa00ff', prj);
     let project = JSON.parse(prj);
     if (project && project.id) {
       if (this.projects.filter((pr: Project) => pr.id === project.id)) {

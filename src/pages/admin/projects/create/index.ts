@@ -120,7 +120,7 @@ export default class CreateProject extends Mixins(ButtonMixin) {
           response.data &&
           (response.status === 201 || response.status === 200)
         ) {
-          console.log('%c⧭ response.data when create project', 'color: #e50000', JSON.parse(JSON.stringify(response.data)));
+          // console.log('%c⧭ response.data when create project', 'color: #e50000', JSON.parse(JSON.stringify(response.data)));
           this.emitProjectToProjectsList(JSON.stringify(response.data));
           this.startComputing(300);
           setTimeout(() => {
