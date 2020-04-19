@@ -62,11 +62,13 @@ export default class CreateProject extends Mixins(ButtonMixin) {
     return process.env.API || '';
   }
 
-  @Emit('emission-from-child')
-  emitProjectToProjectsList(project: Project) {}
+  @Emit('emission-from-create-project')
+  emitProjectToProjectsList(project: string) {
+    console.log('%c⧭ project emited', 'color: #733d00', project);
+  }
 
   checkFile(e: any) {
-    console.log('%c⧭ file Uploaaader ===> ', 'color: #bfffc8', e);
+    // console.log('%c⧭ file Uploaaader ===> ', 'color: #bfffc8', e);
   }
 
   checkFileType(files: any) {
@@ -74,20 +76,20 @@ export default class CreateProject extends Mixins(ButtonMixin) {
       files
         .filter((files: any) => files.type === 'image/png')
         .forEach((file: File) => {
-              console.log('%c⧭', 'color: #607339', !this.projectImages.filter((image: any) => image.file.name === file.name)
-              .length);
           if (
-            !this.projectImages.filter((image: any) => image.file.name === file.name)
-              .length
-          ){
+            !this.projectImages.filter(
+              (image: any) => image.file.name === file.name
+            ).length
+          ) {
             this.projectImages.push({
               selected: !this.projectImages.length,
               file
             });
           }
         });
-      console.log('%c⧭ this.projectImages ===> ', 'color: #00e600', this.projectImages);
-      this.project.mainImage =  this.projectImages.filter((image: any) => image.selected)[0].file.name;
+      this.project.mainImage = this.projectImages.filter(
+        (image: any) => image.selected
+      )[0].file.name;
     }
     return files.filter((files: any) => files.type === 'image/png');
   }
@@ -118,7 +120,8 @@ export default class CreateProject extends Mixins(ButtonMixin) {
           response.data &&
           (response.status === 201 || response.status === 200)
         ) {
-          this.emitProjectToProjectsList(<Project>response.data);
+          console.log('%c⧭ response.data when create project', 'color: #e50000', JSON.parse(JSON.stringify(response.data)));
+          this.emitProjectToProjectsList(JSON.stringify(response.data));
           this.startComputing(300);
           setTimeout(() => {
             this.isCreatingProject = false;

@@ -49,7 +49,7 @@
               dark
               filled
               v-model="project[input]"
-              mask="####-##-##"
+              mask="####/##/##"
               :rules="[v => /^-?[\d]+\/[0-1]\d\/[0-3]\d$/.test(v) || `Please enter a valid ${input==='beginDate'?'begin date':'end date'}`]"
               :label="input==='beginDate'?'begin date':'end date'"
               :hint="`Enter a ${input==='beginDate'?'begin date':'end date'}`"
