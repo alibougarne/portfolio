@@ -1,13 +1,34 @@
 <q-page class="flex flex-center bg-transparent">
-  <div class="row content-center text-white">
-    <div class="col-12"><h5 class="q-mb-none q-mt-none">Hi,</h5></div>
+  <div class="row content-center text-white present--text">
     <div class="col-12">
-      <h6 class="q-mb-none q-mt-none">I'm <b style="font-size: 25px;">Ali</b>,</h6>
+      <h5 class="q-mb-none q-mt-none txt anim-text-flow">
+        <b style="font-size: 25px;"><></b>
+        <span>&nbsp;</span>
+        <span v-for="char in `Hi`">{{char}}</span>,
+      </h5>
     </div>
     <div class="col-12">
-      <h5 class="q-mb-none q-mt-none">
-        web Developer <b class="bg-primary q-pa-sm">💀</b>
+      <h5 class="q-mb-none q-mt-none txt anim-text-flow">
+        I'm
+        <!-- <span v-for="char in `I'm`">{{char}}</span> -->
+        <b style="font-size: 45px;">
+          <span>&nbsp;</span>
+          <span v-for="char in `Ali`">{{char}}</span>
+        </b>
+        <span>,</span>
       </h5>
+    </div>
+    <div class="col-12">
+      <h3 class="q-mb-none q-mt-none txt anim-text-flow">
+        Web<span>&nbsp;</span>
+        <!-- <span v-for="char in 'web'">{{char}} -->
+        <!-- <span v-for="char in 6"></span> -->
+        <span v-for="char in 'Developer 🔥'">{{char}}</span> 
+        <span>&nbsp;</span>
+        <b style="font-size: 25px;"></></b>
+        
+        <!-- <b class="bg-primary q-pa-sm"style="font-size: 15px;" >💀</b> -->
+      </h3>
     </div>
   </div>
 </q-page>
