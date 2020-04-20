@@ -4,8 +4,9 @@ import { authModule } from '@/store/modules/auth/auth.module';
 import LoginDto from '@/store/modules/auth/dto/loginDto';
 import ButtonMixin from '@/mixins/buttons'
 import { Mixins } from 'vue-property-decorator';
+import LogoComponent from '@/components/logo/LogoComponent.vue'
 @Component({
-  components: {  }
+  components: { LogoComponent  }
 })
 export default class LoginPage extends Mixins(ButtonMixin) {
   private loginDto: LoginDto = new LoginDto;
