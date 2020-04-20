@@ -53,6 +53,13 @@
   </q-drawer>
 
   <q-page-container>
-    <router-view />
+    <transition
+      name="slide-fade"
+      mode="out-in"
+      appear
+      :duration="{ enter: 1000, leave: 800 }"
+    >
+      <router-view />
+    </transition>
   </q-page-container>
 </q-layout>

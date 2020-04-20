@@ -51,20 +51,20 @@
           clickable
           class="social--media"
         >
-            <q-btn
-              type="a"
-              unelevated
-              :href="link.link"
-              target="_blank"
-              color="transparent"
-              :icon="link.icon"
-              :style="{color: `${link.color} !important`}"
-              class="full-width"
-              :ripple="false"
-            >
-            </q-btn>
-            <!-- <q-icon :name="link.icon"  /> -->
-            <!-- <a :href="link.link" target="_blank"> </a> -->
+          <q-btn
+            type="a"
+            unelevated
+            :href="link.link"
+            target="_blank"
+            color="transparent"
+            :icon="link.icon"
+            :style="{color: `${link.color} !important`}"
+            class="full-width"
+            :ripple="false"
+          >
+          </q-btn>
+          <!-- <q-icon :name="link.icon"  /> -->
+          <!-- <a :href="link.link" target="_blank"> </a> -->
           <q-tooltip
             anchor="center right"
             self="center left"
@@ -81,7 +81,14 @@
   </q-drawer>
 
   <q-page-container>
-    <router-view />
+    <transition
+      name="slide-fade"
+      mode="out-in"
+      appear
+      :duration="{ enter: 1000, leave: 800 }"
+    >
+      <router-view />
+    </transition>
   </q-page-container>
 
   <!-- <q-footer bordered class="bg-portfolio text-caption text-white q-pa-md">
