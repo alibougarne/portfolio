@@ -8,7 +8,8 @@
   background: #260e00
 
 .q-layout
-  &:not(.bg-home) &:not(.bg-tags)
+  &:not(.bg-home) 
+    // &:not(.bg-tags)
     .landing__space
       display: none
 
@@ -83,7 +84,7 @@
   &:not(:last-child)
     border-bottom: 1px solid rgba(0, 0, 0, 0.33)
   a
-    display: block
+    display: contents
     width: 100%
     height: 100%
     &:hover
