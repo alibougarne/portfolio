@@ -186,7 +186,20 @@ module.exports = function(ctx) {
 
     // https://quasar.dev/quasar-cli/developing-ssr/configuring-ssr
     ssr: {
-      pwa: false
+      pwa: false,
+      extendWebpack (cfg) {
+        // directly change props of cfg;
+        // no need to return anything
+      },
+  
+      // -- @quasar/app v1.5+ --
+      // optional; EQUIVALENT to extendWebpack() but uses webpack-chain;
+      // the Webserver part ONLY (/src-ssr/)
+      // which is invoked for production (NOT for dev)
+      chainWebpack (chain) {
+        // chain is a webpack-chain instance
+        // of the Webpack configuration
+      }
     },
 
     // https://quasar.dev/quasar-cli/developing-pwa/configuring-pwa

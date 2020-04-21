@@ -10,9 +10,10 @@
   "scripts": {
     "lint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore ./",
     "test": "echo \"No test specified\" && exit 0",
-    "start": "node dist/ssr/index.js",
-    "build": "quasar build -m ssr",
+    "start": "node server.js",
+    "build": "quasar build",
     "heroku-postbuild": "npm run build"
+    
   },
   "dependencies": {
     "@mdi/font": "^5.0.45",
@@ -20,8 +21,11 @@
     "@quasar/extras": "^1.5.2",
     "@quasar/quasar-app-extension-typescript": "^1.0.0",
     "axios": "^0.18.1",
+    "connect-history-api-fallback": "^1.6.0",
+    "express": "^4.17.1",
     "gsap": "^3.2.6",
     "quasar": "^1.0.0",
+    "serve-static": "^1.14.1",
     "vue-class-component": "^7.1.0",
     "vue-i18n": "^8.0.0",
     "vue-property-decorator": "^8.3.0",
@@ -38,8 +42,8 @@
     "eslint-config-prettier": "^6.0.0",
     "eslint-loader": "^2.1.1",
     "eslint-plugin-vue": "^5.0.0",
-    "vuex-module-decorators": "^0.10.1",
-    "typescript":"3.5.3"
+    "typescript": "3.5.3",
+    "vuex-module-decorators": "^0.10.1"
   },
   "engines": {
     "node": ">= 8.9.0",

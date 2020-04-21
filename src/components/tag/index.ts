@@ -17,6 +17,5 @@ export default class TagComponent extends Vue {
   }
   
   public mounted():void{
-    console.log('%c⧭ this.noTooltip', 'color: #aa00ff', this.noTooltip);
   }
 }
