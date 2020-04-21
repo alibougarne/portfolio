@@ -5,10 +5,10 @@
     class="q-mr-sm"
     :label="`#${tag.hashtag}`"
     :style="{ backgroundColor: tag.backgroundColor, color: tag.backgroundColor,'text-transform': 'capitalize', margin:'0px' }"
-    @click="$router.push('tags/'+tag.id).catch(err => {})"
+    @click="$router.push('/tags/'+tag.id).catch(err => {})"
   >
     <q-badge v-if="tag.projects" :style="{ backgroundColor: tag.backgroundColor, color: tag.textColor}" floating>{{tag.projects}}</q-badge>
-    <q-tooltip content-class="merzaq" :value="false" text-white>
+    <q-tooltip v-if="!noTooltip" content-class="merzaq" :value="false" text-white >
       <div>
         <div class="q-pa-md" style="max-width: 350px">
           <q-list>
