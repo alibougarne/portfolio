@@ -27,7 +27,7 @@
               <template v-slot:append v-if="input === 'name'">
                 <q-avatar square>
                   <q-img
-                    v-if="tag.logoPath"
+                    v-if="tagImage.__img.src"
                     :src="tagImage.__img.src"
                     spinner-color="white"
                     style="max-width: 40px"

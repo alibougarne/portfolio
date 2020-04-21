@@ -28,7 +28,7 @@ export default class MyLayout extends Vue {
     { icon: 'mdi-tag-multiple', text: 'Tags',path:'/tags' },
     { icon: 'mdi-tablet-cellphone ', text: 'Projects',path:'/projects' }
   ];
-  private links2: object[] = [
+  private socials: object[] = [
     { icon: 'mdi-linkedin', text: 'LinkedIn', color:'#0077b5',link:'https://www.linkedin.com/in/ali-bougarne-572470117/' },
     { icon: 'mdi-gmail', text: 'Gmail', color:'#aa3528',link:'mailto:bougarne.ali@gmail.com' },
     { icon: 'mdi-github-circle', text: 'Github', color:'#fff',link:'https://github.com/alibougarne/' },

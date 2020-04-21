@@ -8,7 +8,7 @@
   background: #260e00
 
 .q-layout
-  &:not(.bg-home) 
+  &:not(.bg-home)
     // &:not(.bg-tags)
     .landing__space
       display: none
@@ -19,8 +19,12 @@
 
 .q-layout.bg-tags
   background: #010026
-  background: radial-gradient(circle, #010026 0%, #010026 45%, #000 100%)
-
+  // background: radial-gradient(circle, #010026 0%, #010026 45%, #000 100%)
+  background: radial-gradient(circle, #ffffff 0%, #d2d2d2 45%, #444 100%)
+.q-layout.bg-tags
+  .social--media
+    &:not(:last-of-type)
+      border-bottom: 1px solid rgb(88, 88, 88)
 .q-layout.bg-projects
   background: #000
   background: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 45%, rgb(12, 12, 12) 100%)
@@ -81,7 +85,7 @@
 .social--media
   background: rgba(255, 255, 255, 0.05)
   padding: 10px 0
-  &:not(:last-child)
+  &:not(:last-of-type)
     border-bottom: 1px solid rgba(0, 0, 0, 0.33)
   a
     display: contents

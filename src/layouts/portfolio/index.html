@@ -41,11 +41,9 @@
             {{ link.text }}
           </q-tooltip>
         </q-item>
-
-        <q-separator class="q-my-md" />
-
+        <q-separator style="margin-top:50px"/>
         <q-item
-          v-for="link in links2"
+          v-for="(link,index) in socials"
           :key="link.text"
           v-ripple
           clickable
@@ -58,7 +56,7 @@
             target="_blank"
             color="transparent"
             :icon="link.icon"
-            :style="{color: `${link.color} !important`}"
+            :style="{color: `${link.color} !important` }"
             class="full-width"
             :ripple="false"
           >
@@ -75,7 +73,7 @@
             {{ link.text }}
           </q-tooltip>
         </q-item>
-        <q-separator class="q-mt-md q-mb-xs" />
+        <q-separator/>
       </q-list>
     </q-scroll-area>
   </q-drawer>
