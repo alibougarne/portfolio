@@ -1,8 +1,10 @@
-<div>
+<div style="margin:5px">
   <q-btn
+    outline
+    :icon="tag.icon?tag.icon:'mdi-code-braces-box'"
     class="q-mr-sm"
-    :label="'#'+tag.hashtag"
-    :style="{ backgroundColor: '#'+tag.backgroundColor, color: '#'+tag.textColor }"
+    :label="`#${tag.hashtag}`"
+    :style="{ backgroundColor: tag.backgroundColor, color: tag.backgroundColor,'text-transform': 'capitalize', margin:'0px' }"
     @click="$router.push('tags/'+tag.id).catch(err => {})"
   >
     <q-tooltip content-class="merzaq" :value="false" text-white>
@@ -24,7 +26,7 @@
               </q-item-section>
               <q-item-section side top class="col-sm-3">
                 <q-img
-                  :src="`${imageLink}/tags/image/${tag.logoPath}`"
+                  :src="`${link_API}/images/${tag.logoPath}?target=tags`"
                   spinner-color="white"
                   style="max-width: 40px"
                 />

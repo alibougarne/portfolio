@@ -4,6 +4,7 @@ export default class Tag extends Common {
   public name : string = '';
   public hashtag ?: string = '';
   public link ?: string = '';
+  public icon ?: string = '';
   public description ?: string = '';
   public logoPath ?: string;
   public textColor ?: string = '#fff';
