@@ -23,7 +23,7 @@
           :key="link.text"
           v-ripple
           clickable
-          @click="$router.push(link.path).catch(err => {})"
+          @click="goToRoute(link.path)"
         >
           <q-item-section avatar>
             <q-icon

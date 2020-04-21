@@ -62,6 +62,7 @@ export default class AdminLayout extends Vue {
     // console.log('%c⧭', 'color: #007300', this.$route);
     return this.$route.name;
   }
+  
   @Watch('currentPathName')
   public watchRoutes(current: string, old: string): void {
     // console.log('%c⧭ old', 'color: #731d1d', old);

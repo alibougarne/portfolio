@@ -21,6 +21,12 @@ export default class MyLayout extends Vue {
     // (document as any).querySelector("body").classList.add(this.$route.name);
     return this.$route.name?this.$route.name:'';
   }
+
+  goToRoute(link:string){
+    if(this.$route.path !== link){
+      this.$router.push(link).catch(err => {})
+    }
+  }
   // leftDrawerOpen: boolean = false;
   private search: string = '';
   private links1: object[] = [

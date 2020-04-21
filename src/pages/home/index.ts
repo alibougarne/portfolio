@@ -5,7 +5,7 @@ import gsap from 'gsap';
 @Component
 export default class Home extends Vue {
     mounted(){
-        this.$nextTick(function() {
+        // this.$nextTick(function() {
             console.log('%c⧭', 'color: #f2ceb6', this.$el);
             let tl = gsap.timeline();
             tl.from('.display--group', {
@@ -71,7 +71,6 @@ export default class Home extends Vue {
             // this.$el.childNodes.forEach((element:ChildNode,index:number) => {
             //   console.log('%c⧭', 'color: #f200e2', element);
             // });
-          });
-
+          // });
     }
 }
