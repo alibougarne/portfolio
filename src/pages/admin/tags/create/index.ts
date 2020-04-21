@@ -3,7 +3,7 @@ import Component from 'vue-class-component';
 import TagComponent from '@/components/tag/TagComponent.vue';
 import Tag from '@/store/modules/tag/tag.entity';
 import { Common } from '@/store/modules/common/common.entity';
-import { AxiosResponse } from 'axios';
+import Axios, { AxiosResponse } from 'axios';
 import { tagModule } from '@/store/modules/tag/tag.module';
 import { Emit, Mixins, Prop, PropSync, Watch } from 'vue-property-decorator';
 import ButtonMixin from '@/mixins/buttons';
@@ -15,7 +15,10 @@ export default class CreateTag extends Mixins(ButtonMixin) {
   private tag!: Tag;
   @PropSync('name', { type: String }) syncedName!: string;
   private isCreatingTag: boolean = false;
-  private tagImage: File = new File([''], 'image.png', { type: 'image/png' });
+  private tagImage: any = {
+    ...new File([''], 'image.png', { type: 'image/png' }),
+    __img: {src:""}
+  };
   private canSaveTag: boolean = false;
   public contentStyle: object = {};
   public contentActiveStyle: object = {};
@@ -59,11 +62,14 @@ export default class CreateTag extends Mixins(ButtonMixin) {
   checkFile(e: any) {
     console.log('%c⧭ file Uploaaader ===> ', 'color: #bfffc8', e);
   }
-  
+
   checkFileType(file: any) {
-    // console.log('%c⧭', 'color: #1d3f73', file[0]._img, typeof file);
+    console.log('%c⧭', 'color: #00b300', file);
+    // console.log('%c⧭', 'color: #1d3f73', file[0].__img, typeof file);
     if (file.filter((file: any) => file.type === 'image/png')) {
+      // this.tagImage = null
       this.tagImage = file[0];
+      console.log('%c⧭', 'color: #1d5673', this.tagImage);
     }
     return file.filter((file: any) => file.type === 'image/png');
   }
@@ -77,9 +83,9 @@ export default class CreateTag extends Mixins(ButtonMixin) {
   //   }
   // }
 
-  get checkIfCanSaveTag(){
-    this.canSaveTag = !!this.tagImage.size || !!this.tag.id;
-    return this.canSaveTag
+  get checkIfCanSaveTag() {
+    this.canSaveTag = !!(this.tagImage && this.tagImage.size) || !!this.tag.id;
+    return this.canSaveTag;
   }
   // @Watch('tagImage', { immediate: true, deep: true })
   // canSaveIfEditTag(newValue: Tag, oldvalue: Tag) {
@@ -93,7 +99,7 @@ export default class CreateTag extends Mixins(ButtonMixin) {
   private async saveTag() {
     this.isCreatingTag = true;
     const formData = new FormData();
-    formData.append('tagImage', this.tagImage);
+    if (this.tagImage) formData.append('tagImage', this.tagImage);
     formData.append('tag', JSON.stringify(this.tag));
     try {
       let response: AxiosResponse = this.tag.id
@@ -151,14 +157,24 @@ export default class CreateTag extends Mixins(ButtonMixin) {
     this.tag = new Tag();
     this.tagImage = new File([''], 'image.png', { type: 'image/png' });
   }
-
   public async mounted(): Promise<void> {
     // console.log('%c⧭', 'color: #eeff00', this.checkIfCanSaveTag);
     // console.log(this.tagImage);
     if (this.tag.id) {
+      Axios.get(`${this.link_API}/images/${this.tag.logoPath}?target=tags`, {
+        responseType: 'arraybuffer'
+      }).then(response => {
+        this.tagImage.name = this.tag.logoPath
+        this.tagImage.__img.src =
+          'data:image/png;base64,' +
+          Buffer.from(response.data, 'binary').toString('base64');
+      });
+      //Usage example:
+
       // this.tagImage.src = `${this.imageLink}/tags/image/${this.tag.logoPath}`
       // this.tagImage.alt = this.tag.logoPath
     }
+
     this.syncedName = 'merssssss';
     // console.log('%c⧭ name ====> ', 'color: #006dcc', this.syncedName);
     // this.tags = await tagModule.loadTags();

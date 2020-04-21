@@ -28,7 +28,7 @@
                 <q-avatar square>
                   <q-img
                     v-if="tag.logoPath"
-                    :src="`${link_API}/images/${tag.logoPath}?target=tags`"
+                    :src="tagImage.__img.src"
                     spinner-color="white"
                     style="max-width: 40px"
                   />
@@ -154,6 +154,67 @@
                   </q-btn>
                 </div>
               </template>
+
+              <template v-slot:list="scope">
+                <div
+                  v-if="!scope.files.length && tag.logoPath"
+                  class="q-uploader__file relative-position q-uploader__file--img"
+                  :style="{
+                    'background-image': `url(${tagImage.__img.src})`
+                  }"
+                >
+                  <div class="q-uploader__file-header row flex-center no-wrap">
+                    <div class="q-uploader__file-header-content col">
+                      <div class="q-uploader__title">{{tag.logoPath}}</div>
+                      <div
+                        class="q-uploader__subtitle row items-center no-wrap"
+                      >
+                        0.0 B / 0.00%
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  v-for="(file,index) in scope.files" 
+                  :key="`${file.name}--${index}`"
+                  class="q-uploader__file relative-position q-uploader__file--img"
+                  :style="{
+                    'background-image': `url(${file.__img.src})`
+                  }"
+                >
+                  <div class="q-uploader__file-header row flex-center no-wrap">
+                    <div class="q-uploader__file-header-content col">
+                      <div class="q-uploader__title">{{file.name}}</div>
+                      <div
+                        class="q-uploader__subtitle row items-center no-wrap"
+                      >
+                        {{ file.__status }}
+                      </div>
+                    </div>
+                    <button
+                      role="button"
+                      type="button"
+                      class="q-btn q-btn-item non-selectable no-outline q-btn--flat q-btn--round q-btn--actionable q-focusable q-hoverable q-btn--wrap q-btn--dense"
+                    >
+                      <div  class="q-focus-helper"></div>
+                      <div class="q-btn__wrapper col row q-anchor--skip">
+                        <div
+                          class="q-btn__content text-center col items-center q-anchor--skip justify-center row"
+                        >
+                          <i
+                            aria-hidden="true"
+                            role="presentation"
+                            class="material-icons q-icon notranslate"
+                            @click="scope.removeFile(file)"
+                            >clear</i
+                          >
+                        </div>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              </template>
             </q-uploader>
           </div>
         </div>
@@ -164,8 +225,6 @@
   <q-separator />
 
   <q-card-actions align="right">
-    {{checkIfCanSaveTag}}
-    {{canSaveTag}}
     <q-btn
       label="Submit"
       type="submit"
