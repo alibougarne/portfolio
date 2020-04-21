@@ -117,7 +117,7 @@ module.exports = function(ctx) {
       vueCompiler: true,
       vueRouterMode: 'hash',
       // showProgress: false,
-      gzip: true,
+      gzip: false,
       // analyze: true,
       // preloadChunks: false,
       // extractCSS: false,
