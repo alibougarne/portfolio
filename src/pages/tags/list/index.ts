@@ -32,7 +32,6 @@ export default class TagsPage extends Vue {
             ease: 'elastic',
             force3D: false
           });
-
           // this.$el.childNodes.forEach((element:ChildNode,index:number) => {
           //   console.log('%c⧭', 'color: #f200e2', element);
           // });
