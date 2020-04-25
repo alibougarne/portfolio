@@ -14,20 +14,19 @@ Vue.use(VueRouter);
 
 export default function(/*{ store, ssrContext }*/) {
   const token = sessionStorage.getItem('acces_token');
-  console.log('%c⧭ index.ts ', 'color: #00bf00');
+  // console.log('%c⧭ index.ts ', 'color: #00bf00');
   if (token) {
     axios.defaults.headers.common['Authorization'] = token;
     authModule.setAuthenticatedStatus(true);
   }
-  console.log(
-    '%c⧭ store ====> route r ',
-    'color: #0088cc',
-    authModule.get_authenticated
-  );
+  // console.log(
+  //   '%c⧭ store ====> route r ',
+  //   'color: #0088cc',
+  //   authModule.get_authenticated
+  // );
   const Router = new VueRouter({
     scrollBehavior: () => ({ x: 0, y: 0 }),
     routes,
-
     // Leave these as is and change from quasar.conf.js instead!
     // quasar.conf.js -> build -> vueRouterMode
     // quasar.conf.js -> build -> publicPath

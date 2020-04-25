@@ -22,20 +22,23 @@ export default class TagsPage extends Vue {
         setTimeout(() => {
           this.$q.loading.hide();
         }, 1000);
-        this.$nextTick(function() {
-          gsap.from(this.$el.childNodes, {
-            duration: 2,
-            scale: 0.5,
-            opacity: 0,
-            delay: 0.5,
-            stagger: 0.2,
-            ease: 'elastic',
-            force3D: false
+        if(this.$route.name === "Tags"){
+          this.$nextTick(() => {
+            console.log('%c⧭', 'color: #f2ceb6', this.$el);
+            gsap.from(this.$el.childNodes, {
+              duration: 2,
+              scale: 0.5,
+              opacity: 0,
+              delay: 0.5,
+              stagger: 0.2,
+              ease: 'elastic',
+              force3D: false
+            });
+            // this.$el.childNodes.forEach((element:ChildNode,index:number) => {
+            //   console.log('%c⧭', 'color: #f200e2', element);
+            // });
           });
-          // this.$el.childNodes.forEach((element:ChildNode,index:number) => {
-          //   console.log('%c⧭', 'color: #f200e2', element);
-          // });
-        });
+        }
       })
       .catch((error: Error) => {
         this.$q.loading.hide();
