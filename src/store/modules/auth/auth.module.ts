@@ -57,6 +57,13 @@ class AuthModule extends VuexModule {
     this.setAccessToken('');
     this.setAuthenticatedStatus(false);
   }
+
+  @Action
+  public async loginSirv() {
+    const tokenSirv:string | undefined = await this.authService.loginSirv();
+    if(tokenSirv)
+    sessionStorage.setItem("tokenSirv",tokenSirv);
+  }
 }
 
 // register module (could be in any file 😅)

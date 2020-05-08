@@ -42,7 +42,7 @@
                 <q-avatar square  v-if="col.name === 'logo'" size="md">
                 <q-img
                   v-if="col.value"
-                  :src="`${link_API}/images/${col.value}?target=tags`"
+                  :src="getTagImage(col.value)"
                   spinner-color="white"
                 />
             </q-avatar>

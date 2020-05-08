@@ -5,7 +5,7 @@ import Tag from '@/store/modules/tag/tag.entity';
 import ButtonMixin from '@/mixins/buttons';
 import { Mixins, Watch } from 'vue-property-decorator';
 import { tagModule } from '@/store/modules/tag/tag.module';
-import { AxiosResponse } from 'axios';
+import Axios, { AxiosResponse } from 'axios';
 import NotificationMixin from '@/mixins/notification';
 
 @Component({
@@ -112,7 +112,19 @@ export default class TagsList extends Mixins(
     }
   }
 
+  async getTagImage(imageName:string):Promise<string>{
+    let url = ""
+    await Axios.get(`/api/images/${imageName}?target=tags`).then(
+      res => {
+        console.log('%c⧭', 'color: #bfffc8', res);
+        if(res.data)
+        url = res.data
+      }
+    ).catch(err=> console.error(err))
+    return url
+  }
   afterMount(): void {
+    
     console.log('%c⧭ tags ===> ', 'color: #f2ceb6', this.tags);
   }
 }
