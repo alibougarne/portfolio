@@ -8,7 +8,23 @@ export default class TagService {
       tags = response.data as Tag[];
       console.log(response.data);
     });
-    return tags;
+    // tags.map(async tag => {
+    //   tag.cloudImageUrl = await this.getTagImage(tag.logoPath || '');
+    //   return tag
+    // });
+    return tags
+  }
+
+  static async getTagImage(imageName: string) :Promise<string> {
+    let url = ""
+     await Axios.get(`/api/images/${imageName}?target=tags`)
+      .then(res => {
+        url = res.data;
+      })
+      .catch(err => {
+        return Promise.reject(err);
+      });
+    return url;
   }
 
   static async createTag(formData: FormData): Promise<AxiosResponse> {

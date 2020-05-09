@@ -39,12 +39,12 @@
         <q-tr :props="props" :key="`m_${props.row.id}`">
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
             {{ col.name !== "logo"?col.value:""}}
-                <q-avatar square  v-if="col.name === 'logo'" size="md">
-                <q-img
-                  v-if="col.value"
-                  :src="getTagImage(col.value)"
-                  spinner-color="white"
-                />
+            <q-avatar square v-if="col.name === 'logo'" size="md">
+              <q-img
+                v-if="col.value"
+                :src="col.value"
+                spinner-color="white"
+              />
             </q-avatar>
             <!-- {{props}} -->
           </q-td>
@@ -65,7 +65,6 @@
               icon="remove"
               class="custom--button"
             />
-
           </q-td>
         </q-tr>
       </template>
@@ -77,7 +76,11 @@
       transition-hide="slide-up"
       :content-style="{ background: '#4c4848' }"
     >
-      <CreateTag @emission-from-child="onEmissionFromChild" :tag="currentTag" :name.sync="name"/>
+      <CreateTag
+        @emission-from-child="onEmissionFromChild"
+        :tag="currentTag"
+        :name.sync="name"
+      />
     </q-dialog>
   </div>
 </q-page>

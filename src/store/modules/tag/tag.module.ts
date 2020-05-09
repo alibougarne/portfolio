@@ -17,6 +17,11 @@ class TagModule extends VuexModule {
   }
 
   @Action
+  public async getTagImage(image:string):Promise<string>{
+    return await TagService.getTagImage(image);
+  }
+
+  @Action
   public async createTag(formData:FormData):Promise<AxiosResponse>{
     return await TagService.createTag(formData);
   }

@@ -9,4 +9,5 @@ export default class Tag extends Common {
   public logoPath ?: string;
   public textColor ?: string = '#fff';
   public backgroundColor ?: string = '#fff';
+  public cloudImageUrl ?: string ;
 }

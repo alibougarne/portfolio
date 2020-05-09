@@ -19,12 +19,23 @@ export default class TagsPage extends Vue {
       .loadTags()
       .then((response: Tag[]) => {
         this.tags = response;
+        let tempTags: Tag[] = [];
+        if (this.tags.length)
+          this.tags.forEach(async (tag: Tag) => {
+            console.log('%c⧭', 'color: #735656', tag);
+            tagModule.getTagImage(tag.logoPath || '').then(url => {
+              tag.cloudImageUrl = url;
+              console.log('%c⧭', 'color: #cc0088', url);
+              tempTags.push(tag);
+            });
+          });
+        this.tags = tempTags;
+        console.log('%c⧭', 'color: #1d3f73', this.tags);
         setTimeout(() => {
           this.$q.loading.hide();
         }, 1000);
-        if(this.$route.name === "Tags"){
+        if (this.$route.name === 'Tags') {
           this.$nextTick(() => {
-            console.log('%c⧭', 'color: #f2ceb6', this.$el);
             gsap.from(this.$el.childNodes, {
               duration: 2,
               scale: 0.5,
