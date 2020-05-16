@@ -92,7 +92,6 @@ export default class TagsList extends Mixins(
       delay: 400 // ms
     });
     let response: AxiosResponse = await tagModule.deleteTag(tagId);
-    console.log('%c⧭ delete tag response : ===> ', 'color: #068daf', response);
     if (response.status === 200) {
       this.tags = this.tags.filter((tag: Tag) => tag.id !== tagId);
       setTimeout(() => {

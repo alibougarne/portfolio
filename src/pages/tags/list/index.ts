@@ -19,16 +19,6 @@ export default class TagsPage extends Vue {
       .loadTags()
       .then((response: Tag[]) => {
         this.tags = response;
-        // let tempTags: Tag[] = [];
-        // if (this.tags.length)
-        //   this.tags.forEach(async (tag: Tag) => {
-        //     tagModule.getTagImage(tag.logoPath || '').then(url => {
-        //       tag.cloudImageUrl = url;
-        //       tempTags.push(tag);
-        //     });
-        //   });
-        // this.tags = tempTags;
-        console.log('%c⧭', 'color: #1d3f73', this.tags);
         setTimeout(() => {
           this.$q.loading.hide();
         }, 1000);
