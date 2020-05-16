@@ -22,10 +22,8 @@ export default class TagsPage extends Vue {
         let tempTags: Tag[] = [];
         if (this.tags.length)
           this.tags.forEach(async (tag: Tag) => {
-            console.log('%c⧭', 'color: #735656', tag);
             tagModule.getTagImage(tag.logoPath || '').then(url => {
               tag.cloudImageUrl = url;
-              console.log('%c⧭', 'color: #cc0088', url);
               tempTags.push(tag);
             });
           });
