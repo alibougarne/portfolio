@@ -27,7 +27,8 @@
               </q-item-section>
               <q-item-section side top class="col-sm-3">
                 <q-img
-                  :src="`${link_API}/images/${tag.logoPath}?target=tags`"
+                  v-if="tag.cloudImageUrl"
+                  :src="tag.cloudImageUrl"
                   spinner-color="white"
                   style="max-width: 40px"
                 />
