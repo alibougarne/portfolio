@@ -113,7 +113,6 @@ export default class TagsList extends Mixins(
 
 
   afterMount(): void {
-    
     console.log('%c⧭ tags ===> ', 'color: #f2ceb6', this.tags);
   }
 }
