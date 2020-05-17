@@ -1,0 +1,68 @@
+<q-page class="row justify-center items-center">
+  <div class="column col-5">
+    <div class="row">
+      <h5 class="text-h5 text-white q-my-md" 
+      style="
+        width: 100%;
+        text-align: center;
+      ">Portfolio Admin Login</h5>
+    </div>
+    <div class="row">
+      <LogoComponent/>
+    </div>
+    <div class="row">
+      <q-card square bordered class="q-pa-lg shadow-1 col-12">
+        <q-card-section class="row">
+          <q-form class=" col-12">
+            <div class="row">
+              <div class="col-12 q-mb-sm">
+                <q-input
+                  class="full-width"
+                  square
+                  filled
+                  clearable
+                  v-model="loginDto.email"
+                  type="email"
+                  label="email"
+                />
+              </div>
+              <div class="col-12 q-mb-sm">
+                  <q-input
+                    class="co-12"
+                    square
+                    filled
+                    clearable
+                    v-model="loginDto.password"
+                    type="password"
+                    label="password"
+                  />
+              </div>
+            </div>
+          </q-form>
+        </q-card-section>
+        <q-card-actions class="row">
+          <div class="col-12  q-mb-sm q-pa-sm">
+                  <q-btn
+                  :loading="isProcessing"
+                  :percentage="loadingPercentage"
+                  unelevated
+                  color="light-green-7"
+                  size="lg"
+                  class="full-width"
+                  label="Login"
+                  @click="login()"
+                  :icon-right="isAuthenticated?'mdi-lock-open':'mdi-lock'"
+                >
+                <template v-slot:loading>
+                  <q-spinner-facebook />
+                </template>
+              </q-btn>
+          </div>
+        </q-card-actions>
+        <q-card-section class="text-center q-pa-none">
+          <p class="text-grey-6">Not reigistered? Created an Account</p>
+        </q-card-section>
+      </q-card>
+    </div>
+  </div>
+</q-page>

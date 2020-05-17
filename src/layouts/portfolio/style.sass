@@ -1,0 +1,125 @@
+.q-layout
+  transition: background 1s ease
+
+.q-layout
+  background: #000
+
+.q-layout.bg-createtag
+  background: #260e00
+
+.q-layout
+  &:not(.bg-home)
+    // &:not(.bg-tags)
+    .landing__space
+      display: none
+
+.q-layout.bg-home
+  background: #000
+  background: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 45%, rgb(12, 12, 12) 100%)
+
+.q-layout.bg-tags
+  background: #010026
+  // background: radial-gradient(circle, #010026 0%, #010026 45%, #000 100%)
+  background: radial-gradient(circle, #ffffff 0%, #d2d2d2 45%, #444 100%)
+  
+.q-layout.bg-tags
+  .social--media
+    background: rgb(103, 103, 103);
+    &:not(:last-of-type)
+      border-bottom: 1px solid rgb(88, 88, 88)
+
+.q-layout.bg-projects
+  background: #000
+  background: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 45%, rgb(12, 12, 12) 100%)
+
+.q-layout.bg-projectspertag
+  background: radial-gradient(circle, #ffffff 0%, #d2d2d2 45%, #444 100%)
+
+.currentMenu
+  color: darkgoldenrod !important
+.bg-transparent
+  .q-drawer
+    background: transparent
+.YL
+  &__toolbar-input-container
+    min-width: 100px
+    width: 55%
+  &__toolbar-input-btn
+    border-radius: 0
+    border-style: solid
+    border-width: 1px 1px 1px 0
+    border-color: rgba(0,0,0,.24)
+    max-width: 60px
+    width: 100%
+  &__drawer-footer-link
+    color: inherit
+    text-decoration: none
+    font-weight: 500
+    font-size: .75rem
+    &:hover
+      color: #000
+
+.bg-portfolio
+  background: #fdfdfd26 !important
+
+.bg-transparent-gradient
+  background: linear-gradient(180deg,#000,transparent)
+
+.landing
+  background: #111
+
+.landing__space
+  width: 400vw
+  height: 400vh
+  top: 50%
+  left: 50%
+  margin-top: -200vh
+  margin-left: -200vw
+  animation: logo-rotate 200s linear infinite
+  background-size: 240px
+  backface-visibility: visible
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNDAgMjQwIj48cGF0aCBmaWxsPSIjRkZGIiBkPSJNMTA2IDkwaDJ2MmgtMnpNNzQgNjNoMXYxaC0xek0yMyA2NmgxdjFoLTF6TTUwIDExMGgxdjFoLTF6TTYzIDEyOGgxdjFoLTF6TTQ1IDE0OWgxdjFoLTF6TTkyIDE1MWgxdjFoLTF6TTU4IDhoMXYxaC0xek0xNDcgMzNoMnYyaC0yek05MSA0M2gxdjFoLTF6TTE2OSAyOWgxdjFoLTF6TTE4MiAxOWgxdjFoLTF6TTE2MSA1OWgxdjFoLTF6TTEzOCA5NWgxdjFoLTF6TTE5OSA3MWgzdjNoLTN6TTIxMyAxNTNoMnYyaC0yek0xMjggMTYzaDF2MWgtMXpNMjA1IDE3NGgxdjFoLTF6TTE1MiAyMDBoMXYxaC0xek01MiAyMTFoMnYyaC0yek0wIDE5MWgxdjFIMHpNMTEwIDE4NGgxdjFoLTF6Ii8+PC9zdmc+)
+
+.landing__space-second
+  background-size: 180px
+  animation: logo-rotate-opacity 120s linear infinite
+  filter: sepia(100) saturate(10)
+
+.social--media
+  background: rgba(255, 255, 255, 0.05)
+  padding: 10px 0
+  &:not(:last-of-type)
+    border-bottom: 1px solid rgba(0, 0, 0, 0.33)
+  a
+    display: contents
+    width: 100%
+    height: 100%
+    &:hover
+      background: none
+    .q-focus-helper
+      display: none
+
+.slide-fade-enter-active
+  transition: all .3s ease
+
+.slide-fade-leave-active
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0)
+
+.slide-fade-enter, .slide-fade-leave-to
+  transform: translateX(10px)
+  opacity: 0
+
+@keyframes logo-rotate
+  to
+    transform: rotate(-360deg)
+
+@keyframes logo-rotate-opacity
+  0%
+    transform: rotate(0deg)
+    opacity: .3
+  50%
+    transform: rotate(-180deg)
+    opacity: 0
+  100%
+    transform: rotate(-360deg)
+    opacity: .3

@@ -1,11 +1,14 @@
-<div>
+<div style="margin:5px">
   <q-btn
+    outline
+    :icon="tag.icon?tag.icon:'mdi-code-braces-box'"
     class="q-mr-sm"
-    :label="'#'+tag.hashtag"
-    :style="{ backgroundColor: '#'+tag.backgroundColor, color: '#'+tag.textColor }"
-    @click="$router.push('tags/'+tag.id).catch(err => {})"
+    :label="`#${tag.hashtag}`"
+    :style="{ backgroundColor: tag.backgroundColor, color: tag.backgroundColor,'text-transform': 'capitalize', margin:'0px' }"
+    @click="$router.push('/tags/'+tag.id).catch(err => {})"
   >
-    <q-tooltip content-class="merzaq" :value="false" text-white>
+    <q-badge v-if="tag.projects" :style="{ backgroundColor: tag.backgroundColor, color: tag.textColor}" floating>{{tag.projects}}</q-badge>
+    <q-tooltip v-if="!noTooltip" content-class="merzaq" :value="false" text-white >
       <div>
         <div class="q-pa-md" style="max-width: 350px">
           <q-list>
@@ -22,10 +25,10 @@
                   {{tag.description}}
                 </q-item-label>
               </q-item-section>
-
               <q-item-section side top class="col-sm-3">
                 <q-img
-                  :src="'api'+tag.image"
+                  v-if="tag.cloudImageUrl"
+                  :src="tag.cloudImageUrl"
                   spinner-color="white"
                   style="max-width: 40px"
                 />

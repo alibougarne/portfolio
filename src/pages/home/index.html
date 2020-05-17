@@ -1,13 +1,50 @@
 <q-page class="flex flex-center bg-transparent">
-  <div class="row content-center text-white">
-    <div class="col-12"><h5 class="q-mb-none q-mt-none">Hi,</h5></div>
-    <div class="col-12">
-      <h6 class="q-mb-none q-mt-none">I'm <b style="font-size: 25px;">Ali</b>,</h6>
-    </div>
-    <div class="col-12">
-      <h5 class="q-mb-none q-mt-none">
-        web Developer <b class="bg-primary q-pa-sm">💀</b>
+  <div class="row content-center text-white present--text">
+    <b style="font-size: 25px;"><></b>
+    <div class="col-12 display--group">
+      <h5 class="q-mb-none q-mt-none txt anim-text-flow">
+        <span class="">&nbsp;</span>
+        <b class="animate--span" v-for="char in `Hi,`">{{char}}</b>
+        <!-- <span class="animate--span" style="font-size: 5px;" v-for="char in `Hi`">{{char}}</span>, -->
       </h5>
     </div>
+    <div class="col-12  display--group">
+      <h5 class="q-mb-none q-mt-none txt anim-text-flow">
+        <!-- I'm -->
+        <span class="animate--span" v-for="char in `I'm`">{{char}}</span>
+
+        <!-- <span class="animate--span" v-for="char in `I'm`">{{char}}</span> -->
+        <b style="font-size: 45px;">
+          <span class="animate--span">&nbsp;</span>
+          <span class="animate--span" v-for="char in `Ali`">{{char}}</span>
+        </b>
+        <b class="animate--span">,</b>
+      </h5>
+    </div>
+    <div class="col-12 display--group">
+      <h3 class="q-mb-none q-mt-none txt anim-text-flow">
+        <b class="animate--span"  style="font-size: 25px;">a</b>
+        <span class="animate--span" v-for="char in ' Software '">{{char}}</span>
+        <b class="first-to--display" style="font-size: 25px;"v-for="char in ` Engineer `">{{char}}</b> 
+        <br class="br-to--display">
+        <b class="to--display" style="font-size: 25px;line-height: 12px;">&</b>
+        <br class="br-to--display">
+        <b class="to--display" style="font-size: 25px;"v-for="char in ` Web `">{{char}}</b> 
+        <!-- <span class="animate--span" v-for="char in 'web'">{{char}} -->
+        <!-- <span class="animate--span" v-for="char in 6"></span> -->
+        <span class="animate--span" v-for="char in 'Developer'">{{char}}</span>
+        <span class="animate--span">&nbsp;</span>
+        <span class="last-to--display"  style="position: relative;padding-left: 35px;">
+          <div class='firepit'>
+            <div class='fire'>
+              <div v-for="index in 4" class='flame'></div>
+              <div v-for="index in 12"class='spark'></div>
+            </div>
+          </div>
+        </span>
+        <!-- <b class="bg-primary q-pa-sm"style="font-size: 15px;" >💀</b> -->
+      </h3>
+    </div>
+    <b style="font-size: 25px;"></></b>
   </div>
 </q-page>

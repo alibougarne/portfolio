@@ -1,0 +1,252 @@
+<q-card dark>
+  <q-card-section>
+    <div class="text-h6">{{tag.id?'Edit':'Create'}} Tag</div>
+  </q-card-section>
+
+  <q-separator />
+
+  <q-card-section style="max-height: 50vh" class="scroll">
+    <q-form @reset="onReset" class="createTagForm q-pa-sm col-xs-12 row" dark>
+      <div class=" col-xs-12 col-md-8 col-lg-9 q-pa-md tag--inputs">
+        <div class="row">
+          <div
+            v-for="(input,index) in inputs"
+            :key="`tag-${index}`"
+            :class="`col-xs-12 col-md-${input==='link'?'12':'6'} q-pa-md`"
+          >
+            <q-input
+              :key="`tag-input-${index}`"
+              dark
+              filled
+              v-model="tag[input]"
+              :label="input"
+              :hint="`Add ${input}`"
+              lazy-rules
+              :rules="[ val => val && val.length > 0 || `Please add ${input}`]"
+            >
+              <template v-slot:append v-if="input === 'name'">
+                <q-avatar square>
+                  <q-img
+                    v-if="tagImage.__img.src"
+                    :src="tagImage.__img.src"
+                    spinner-color="white"
+                    style="max-width: 40px"
+                  />
+                </q-avatar>
+              </template>
+            </q-input>
+          </div>
+          <div
+            class=" col-xs-12 col-md-6 col-lg-6 q-pa-md"
+            v-for="(colorPick,index) in colorPicks"
+            :key="`colorPick-${index}`"
+          >
+            <q-input
+              dark
+              filled
+              v-model="tag[colorPick]"
+              class="my-input"
+              :hint=" `pick a ${colorPick}`"
+            >
+              <template v-slot:append>
+                <q-icon name="colorize" class="cursor-pointer">
+                  <q-popup-proxy
+                    transition-show="scale"
+                    transition-hide="scale"
+                  >
+                    <q-color
+                      no-header
+                      default-value="#c0c0c0"
+                      format-model="hex"
+                      @change="val => { tag[colorPick] = val }"
+                      :value="tag[colorPick]"
+                    />
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+            </q-input>
+          </div>
+          <div class=" col-xs-12 col-md-6 col-lg-12 q-pa-md">
+            <q-editor
+              dark
+              v-model="tag.description"
+              min-height="5rem"
+              class="bg-transparent"
+            />
+          </div>
+        </div>
+      </div>
+      <div class=" col-xs-12 col-md-4 col-lg-3 q-pa-md tag--image">
+        <div class="row" style="height: 100%;">
+          <div class=" col-xs-12 col-md-12 col-lg-12 q-pt-md q-pb-md">
+            <q-uploader
+              dark
+              label="Filtered (png only)"
+              :filter="checkFileType"
+              style="max-width: 100%; overflow: hidden;height: 100%;background: #565656;max-height: 100%;"
+              @add="(e) => checkFile(e)"
+              color="red"
+            >
+              <template v-slot:header="scope">
+                <div
+                  :style="{background:tag.backgroundColor !== '#fff'?tag.backgroundColor:'red'}"
+                  class="row no-wrap items-center q-pa-sm q-gutter-xs"
+                >
+                  <q-btn
+                    v-if="scope.queuedFiles.length > 0"
+                    icon="clear_all"
+                    @click="scope.removeQueuedFiles"
+                    round
+                    dense
+                    flat
+                  >
+                    <q-tooltip>Clear All</q-tooltip>
+                  </q-btn>
+                  <q-btn
+                    v-if="scope.uploadedFiles.length > 0"
+                    icon="done_all"
+                    @click="scope.removeUploadedFiles"
+                    round
+                    dense
+                    flat
+                  >
+                    <q-tooltip>Remove Uploaded Files</q-tooltip>
+                  </q-btn>
+                  <div class="col">
+                    <div class="q-uploader__title">Upload your files</div>
+                    <div class="q-uploader__subtitle">
+                      {{ scope.uploadSizeLabel }} / {{ scope.uploadProgressLabel
+                      }}
+                    </div>
+                  </div>
+                  <q-btn
+                    v-if="scope.canAddFiles"
+                    type="a"
+                    icon="add_box"
+                    round
+                    dense
+                    flat
+                  >
+                    <q-uploader-add-trigger />
+                    <q-tooltip>Pick Files</q-tooltip>
+                  </q-btn>
+                  <q-btn
+                    v-show="false"
+                    v-if="scope.canUpload"
+                    icon="cloud_upload"
+                    @click="scope.upload"
+                    round
+                    dense
+                    flat
+                  >
+                    <q-tooltip>Upload Files</q-tooltip>
+                  </q-btn>
+
+                  <q-btn
+                    v-if="scope.isUploading"
+                    icon="clear"
+                    @click="scope.abort"
+                    round
+                    dense
+                    flat
+                  >
+                    <q-tooltip>Abort Upload</q-tooltip>
+                  </q-btn>
+                </div>
+              </template>
+
+              <template v-slot:list="scope">
+                <div
+                  v-if="!scope.files.length && tag.logoPath"
+                  class="q-uploader__file relative-position q-uploader__file--img"
+                  :style="{
+                    'background-image': `url(${tagImage.__img.src})`
+                  }"
+                >
+                  <div class="q-uploader__file-header row flex-center no-wrap">
+                    <div class="q-uploader__file-header-content col">
+                      <div class="q-uploader__title">{{tag.logoPath}}</div>
+                      <div
+                        class="q-uploader__subtitle row items-center no-wrap"
+                      >
+                        0.0 B / 0.00%
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  v-for="(file,index) in scope.files" 
+                  :key="`${file.name}--${index}`"
+                  class="q-uploader__file relative-position q-uploader__file--img"
+                  :style="{
+                    'background-image': `url(${file.__img.src})`
+                  }"
+                >
+                  <div class="q-uploader__file-header row flex-center no-wrap">
+                    <div class="q-uploader__file-header-content col">
+                      <div class="q-uploader__title">{{file.name}}</div>
+                      <div
+                        class="q-uploader__subtitle row items-center no-wrap"
+                      >
+                        {{ file.__status }}
+                      </div>
+                    </div>
+                    <button
+                      role="button"
+                      type="button"
+                      class="q-btn q-btn-item non-selectable no-outline q-btn--flat q-btn--round q-btn--actionable q-focusable q-hoverable q-btn--wrap q-btn--dense"
+                    >
+                      <div  class="q-focus-helper"></div>
+                      <div class="q-btn__wrapper col row q-anchor--skip">
+                        <div
+                          class="q-btn__content text-center col items-center q-anchor--skip justify-center row"
+                        >
+                          <i
+                            aria-hidden="true"
+                            role="presentation"
+                            class="material-icons q-icon notranslate"
+                            @click="scope.removeFile(file)"
+                            >clear</i
+                          >
+                        </div>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              </template>
+            </q-uploader>
+          </div>
+        </div>
+      </div>
+    </q-form>
+  </q-card-section>
+
+  <q-separator />
+
+  <q-card-actions align="right">
+    <q-btn
+      label="Submit"
+      type="submit"
+      color="green"
+      @click="saveTag()"
+      :loading="isCreatingTag"
+      :percentage="loadingPercentage"
+      :disabled="!checkIfCanSaveTag"
+    />
+    <q-btn
+      @click="canSaveTag = false"
+      label="Reset"
+      type="reset"
+      color="green"
+      flat
+      class="q-ml-sm"
+    />
+    <!-- <q-btn flat label="Decline" color="primary" v-close-popup />
+      <q-btn flat label="Accept" color="primary" v-close-popup /> -->
+  </q-card-actions>
+</q-card>
+<!-- <div>
+    <div class="full-width row justify-center q-pa-md">
+    </div>
+  </div> -->

@@ -5,9 +5,10 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require('path');
 module.exports = function(ctx) {
-  console.log(ctx);
+  // console.log(ctx);
   return {
     // Quasar looks for *.js files by default
+    supportTS: true,
     sourceFiles: {
       router: 'src/router/index.ts',
       store: 'src/store/index.ts'
@@ -74,14 +75,32 @@ module.exports = function(ctx) {
         'QParallax',
         'QImg',
         'QCard',
+        'QCardSection',
+        'QCardActions',
         'QForm',
         'QToggle',
-        'QUploader'
+        'QUploader',
+        'QFile',
+        'QChip',
+        'QColor',
+        'QPopupProxy',
+        'QEditor',
+        'QSpinnerFacebook',
+        'QTable',
+        'QTh',
+        'QTr',
+        'QTd',
+        'QDialog',
+        'QRating',
+        'QSpinner',
+        'QSelect',
+        'QUploaderAddTrigger',
+        'QDate',
       ],
-      directives: ['Ripple'],
+      directives: ['Ripple','ClosePopup'],
 
       // Quasar plugins
-      plugins: ['Loading'],
+      plugins: ['Loading', 'Notify'],
       config: {
         loading: {
           /* Loading defaults */
@@ -98,7 +117,7 @@ module.exports = function(ctx) {
       vueCompiler: true,
       vueRouterMode: 'hash',
       // showProgress: false,
-      // gzip: true,
+      gzip: false,
       // analyze: true,
       // preloadChunks: false,
       // extractCSS: false,
@@ -112,7 +131,8 @@ module.exports = function(ctx) {
         }
         : {
           // and on build (production):
-          API: JSON.stringify('https://portfolio-nest-api.herokuapp.com')
+          // API: JSON.stringify('https://portfolio-nest-api.herokuapp.com')
+          API: JSON.stringify('https://porfolio-api-nestjs.herokuapp.com')
         },
       // https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
       extendWebpack(cfg) {
@@ -158,12 +178,29 @@ module.exports = function(ctx) {
     animations: [
       //'all',
       'fadeIn',
-      'fadeOut'
+      'fadeOut',
+      // 'slideInRight',
+      // 'slideInLeft',
+      // 'bounceInLeft',
+      // 'bounceOutRight'
     ],
 
     // https://quasar.dev/quasar-cli/developing-ssr/configuring-ssr
     ssr: {
-      pwa: false
+      pwa: false,
+      extendWebpack (cfg) {
+        // directly change props of cfg;
+        // no need to return anything
+      },
+  
+      // -- @quasar/app v1.5+ --
+      // optional; EQUIVALENT to extendWebpack() but uses webpack-chain;
+      // the Webserver part ONLY (/src-ssr/)
+      // which is invoked for production (NOT for dev)
+      chainWebpack (chain) {
+        // chain is a webpack-chain instance
+        // of the Webpack configuration
+      }
     },
 
     // https://quasar.dev/quasar-cli/developing-pwa/configuring-pwa

@@ -1,0 +1,95 @@
+<q-layout view="hHh lpR fFf" :class="'bg-'+currentMenu.toLowerCase()">
+  <div class="landing__space fixed"></div>
+  <div class="landing__space landing__space-second fixed "></div>
+  <q-drawer
+    v-model="leftDrawerOpen"
+    show-if-above
+    bordered
+    class="bg-transparent"
+    content-class="bg-transparent overflow-hidden"
+    :width="60"
+  >
+    <q-scroll-area class="fit">
+      <q-list>
+        <q-item style="background-color: darkgoldenrod;">
+          <q-img
+            :src="require('assets/logo.png')"
+            spinner-color="white"
+            style="filter: invert(1)"
+          />
+        </q-item>
+        <q-item
+          v-for="link in links1"
+          :key="link.text"
+          v-ripple
+          clickable
+          @click="goToRoute(link.path)"
+        >
+          <q-item-section avatar>
+            <q-icon
+              :class="{currentMenu: currentMenu == link.text }"
+              color="white"
+              :name="link.icon"
+            />
+          </q-item-section>
+          <q-tooltip
+            anchor="center right"
+            self="center left"
+            content-class="bg-amber text-white shadow-4"
+            :offset="[10, 10]"
+          >
+            {{ link.text }}
+          </q-tooltip>
+        </q-item>
+        <q-separator style="margin-top:50px"/>
+        <q-item
+          v-for="(link,index) in socials"
+          :key="link.text"
+          v-ripple
+          clickable
+          class="social--media"
+        >
+          <q-btn
+            type="a"
+            unelevated
+            :href="link.link"
+            target="_blank"
+            color="transparent"
+            :icon="link.icon"
+            :style="{color: `${link.color} !important` }"
+            class="full-width"
+            :ripple="false"
+          >
+          </q-btn>
+          <!-- <q-icon :name="link.icon"  /> -->
+          <!-- <a :href="link.link" target="_blank"> </a> -->
+          <q-tooltip
+            anchor="center right"
+            self="center left"
+            :style="{backgroundColor: `${link.color} !important`}"
+            content-class="shadow-4"
+            :offset="[10, 10]"
+          >
+            {{ link.text }}
+          </q-tooltip>
+        </q-item>
+        <q-separator/>
+      </q-list>
+    </q-scroll-area>
+  </q-drawer>
+
+  <q-page-container>
+    <transition
+      name="slide-fade"
+      mode="out-in"
+      appear
+      :duration="{ enter: 1000, leave: 800 }"
+    >
+      <router-view />
+    </transition>
+  </q-page-container>
+
+  <!-- <q-footer bordered class="bg-portfolio text-caption text-white q-pa-md">
+        <div v-html="copyright"></div>
+    </q-footer> -->
+</q-layout>
