@@ -6,7 +6,6 @@ import gsap from 'gsap';
 export default class Home extends Vue {
     mounted(){
         // this.$nextTick(function() {
-            console.log('%c⧭', 'color: #f2ceb6', this.$el);
             let tl = gsap.timeline();
             tl.from('.display--group', {
                 duration: .4,
