@@ -76,7 +76,6 @@ export default class Home extends Vue {
         force3D: false
       });
     if((document as any).querySelector('.q-layout').classList.contains('bg-home')){
-      console.log('%c⧭', 'color: #99614d', (document as any).querySelector('.q-layout').classList.contains('bg-home'));
       this.vantaEffect = WAVES({
         el: '.bg-home',
         mouseControls: true,
