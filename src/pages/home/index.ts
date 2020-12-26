@@ -75,40 +75,42 @@ export default class Home extends Vue {
         paddingLeft: '15px',
         force3D: false
       });
-
-    this.vantaEffect = WAVES({
-      el: '.bg-home',
-      mouseControls: true,
-      touchControls: true,
-      gyroControls: false,
-      minHeight: 200.0,
-      minWidth: 200.0,
-      scale: 1.0,
-      scaleMobile: 1.0,
-      color: 0x0,
-      backgroundColor: 0x0,
-      // mouseControls: true,
-      // touchControls: true,
-      // gyroControls: false,
-      // minHeight: 200.00,
-      // minWidth: 200.00,
-      // scale: 1.00,
-      // scaleMobile: 1.00,
-      // backgroundColor: 0x0,
-      // color1: 0xfff000,
-      // color2: 0xffffff,
-      // birdSize: 0.90,
-      // wingSpan: 18.00,
-      // separation: 55.00,
-      // alignment: 13.00,
-      // cohesion: 37.00,
-      // quantity: 3.00,
-
-      THREE
-    });
+    if((document as any).querySelector('.q-layout').classList.contains('bg-home')){
+      console.log('%c⧭', 'color: #99614d', (document as any).querySelector('.q-layout').classList.contains('bg-home'));
+      this.vantaEffect = WAVES({
+        el: '.bg-home',
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.0,
+        minWidth: 200.0,
+        scale: 1.0,
+        scaleMobile: 1.0,
+        color: 0x0,
+        // mouseControls: true,
+        // touchControls: true,
+        // gyroControls: false,
+        // minHeight: 200.00,
+        // minWidth: 200.00,
+        // scale: 1.00,
+        // scaleMobile: 1.00,
+        // backgroundColor: 0x0,
+        // color1: 0xfff000,
+        // color2: 0xffffff,
+        // birdSize: 0.90,
+        // wingSpan: 18.00,
+        // separation: 55.00,
+        // alignment: 13.00,
+        // cohesion: 37.00,
+        // quantity: 3.00,
+  
+        THREE
+      });
+    }
+    
   }
 
   beforeDestroy() {
-    this.vantaEffect.destroy(); // <-- doesn't seem to work for me
+      if(this.vantaEffect) this.vantaEffect.destroy(); // <-- doesn't seem to work for me
   }
 }
