@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import gsap from 'gsap';
 import * as THREE from 'three';
-import BIRDS from 'vanta/dist/vanta.birds.min';
+import NET from 'vanta/dist/vanta.net.min';
 @Component
 export default class Home extends Vue {
   vantaEffect: any;
@@ -75,7 +75,7 @@ export default class Home extends Vue {
         paddingLeft: '15px',
         force3D: false
       });
-    BIRDS({
+    NET({
       el: '.bg-home',
       mouseControls: true,
       touchControls: true,
@@ -84,15 +84,25 @@ export default class Home extends Vue {
       minWidth: 200.00,
       scale: 1.00,
       scaleMobile: 1.00,
+      color: 0xebd80e,
       backgroundColor: 0x0,
-      color1: 0xfff000,
-      color2: 0xffffff,
-      birdSize: 0.90,
-      wingSpan: 18.00,
-      separation: 55.00,
-      alignment: 13.00,
-      cohesion: 37.00,
-      quantity: 3.00,
+      // mouseControls: true,
+      // touchControls: true,
+      // gyroControls: false,
+      // minHeight: 200.00,
+      // minWidth: 200.00,
+      // scale: 1.00,
+      // scaleMobile: 1.00,
+      // backgroundColor: 0x0,
+      // color1: 0xfff000,
+      // color2: 0xffffff,
+      // birdSize: 0.90,
+      // wingSpan: 18.00,
+      // separation: 55.00,
+      // alignment: 13.00,
+      // cohesion: 37.00,
+      // quantity: 3.00,
+
       THREE
     });
   }
