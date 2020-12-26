@@ -86,30 +86,12 @@ export default class Home extends Vue {
         scale: 1.0,
         scaleMobile: 1.0,
         color: 0x0,
-        // mouseControls: true,
-        // touchControls: true,
-        // gyroControls: false,
-        // minHeight: 200.00,
-        // minWidth: 200.00,
-        // scale: 1.00,
-        // scaleMobile: 1.00,
-        // backgroundColor: 0x0,
-        // color1: 0xfff000,
-        // color2: 0xffffff,
-        // birdSize: 0.90,
-        // wingSpan: 18.00,
-        // separation: 55.00,
-        // alignment: 13.00,
-        // cohesion: 37.00,
-        // quantity: 3.00,
-  
         THREE
       });
     }
-    
   }
 
   beforeDestroy() {
-      if(this.vantaEffect) this.vantaEffect.destroy(); // <-- doesn't seem to work for me
+      if(this.vantaEffect) this.vantaEffect.destroy();
   }
 }
