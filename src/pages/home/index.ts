@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import gsap from 'gsap';
 import * as THREE from 'three';
-import NET from 'vanta/dist/vanta.net.min';
+import WAVES from 'vanta/dist/vanta.waves.min';
 @Component
 export default class Home extends Vue {
   vantaEffect: any;
@@ -75,16 +75,17 @@ export default class Home extends Vue {
         paddingLeft: '15px',
         force3D: false
       });
-    NET({
+
+    this.vantaEffect = WAVES({
       el: '.bg-home',
       mouseControls: true,
       touchControls: true,
       gyroControls: false,
-      minHeight: 200.00,
-      minWidth: 200.00,
-      scale: 1.00,
-      scaleMobile: 1.00,
-      color: 0xebd80e,
+      minHeight: 200.0,
+      minWidth: 200.0,
+      scale: 1.0,
+      scaleMobile: 1.0,
+      color: 0x0,
       backgroundColor: 0x0,
       // mouseControls: true,
       // touchControls: true,
@@ -105,5 +106,9 @@ export default class Home extends Vue {
 
       THREE
     });
+  }
+
+  beforeDestroy() {
+    this.vantaEffect.destroy(); // <-- doesn't seem to work for me
   }
 }

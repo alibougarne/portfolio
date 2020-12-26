@@ -8,6 +8,7 @@
     class="bg-transparent"
     content-class="bg-transparent overflow-hidden"
     :width="60"
+    style="position: absolute;min-height: 100vh;z-index: 100;"
   >
     <q-scroll-area class="fit">
       <q-list>
@@ -61,8 +62,6 @@
             :ripple="false"
           >
           </q-btn>
-          <!-- <q-icon :name="link.icon"  /> -->
-          <!-- <a :href="link.link" target="_blank"> </a> -->
           <q-tooltip
             anchor="center right"
             self="center left"
