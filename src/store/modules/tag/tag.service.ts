@@ -2,11 +2,12 @@ import Tag from './tag.entity';
 import Axios, { AxiosResponse } from 'axios';
 
 export default class TagService {
+
   static async loadTags(): Promise<Tag[]> {
     let tags: Tag[] = [];
     await Axios.get('/api/tags/all').then((response: AxiosResponse) => {
       tags = response.data as Tag[];
-      console.log(response.data);
+      // console.log(response.data);
     });
     // tags.map(async tag => {
     //   tag.cloudImageUrl = await this.getTagImage(tag.logoPath || '');
@@ -42,6 +43,7 @@ export default class TagService {
       }
     });
   }
+
   static async deleteTag(tagId: string): Promise<AxiosResponse> {
     return await Axios.delete(`/api/tags/${tagId}`);
   }
