@@ -5,7 +5,7 @@ export default class ProjectService {
 
 
   static async loadProjects(): Promise<AxiosResponse<Project[]>> {
-    return await Axios.get('/api/projects');
+    return await Axios.get('/api/projects?skip=0&take=5');
   }
 
   static async loadProjectsPerTag(tagId:string): Promise<Project[]> {
