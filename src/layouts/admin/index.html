@@ -1,0 +1,65 @@
+<q-layout view="lHh Lpr lFf" class="bg-grey-9 text-white">
+  <q-header elevated class="bg-grey-6" v-if="isAuthenticated">
+    <q-toolbar>
+      <q-btn
+        flat
+        dense
+        round
+        @click="leftDrawerOpen = !leftDrawerOpen"
+        aria-label="Menu"
+        icon="menu"
+      />
+      <q-toolbar-title>
+        Portfolio Administration
+      </q-toolbar-title>
+      <q-btn
+        flat
+        round
+        dense
+        icon="mdi-power-standby"
+        @click.prevent="logout()"
+      />
+    </q-toolbar>
+  </q-header>
+
+  <q-drawer
+    v-model="leftDrawerOpen"
+    content-class="bg-grey-8"
+    v-if="isAuthenticated"
+  >
+    <q-list dark>
+      <q-item-label header>Admin Panel</q-item-label>
+      <q-item
+        v-for="(link,index) in links"
+        clickable
+        tag="a"
+        :key="link.text"
+        v-ripple
+        @click="() => {
+          if($route.path !== link.path) {
+            $router.push(link.path).catch(err => {})
+          }
+        }"
+      >
+        <q-item-section avatar>
+          <q-icon :name="link.icon" />
+        </q-item-section>
+        <q-item-section>
+          <q-item-label>{{link.text}}</q-item-label>
+          <q-item-label caption>{{link.caption}}</q-item-label>
+        </q-item-section>
+      </q-item>
+    </q-list>
+  </q-drawer>
+
+  <q-page-container>
+    <transition
+      name="slide-fade"
+      mode="out-in"
+      appear
+      :duration="{ enter: 1000, leave: 800 }"
+    >
+      <router-view />
+    </transition>
+  </q-page-container>
+</q-layout>

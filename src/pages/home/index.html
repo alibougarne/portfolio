@@ -1,13 +1,44 @@
 <q-page class="flex flex-center bg-transparent">
-  <div class="row content-center text-white">
-    <div class="col-12"><h5 class="q-mb-none q-mt-none">Hi,</h5></div>
-    <div class="col-12">
-      <h6 class="q-mb-none q-mt-none">I'm <b style="font-size: 25px;">Ali</b>,</h6>
-    </div>
-    <div class="col-12">
-      <h5 class="q-mb-none q-mt-none">
-        web Developer <b class="bg-primary q-pa-sm">💀</b>
+  <div class="row content-center text-white present--text">
+    <strong style="font-size: 25px;"><></strong>
+    <div class="col-12 display--group">
+      <h5 class="q-mb-none q-mt-none txt anim-text-flow">
+        <span class="">&nbsp;</span>
+        <strong class="animate--span" v-for="char in `Hi,`">{{char}}</strong>
       </h5>
     </div>
+    <div class="col-12  display--group">
+      <h5 class="q-mb-none q-mt-none txt anim-text-flow">
+        <!-- I'm -->
+        <span class="animate--span" v-for="char in `I'm`">{{char}}</span>
+        <strong style="font-size: 45px;">
+          <span class="animate--span">&nbsp;</span>
+          <span class="animate--span" v-for="char in `Ali`">{{char}}</span>
+        </strong>
+        <strong class="animate--span">,</strong>
+      </h5>
+    </div>
+    <div class="col-12 display--group">
+      <h3 class="q-mb-none q-mt-none txt anim-text-flow">
+        <strong class="animate--span"  style="font-size: 25px;">a</strong>
+        <span class="animate--span" v-for="char in ' Software '">{{char}}</span>
+        <strong class="first-to--display" style="font-size: 25px;"v-for="char in ` Engineer `">{{char}}</strong> 
+        <br class="br-to--display">
+        <strong class="to--display" style="font-size: 25px;line-height: 12px;">&</strong>
+        <br class="br-to--display">
+        <strong class="to--display" style="font-size: 25px;"v-for="char in ` Web `">{{char}}</strong> 
+        <span class="animate--span" v-for="char in 'Developer'">{{char}}</span>
+        <span class="animate--span">&nbsp;</span>
+        <span class="last-to--display"  style="position: relative;padding-left: 35px;">
+          <div class='firepit'>
+            <div class='fire'>
+              <div v-for="index in 4" class='flame'></div>
+              <div v-for="index in 12"class='spark'></div>
+            </div>
+          </div>
+        </span>
+      </h3>
+    </div>
+    <strong style="font-size: 25px;"></></strong>
   </div>
 </q-page>

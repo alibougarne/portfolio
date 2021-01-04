@@ -1,0 +1,89 @@
+<q-page class="bg-transparent createTag">
+  <div class="full-width row justify-center q-pa-md">
+    <q-table
+      class="table--grey"
+      title="Projects"
+      :data="projects"
+      :columns="columns"
+      row-key="name"
+    >
+      <template v-slot:top>
+        <q-btn
+          color="green"
+          :disable="loading"
+          label="Add Project"
+          @click="(e) => {
+            e.preventDefault()
+            setCurrentProject(null)
+          }"
+        />
+        <q-space />
+        <q-input borderless dense debounce="300" color="white" v-model="filter">
+          <template v-slot:append>
+            <q-icon name="search" />
+          </template>
+        </q-input>
+      </template>
+
+      <template v-slot:header="props">
+        <q-tr :props="props">
+          <q-th v-for="col in props.cols" :key="col.name" :props="props">
+            {{ col.label }}
+          </q-th>
+          <q-th>
+            Action
+          </q-th>
+        </q-tr>
+      </template>
+
+      <template v-slot:body="props">
+        <!-- {{props}} -->
+        <q-tr :props="props" :key="`m_${props.row.id}`">
+          <q-td v-for="col in props.cols" :key="col.name" :props="props">
+            {{ col.name !== "rating"?col.value:""}}
+            <!-- {{ col.name === "category"?col.value.name:"" }}
+            {{ col.name === "company"?col.value.name:"" }}
+            {{ !["company","category"].includes(col.name)?col.value:"" }} -->
+            <q-rating
+              v-if="col.name === 'rating'" 
+              v-model="col.value"
+              size="1em"
+              :max="5"
+              color="yellow"
+              readonly
+            />
+          </q-td>
+
+          <q-td key="action" style="text-align: center;">
+            <q-btn
+              outline
+              color="green"
+              style="color: green;"
+              icon="edit"
+              class="custom--button"
+              @click="setCurrentProject(props.row)"
+
+            />
+            <q-btn
+              outline
+              @click="deleteProject(props.row.id)"
+              color="red"
+              style="color: red;"
+              icon="remove"
+              class="custom--button"
+            />
+          </q-td>
+        </q-tr>
+      </template>
+    </q-table>
+    <q-dialog
+      v-model="projectDialog"
+      full-width
+      transition-show="slide-down"
+      transition-hide="slide-up"
+      :content-style="{ background: '#4c4848'}"
+    >
+      <CreateProject @emission-from-create-project="onEmissionFromChild" :project="currentProject"/>
+    </q-dialog>
+  </div>
+</q-page>
