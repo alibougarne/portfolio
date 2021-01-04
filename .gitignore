@@ -3,6 +3,7 @@
 .thumbs.db
 node_modules
 /dist
+/public
 /src-electron
 /src-cordova/node_modules
 /src-cordova/platforms
