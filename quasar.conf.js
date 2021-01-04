@@ -113,6 +113,7 @@ module.exports = function(ctx) {
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
+      distDir: ctx.mode.spa ? 'public' : null,
       scopeHoisting: true,
       vueCompiler: true,
       vueRouterMode: 'hash',

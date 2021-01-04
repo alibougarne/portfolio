@@ -12,7 +12,8 @@
     "test": "echo \"No test specified\" && exit 0",
     "start": "node server.js",
     "build": "quasar build",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run build",
+    "deploy": "vercel"
   },
   "dependencies": {
     "@mdi/font": "^5.0.45",
