@@ -25,8 +25,7 @@ export default class ProjectsList extends Mixins(
     sortBy: 'desc',
     descending: false,
     page: 1,
-    rowsPerPage: 5
-    // rowsNumber: xx if getting data from a server
+    rowsPerPage: 5,
   };
   private loadingProjects: boolean = false;
 
@@ -138,12 +137,23 @@ export default class ProjectsList extends Mixins(
     }
   }
 
-  @Watch('pagination')
-  public async watchPagination(
-    current: Pagination,
-    old: Pagination
-  ): Promise<void> {
-      this.projects = await this.loadProjects(current, false);
+  // @Watch('pagination')
+  // public async watchPagination(
+  //   current: Pagination,
+  //   old: Pagination
+  // ): Promise<void> {
+
+  //   if(current.page !== old.page ){
+  //     console.log('%c⧭-------- Watch pagination ----------', 'color: #ace2e6', );
+  //     console.log('%c⧭ current page ==> ', 'color: #9c66cc', current.page);
+  //     console.log('%c⧭ old page ==> ', 'color: #9c66cc', old.page);
+  //     this.projects = await this.loadProjects({...current}, false);
+  //   }
+  // }
+
+  async onRequest(props:any):Promise<void>{
+    console.log('%c⧭ props on request', 'color: #ff0000', props);
+    this.projects = await this.loadProjects({...props.pagination}, false);
   }
 
   async loadProjects(
@@ -170,7 +180,9 @@ export default class ProjectsList extends Mixins(
             );
           }, 900);
         } else {
-          this.loadingProjects = false;
+          setTimeout(() => {
+            this.loadingProjects = false;
+          }, 900);
         }
 
         projects = response.data ? response.data : [];
@@ -186,7 +198,9 @@ export default class ProjectsList extends Mixins(
             );
           }, 900);
         } else {
-          this.loadingProjects = false;
+          setTimeout(() => {
+            this.loadingProjects = false;
+          }, 900);
         }
       }
     } catch (error) {
@@ -196,7 +210,9 @@ export default class ProjectsList extends Mixins(
           this.notify('red', 'white', 'cloud_done', 'loading projects failed');
         }, 900);
       } else {
-        this.loadingProjects = false;
+        setTimeout(() => {
+          this.loadingProjects = false;
+        }, 900);
       }
     }
     return projects;
@@ -207,7 +223,8 @@ export default class ProjectsList extends Mixins(
   }
 
   async mounted(): Promise<void> {
-    this.projects = await this.loadProjects(this.pagination, true);
+    console.log("---------projects Mounted----------")
+    this.projects = await this.loadProjects({...this.pagination}, true);
   }
   afterMount(): void {
     // {

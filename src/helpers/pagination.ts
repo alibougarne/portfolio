@@ -3,4 +3,5 @@ export default interface Pagination {
     descending: boolean;
     page: number;
     rowsPerPage: number;
+    rowsNumber?: number;
   }

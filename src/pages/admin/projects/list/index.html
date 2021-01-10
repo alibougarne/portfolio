@@ -8,10 +8,10 @@
       row-key="name"
       :pagination.sync="pagination"
       :loading="loadingProjects"
+      @request="onRequest"
+      binary-state-sort
     >
-      <template v-slot:loading>
-        <q-inner-loading showing color="primary" />
-      </template>
+
       <template v-slot:top>
         <q-btn
           color="green"
