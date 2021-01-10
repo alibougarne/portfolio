@@ -1,12 +1,13 @@
 import Component from 'vue-class-component';
 import CreateProject from '../create/CreateProject.vue';
 import ButtonMixin from '@/mixins/buttons';
-import { Mixins } from 'vue-property-decorator';
+import { Mixins, Watch } from 'vue-property-decorator';
 import { projectModule } from '@/store/modules/project/project.module';
 import { AxiosResponse } from 'axios';
 import NotificationMixin from '@/mixins/notification';
 import Project from '@/store/modules/project/project.entity';
-import Tag from '~/src/store/modules/tag/tag.entity';
+import Tag from '@/store/modules/tag/tag.entity';
+import Pagination from '@/helpers/pagination'
 
 @Component({
   components: { CreateProject }
@@ -20,13 +21,15 @@ export default class ProjectsList extends Mixins(
   private projectDialog: boolean = false;
   private currentProject: Project = new Project();
   private filter: string = '';
-  private pagination: any = {
+  private pagination: Pagination = {
     sortBy: 'desc',
     descending: false,
     page: 1,
     rowsPerPage: 5
     // rowsNumber: xx if getting data from a server
   };
+  private loadingProjects: boolean = false;
+
   private columns: Object[] = [
     {
       name: 'name',
@@ -135,36 +138,76 @@ export default class ProjectsList extends Mixins(
     }
   }
 
+  @Watch('pagination')
+  public async watchPagination(
+    current: Pagination,
+    old: Pagination
+  ): Promise<void> {
+      this.projects = await this.loadProjects(current, false);
+  }
+
+  async loadProjects(
+    pagination: Pagination,
+    isGlobalLoading: boolean
+  ): Promise<Project[]> {
+    let projects: Project[] = [];
+    this.loadingProjects = !isGlobalLoading;
+    let skip:number = (pagination.page -1) * pagination.rowsPerPage;
+    try {
+      console.log('%c⧭ pagination when loading projects', 'color: #cc7033', skip);
+      let response: AxiosResponse = await projectModule.loadProjects(
+        pagination
+      );
+      if (response.status === 200) {
+        if (isGlobalLoading) {
+          setTimeout(() => {
+            this.$q.loading.hide();
+            this.notify(
+              'green-4',
+              'white',
+              'cloud_done',
+              'Projects loaded successfully !'
+            );
+          }, 900);
+        } else {
+          this.loadingProjects = false;
+        }
+
+        projects = response.data ? response.data : [];
+      } else {
+        if (isGlobalLoading) {
+          setTimeout(() => {
+            this.$q.loading.hide();
+            this.notify(
+              'red',
+              'white',
+              'cloud_done',
+              'loading projects failed'
+            );
+          }, 900);
+        } else {
+          this.loadingProjects = false;
+        }
+      }
+    } catch (error) {
+      if (isGlobalLoading) {
+        setTimeout(() => {
+          this.$q.loading.hide();
+          this.notify('red', 'white', 'cloud_done', 'loading projects failed');
+        }, 900);
+      } else {
+        this.loadingProjects = false;
+      }
+    }
+    return projects;
+  }
+
   created(): void {
     this.$q.loading.show();
   }
 
   async mounted(): Promise<void> {
-    try {
-      let response: AxiosResponse = await projectModule.loadProjects();
-      if (response.status === 200) {
-        this.projects = response.data ? response.data : [];
-        setTimeout(() => {
-          this.$q.loading.hide();
-          this.notify(
-            'green-4',
-            'white',
-            'cloud_done',
-            'Projects loaded successfully !'
-          );
-        }, 900);
-      } else {
-        setTimeout(() => {
-          this.$q.loading.hide();
-          this.notify('red', 'white', 'cloud_done', 'loading projects failed');
-        }, 900);
-      }
-    } catch (error) {
-      setTimeout(() => {
-        this.$q.loading.hide();
-        this.notify('red', 'white', 'cloud_done', 'loading projects failed');
-      }, 900);
-    }
+    this.projects = await this.loadProjects(this.pagination, true);
   }
   afterMount(): void {
     // {
@@ -180,4 +223,8 @@ export default class ProjectsList extends Mixins(
     //   "logoPath": "resources/projects/joomla.png"
     // }
   }
+  updated(): void {
+    console.log('%c⧭ pagination ', 'color: #40fff2', this.pagination);
+  }
 }
+

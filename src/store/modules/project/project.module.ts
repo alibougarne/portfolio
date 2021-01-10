@@ -1,6 +1,7 @@
-import { VuexModule, Module, Mutation, Action } from 'vuex-class-modules';
+import { VuexModule, Module, Action } from 'vuex-class-modules';
 import ProjectService from './project.service';
 import Project from './project.entity';
+import Pagination from '@/helpers/pagination';
 
 @Module
 class ProjectModule extends VuexModule {
@@ -8,8 +9,9 @@ class ProjectModule extends VuexModule {
   // mutations
   // actions
   @Action
-  public async loadProjects():Promise<AxiosResponse<Project[]>>{
-    return await ProjectService.loadProjects();
+  public async loadProjects(pagination:Pagination):Promise<AxiosResponse<Project[]>>{
+    console.log('%c⧭ take, skip ==> ', 'color: #f27999', pagination);
+    return await ProjectService.loadProjects(pagination.rowsPerPage, (pagination.page-1) * pagination.rowsPerPage);
   }
 
   @Action

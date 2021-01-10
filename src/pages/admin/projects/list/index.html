@@ -6,7 +6,12 @@
       :data="projects"
       :columns="columns"
       row-key="name"
+      :pagination.sync="pagination"
+      :loading="loadingProjects"
     >
+      <template v-slot:loading>
+        <q-inner-loading showing color="primary" />
+      </template>
       <template v-slot:top>
         <q-btn
           color="green"
@@ -41,9 +46,6 @@
         <q-tr :props="props" :key="`m_${props.row.id}`">
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
             {{ col.name !== "rating"?col.value:""}}
-            <!-- {{ col.name === "category"?col.value.name:"" }}
-            {{ col.name === "company"?col.value.name:"" }}
-            {{ !["company","category"].includes(col.name)?col.value:"" }} -->
             <q-rating
               v-if="col.name === 'rating'" 
               v-model="col.value"

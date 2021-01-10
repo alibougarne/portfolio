@@ -96,6 +96,7 @@ module.exports = function(ctx) {
         'QSelect',
         'QUploaderAddTrigger',
         'QDate',
+        'QInnerLoading',
       ],
       directives: ['Ripple','ClosePopup'],
 

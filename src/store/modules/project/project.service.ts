@@ -4,8 +4,9 @@ import Project from './project.entity';
 export default class ProjectService {
 
 
-  static async loadProjects(): Promise<AxiosResponse<Project[]>> {
-    return await Axios.get('/api/projects?skip=0&take=5');
+  static async loadProjects(skip?:number, take?:number): Promise<AxiosResponse<Project[]>> {
+    const link  = skip && take ? `?skip=${skip}&take=${take}`:''
+    return await Axios.get(`/api/projects${link}`);
   }
 
   static async loadProjectsPerTag(tagId:string): Promise<Project[]> {

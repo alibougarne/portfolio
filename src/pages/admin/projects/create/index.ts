@@ -1,7 +1,5 @@
-import Vue from 'vue';
 import Component from 'vue-class-component';
 import Project from '@/store/modules/project/project.entity';
-import { Common } from '@/store/modules/common/common.entity';
 import { AxiosResponse } from 'axios';
 import { projectModule } from '@/store/modules/project/project.module';
 import { tagModule } from '@/store/modules/tag/tag.module';
