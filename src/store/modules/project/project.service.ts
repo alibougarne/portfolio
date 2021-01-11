@@ -5,10 +5,7 @@ export default class ProjectService {
 
 
   static async loadProjects(take?:number, skip?:number): Promise<AxiosResponse<Project[]>> {
-    console.log('%c⧭', 'color: #e50000', skip);
-    console.log('%c⧭', 'color: #e50000', take);
     const link  = skip || take ? `?skip=${skip}&take=${take}`:''
-    console.log('%c⧭ link ===> ', 'color: #aa00ff', link);
     return await Axios.get(`/api/projects${link}`);
   }
 

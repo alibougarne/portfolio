@@ -7,7 +7,7 @@ import { AxiosResponse } from 'axios';
 import NotificationMixin from '@/mixins/notification';
 import Project from '@/store/modules/project/project.entity';
 import Tag from '@/store/modules/tag/tag.entity';
-import Pagination from '@/helpers/pagination'
+import Pagination from '@/helpers/pagination';
 
 @Component({
   components: { CreateProject }
@@ -25,7 +25,7 @@ export default class ProjectsList extends Mixins(
     sortBy: 'desc',
     descending: false,
     page: 1,
-    rowsPerPage: 5,
+    rowsPerPage: 5
   };
   private loadingProjects: boolean = false;
 
@@ -151,9 +151,8 @@ export default class ProjectsList extends Mixins(
   //   }
   // }
 
-  async onRequest(props:any):Promise<void>{
-    console.log('%c⧭ props on request', 'color: #ff0000', props);
-    this.projects = await this.loadProjects({...props.pagination}, false);
+  async onRequest(props: any): Promise<void> {
+    this.projects = await this.loadProjects({ ...props.pagination }, false);
   }
 
   async loadProjects(
@@ -162,9 +161,8 @@ export default class ProjectsList extends Mixins(
   ): Promise<Project[]> {
     let projects: Project[] = [];
     this.loadingProjects = !isGlobalLoading;
-    let skip:number = (pagination.page -1) * pagination.rowsPerPage;
+    let skip: number = (pagination.page - 1) * pagination.rowsPerPage;
     try {
-      console.log('%c⧭ pagination when loading projects', 'color: #cc7033', skip);
       let response: AxiosResponse = await projectModule.loadProjects(
         pagination
       );
@@ -185,12 +183,14 @@ export default class ProjectsList extends Mixins(
           }, 900);
         }
 
-        projects = response.data && response.data.list ? response.data.list : [];
-        console.log('%c⧭', 'color: #00e600', response);
-        this.pagination= {
-          rowsNumber: response.data.count?response.data.count:projects.length,
-           ...pagination}
-        
+        projects =
+          response.data && response.data.list ? response.data.list : [];
+        this.pagination = {
+          rowsNumber: response.data.count
+            ? response.data.count
+            : projects.length,
+          ...pagination
+        };
       } else {
         if (isGlobalLoading) {
           setTimeout(() => {
@@ -228,9 +228,7 @@ export default class ProjectsList extends Mixins(
   }
 
   async mounted(): Promise<void> {
-    console.log("---------projects Mounted----------")
-    this.projects = await this.loadProjects({...this.pagination}, true);
-    console.log('%c⧭ this.pagination after loading', 'color: #00a3cc', this.pagination);
+    this.projects = await this.loadProjects({ ...this.pagination }, true);
   }
   afterMount(): void {
     // {
@@ -250,4 +248,3 @@ export default class ProjectsList extends Mixins(
     console.log('%c⧭ pagination ', 'color: #40fff2', this.pagination);
   }
 }
-
