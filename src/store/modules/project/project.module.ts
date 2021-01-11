@@ -10,8 +10,7 @@ class ProjectModule extends VuexModule {
   // actions
   @Action
   public async loadProjects(pagination:Pagination):Promise<AxiosResponse<Project[]>>{
-    console.log('%c⧭ take, skip ==> ', 'color: #f27999', pagination);
-    return await ProjectService.loadProjects(pagination.rowsPerPage, (pagination.page-1) * pagination.rowsPerPage);
+    return await ProjectService.loadProjects(pagination.rowsPerPage, (pagination.page - 1) * pagination.rowsPerPage);
   }
 
   @Action

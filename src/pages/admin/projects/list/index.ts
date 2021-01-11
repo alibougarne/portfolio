@@ -185,7 +185,12 @@ export default class ProjectsList extends Mixins(
           }, 900);
         }
 
-        projects = response.data ? response.data : [];
+        projects = response.data && response.data.list ? response.data.list : [];
+        console.log('%c⧭', 'color: #00e600', response);
+        this.pagination= {
+          rowsNumber: response.data.count?response.data.count:projects.length,
+           ...pagination}
+        
       } else {
         if (isGlobalLoading) {
           setTimeout(() => {
@@ -225,6 +230,7 @@ export default class ProjectsList extends Mixins(
   async mounted(): Promise<void> {
     console.log("---------projects Mounted----------")
     this.projects = await this.loadProjects({...this.pagination}, true);
+    console.log('%c⧭ this.pagination after loading', 'color: #00a3cc', this.pagination);
   }
   afterMount(): void {
     // {
