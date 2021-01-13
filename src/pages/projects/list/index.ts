@@ -7,6 +7,8 @@ import ButtonMixin from '@/mixins/buttons';
 import { Mixins, Watch } from 'vue-property-decorator';
 import NotificationMixin from '@/mixins/notification';
 import { AxiosResponse } from 'axios';
+import gsap from 'gsap';
+
 @Component({
   components: { ProjectCardComponent }
 })
@@ -18,7 +20,7 @@ export default class Projects extends Mixins(ButtonMixin, NotificationMixin) {
     sortBy: 'desc',
     descending: false,
     page: 1,
-    rowsPerPage: 5
+    rowsPerPage: 6
   };
   public thumbStyle: object = {
     right: '2px',
@@ -31,6 +33,7 @@ export default class Projects extends Mixins(ButtonMixin, NotificationMixin) {
   get routeID() {
     return `projects${this.$route.params.id ? '_tag' : ''}`;
   }
+  
   @Watch('routeID')
   async watchRoute(current: string, old: string) {
     if (current !== old) {
@@ -99,8 +102,22 @@ export default class Projects extends Mixins(ButtonMixin, NotificationMixin) {
     } else {
       this.projects = await this.loadProjects(this.pagination);
     }
+
   }
   public beforeUpdate() {
-    console.log('%c⧭ here before updated', 'color: #0088cc');
+    this.$nextTick(() => {
+      gsap.from(document.querySelectorAll('.projectCards'), {
+        duration: 2,
+        scale: 0.5,
+        opacity: 0,
+        delay: 0.5,
+        stagger: 0.2,
+        ease: 'elastic',
+        force3D: false
+      });
+      // this.$el.childNodes.forEach((element:ChildNode,index:number) => {
+      //   console.log('%c⧭', 'color: #f200e2', element);
+      // });
+    });
   }
 }
