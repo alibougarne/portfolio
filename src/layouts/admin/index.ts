@@ -65,9 +65,6 @@ export default class AdminLayout extends Vue {
   
   @Watch('currentPathName')
   public watchRoutes(current: string, old: string): void {
-    // console.log('%c⧭ old', 'color: #731d1d', old);
-    // console.log('%c⧭ current', 'color: #f200e2', current);
-    // console.log('%c⧭', 'color: #807160', this.isAuthenticated);
     if (!this.isAuthenticated && current !== 'login') {
       this.$route.name;
       this.$router.push('/admin').catch(err => {});

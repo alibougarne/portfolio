@@ -119,7 +119,7 @@ module.exports = function(ctx) {
       vueCompiler: true,
       vueRouterMode: 'hash',
       // showProgress: false,
-      gzip: false,
+      gzip: true,
       // analyze: true,
       // preloadChunks: false,
       // extractCSS: false,
@@ -133,8 +133,8 @@ module.exports = function(ctx) {
         }
         : {
           // and on build (production):
-          API: JSON.stringify('https://portfolio-nest-api.herokuapp.com')
-          // API: JSON.stringify('https://porfolio-api-nestjs.herokuapp.com')
+          // API: JSON.stringify('https://portfolio-nest-api.herokuapp.com')
+          API: JSON.stringify('https://porfolio-api-nestjs.herokuapp.com')
         },
       // https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
       extendWebpack(cfg) {

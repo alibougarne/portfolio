@@ -11,14 +11,14 @@ const routes: RouteConfig[] = [
         component: () => import('pages/home/Home.vue')
       },
       {
-        name: 'Projects',
-        path: '/projects',
-        component: () => import('pages/home/Home.vue')
-      },
-      {
         name: 'Tags',
         path: '/tags',
         component: () => import('pages/tags/list/Tags.vue')
+      },
+      {
+        name: 'Projects',
+        path: '/projects',
+        component: () => import('pages/projects/list/Projects.vue')
       },
       {
         name: 'CreateTag',
@@ -31,7 +31,7 @@ const routes: RouteConfig[] = [
         component: () => import('pages/projects/list/Projects.vue')
       },
       {
-        name: 'Conact',
+        name: 'Contact',
         path: '/contact',
         component: () => import('pages/contact/Contact.vue')
       }

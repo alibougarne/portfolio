@@ -56,8 +56,7 @@ export default class TagsList extends Mixins(
 
   @Watch('name')
   watchName(old: string, newval: string) {
-    console.log('%c⧭ list ===> name new ', 'color: #e57373', newval);
-    console.log('%c⧭ list ===> name old  ', 'color: #731d6d', old);
+
   }
 
   onEmissionFromChild(tag: Tag) {
@@ -112,7 +111,7 @@ export default class TagsList extends Mixins(
   }
 
 
-  afterMount(): void {
+  beforeUpdate(): void {
     console.log('%c⧭ tags ===> ', 'color: #f2ceb6', this.tags);
   }
 }

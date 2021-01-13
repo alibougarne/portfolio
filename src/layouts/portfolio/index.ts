@@ -9,6 +9,7 @@ import Axios, { AxiosAdapter, AxiosResponse } from 'axios';
 export default class MyLayout extends Vue {
   private store = getModule(LayoutStoreModule);
   private copyright: string = `&copy; Made with ❤️ by <b style="color:$grey-8">Ali Bougarne</b> ${new Date().getFullYear()}`;
+  
   private get leftDrawerOpen() {
     return this.store.leftDrawerOpen;
   }
