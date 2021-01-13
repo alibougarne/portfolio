@@ -4,9 +4,7 @@
     bordered
     class="my-card"
     flat
-    
   >
-    <!-- <img src="https://cdn.quasar.dev/img/parallax2.jpg" /> -->
     <q-img
       v-if="true"
       :src="`api/resources/projects/${project.id}.png`"
@@ -22,8 +20,8 @@
         </q-item-section>
 
         <q-item-section>
-          <q-item-label class="text-white" >{{project.name}}</q-item-label>
-          <q-item-label class="text-blue-grey-6 ellipsis-2-lines" caption>{{project.description}}</q-item-label>
+          <q-item-label class="text-black" >{{project.name}}</q-item-label>
+          <q-item-label class="text-grey-6 ellipsis-2-lines" caption>{{project.description}}</q-item-label>
         </q-item-section>
       </q-item>
       <q-item clickable>

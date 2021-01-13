@@ -1,20 +1,16 @@
-import Vue from 'vue';
 import Component from 'vue-class-component';
 import { projectModule } from '@/store/modules/project/project.module';
 import Project from '@/store/modules/project/project.entity';
 import ProjectCardComponent from '@/components/project/card/ProjectCardComponent.vue';
 import Pagination from '@/helpers/pagination';
 import ButtonMixin from '@/mixins/buttons';
-import { Mixins } from 'vue-property-decorator';
+import { Mixins, Watch } from 'vue-property-decorator';
 import NotificationMixin from '@/mixins/notification';
 import { AxiosResponse } from 'axios';
 @Component({
   components: { ProjectCardComponent }
 })
-export default class Projects extends Mixins(
-  ButtonMixin,
-  NotificationMixin
-) {
+export default class Projects extends Mixins(ButtonMixin, NotificationMixin) {
   public projects: Project[] = [];
   public contentStyle: object = {};
   public contentActiveStyle: object = {};
@@ -23,7 +19,7 @@ export default class Projects extends Mixins(
     descending: false,
     page: 1,
     rowsPerPage: 5
-  }
+  };
   public thumbStyle: object = {
     right: '2px',
     borderRadius: '0px',
@@ -32,26 +28,32 @@ export default class Projects extends Mixins(
     opacity: 0.75
   };
 
-  async loadProjects(
-    pagination: Pagination,
-  ): Promise<Project[]> {
+  get routeID() {
+    return `projects${this.$route.params.id ? '_tag' : ''}`;
+  }
+  @Watch('routeID')
+  async watchRoute(current: string, old: string) {
+    if (current !== old) {
+      this.projects = await this.loadProjects(this.pagination);
+    }
+  }
+
+  async loadProjects(pagination: Pagination): Promise<Project[]> {
     let projects: Project[] = [];
-    let skip: number = (pagination.page - 1) * pagination.rowsPerPage;
     try {
       let response: AxiosResponse = await projectModule.loadProjects(
         pagination
       );
       if (response.status === 200) {
-          setTimeout(() => {
-            this.$q.loading.hide();
-            this.notify(
-              'green-4',
-              'white',
-              'cloud_done',
-              'Projects loaded successfully !'
-            );
-          }, 900);
-
+        setTimeout(() => {
+          this.$q.loading.hide();
+          this.notify(
+            'green-4',
+            'white',
+            'cloud_done',
+            'Projects loaded successfully !'
+          );
+        }, 900);
 
         projects =
           response.data && response.data.list ? response.data.list : [];
@@ -62,26 +64,21 @@ export default class Projects extends Mixins(
           ...pagination
         };
       } else {
-          setTimeout(() => {
-            this.$q.loading.hide();
-            this.notify(
-              'red',
-              'white',
-              'cloud_done',
-              'loading projects failed'
-            );
-          }, 900);
-      }
-    } catch (error) {
         setTimeout(() => {
           this.$q.loading.hide();
           this.notify('red', 'white', 'cloud_done', 'loading projects failed');
         }, 900);
-
+      }
+    } catch (error) {
+      setTimeout(() => {
+        this.$q.loading.hide();
+        this.notify('red', 'white', 'cloud_done', 'loading projects failed');
+      }, 900);
     }
     return projects;
   }
-  public async mounted(){
+  // vue Hooks
+  public async mounted() {
     this.$q.loading.show({
       delay: 400 // ms
     });
@@ -99,8 +96,11 @@ export default class Projects extends Mixins(
           this.$q.loading.hide();
           console.log(error);
         });
-    }else{
-      this.projects = await this.loadProjects(this.pagination)
+    } else {
+      this.projects = await this.loadProjects(this.pagination);
     }
+  }
+  public beforeUpdate() {
+    console.log('%c⧭ here before updated', 'color: #0088cc');
   }
 }
