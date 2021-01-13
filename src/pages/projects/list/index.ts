@@ -81,7 +81,7 @@ export default class Projects extends Mixins(
     }
     return projects;
   }
-  public async mounted(): void {
+  public async mounted(){
     this.$q.loading.show({
       delay: 400 // ms
     });
