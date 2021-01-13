@@ -1,16 +1,16 @@
-<q-page class=" bg-transparent projects">
+<q-page class="bg-transparent projects">
   <q-scroll-area
     :thumb-style="thumbStyle"
     :content-style="contentStyle"
     :content-active-style="contentActiveStyle"
   >
 
-    <div class="full-width row" >
+    <div class="full-width row flex" style="justify-content: center;">
       <ProjectCardComponent
         v-for="(project,i) in projects"
         :project="project"
         :key="i"
-        class="projectCards"
+        class="projectCards "
       />
     </div>
   </q-scroll-area>

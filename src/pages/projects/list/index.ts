@@ -14,7 +14,12 @@ import gsap from 'gsap';
 })
 export default class Projects extends Mixins(ButtonMixin, NotificationMixin) {
   public projects: Project[] = [];
-  public contentStyle: object = {};
+  public contentStyle: object = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%,-50%)"
+  };
   public contentActiveStyle: object = {};
   public pagination: Pagination = {
     sortBy: 'desc',
@@ -108,16 +113,13 @@ export default class Projects extends Mixins(ButtonMixin, NotificationMixin) {
     this.$nextTick(() => {
       gsap.from(document.querySelectorAll('.projectCards'), {
         duration: 2,
-        scale: 0.5,
+        y:-10,
         opacity: 0,
-        delay: 0.5,
+        delay: 1,
         stagger: 0.2,
-        ease: 'elastic',
-        force3D: false
+        ease: 'power4.out',
+        force3D: true
       });
-      // this.$el.childNodes.forEach((element:ChildNode,index:number) => {
-      //   console.log('%c⧭', 'color: #f200e2', element);
-      // });
     });
   }
 }

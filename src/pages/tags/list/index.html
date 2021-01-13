@@ -1,21 +1,3 @@
 <q-page class="flex flex-center bg-transparent">
-  <!-- <div class="slide--words">
-    <span>Make</span>
-    <div class="words">
-      <div><div>worK</div></div>
-      <div><div>lifeStyle</div></div>
-      <div><div>Everything</div></div>
-    </div>
-    <span>AweSoMe!</span>
-  </div> -->
-  <!-- <div
-    class="flex flex-center"
-    style="
-      padding: 50px;
-      background: #fffefe36;
-      margin: 0 40px;
-    "
-  > -->
     <TagComponent v-for="(tag,i) in tags" :tag="tag" :key="i"></TagComponent>
-  <!-- </div> -->
 </q-page>
