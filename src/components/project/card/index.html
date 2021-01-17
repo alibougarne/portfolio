@@ -7,7 +7,7 @@
   >
     <q-img
       v-if="true"
-      :src="`api/resources/projects/${project.id}.png`"
+      :src="project.cloudImageUrlPrefix+project.mainImage"
       :ratio="1"
       class="col-5"
       style="max-width: 100%; max-height: 200px;"
