@@ -18,6 +18,5 @@ export default class Project extends Common {
   public mainImage?: string;
   public company?: Company;
   public tags?: Tag[]=[];
-
-
+  public  cloudImageUrlPrefix?: string;
 }

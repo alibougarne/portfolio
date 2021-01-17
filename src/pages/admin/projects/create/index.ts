@@ -3,7 +3,7 @@ import Project from '@/store/modules/project/project.entity';
 import { AxiosResponse } from 'axios';
 import { projectModule } from '@/store/modules/project/project.module';
 import { tagModule } from '@/store/modules/tag/tag.module';
-import { Emit, Mixins, Prop, PropSync, Watch } from 'vue-property-decorator';
+import { Emit, Mixins, Prop, PropSync } from 'vue-property-decorator';
 import ButtonMixin from '@/mixins/buttons';
 import Tag from '@/store/modules/tag/tag.entity';
 import Company from '@/store/modules/company/company.entity';
@@ -32,29 +32,6 @@ export default class CreateProject extends Mixins(ButtonMixin) {
     width: '5px',
     opacity: 0.75
   };
-  // get inputsWrapperHeight(){
-  //   return (document as any).querySelector(".project--inputs").offsetHeight;
-  // }
-
-  // get inputs(): string[] {
-  //   return (
-  //     Object.keys(new Project())
-  //       // .filter(input => ![ 'id', 'logoPath'].includes(input))
-  //       .filter(
-  //         input =>
-  //           [
-  //             ...Object.keys(new Common()),
-  //             'tagIds',
-  //             'tags',
-  //             'categoryId',
-  //             'companyId',
-  //             'description',
-  //             'beginDate',
-  //             'endDate',
-  //           ].indexOf(input) < 0
-  //       )
-  //   );
-  // }
 
   get link_API(): string {
     return process.env.API || '';
