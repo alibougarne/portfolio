@@ -75,7 +75,9 @@ export default class Home extends Vue {
         paddingLeft: '15px',
         force3D: false
       });
-    if((document as any).querySelector('.q-layout').classList.contains('bg-home')){
+    if (
+      (document as any).querySelector('.q-layout').classList.contains('bg-home')
+    ) {
       this.vantaEffect = WAVES({
         el: '.bg-home',
         mouseControls: true,
@@ -91,7 +93,20 @@ export default class Home extends Vue {
     }
   }
 
-  beforeDestroy() {
-      if(this.vantaEffect) this.vantaEffect.destroy();
+  explodeArray(array: any[], explode:number ):string{
+    let a: any = [],
+      b: any = [];
+      array.forEach((x, i) => {
+      !(i % explode) && (b = []);
+      b.push(x);
+      (b.length === explode || array.length === i + 1) && a.push(b);
+    });
+    return JSON.stringify(a);
   }
+  beforeDestroy() {
+    if (this.vantaEffect) this.vantaEffect.destroy();
+    const arr= [1, 2, 3, 4, 5], explode = 2;
+    console.log(`%c⧭ explode ${JSON.stringify(arr)} to arrays of ${explode} pieces, just here ! ===> `, 'color: #99adcc', this.explodeArray(arr,explode));
+  }
+
 }
