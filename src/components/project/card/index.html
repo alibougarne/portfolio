@@ -6,11 +6,11 @@
     flat
   >
     <q-img
-      v-if="true"
-      :src="project.cloudImageUrlPrefix+project.mainImage"
-      :ratio="1"
-      class="col-5"
+      :src="project.mainImage?project.cloudImageUrlPrefix+project.mainImage:project.company.logoPath"
+      :ratio="16/9"
+      :class="`col-5 ${project.mainImage?'':'apply_logo'}`"
       style="max-width: 100%; max-height: 200px;"
+      img-class="project_img"
       :placeholder-src="imgHolder"
     />
     <q-list>
@@ -25,10 +25,6 @@
         </q-item-section>
       </q-item>
       <q-item clickable>
-        <!-- <q-item-section avatar>
-          <q-icon color="amber" name="local_movies" />
-        </q-item-section> -->
-
         <div class="flex" style="position: relative;">
             <TagComponent :noTooltip="true" style="zoom: 0.6; position: relative;" v-for="(tag,i) in project.tags" :tag="tag" :key="i"></TagComponent>
         </div>

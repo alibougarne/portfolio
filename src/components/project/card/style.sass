@@ -1,13 +1,25 @@
 .my-card
   width: 100%
   background: rgba(255, 255, 255,0.04)
-  
+
 .background-top
   .q-img__image
     background-position: top center !important
-    &:after 
+    &:after
       content: ""
       width: 100%
       height: 100%
-      background: rgba(0, 0, 0, 0.66);
+      background: rgba(0, 0, 0, 0.66)
       display: block
+
+.apply_logo
+  background: #353535 !important
+  .q-img__image
+    background-size: auto !important
+    background-repeat: no-repeat
+    max-width: 50%
+    position: absolute
+    left: 50%
+    top: 50%
+    transform: translate(-50%,-50%)
+    mix-blend-mode: exclusion
